@@ -1,0 +1,16 @@
+@RestController
+@RequestMapping("/api/questions")
+public class QuestionController {
+
+    private final QuestionService service;
+
+    public QuestionController(QuestionService service) { this.service = service; }
+
+    @GetMapping("/next")
+    public QuestionDto next(@RequestParam(required = false) Long after) {
+        return service.findNext(after); // 1問だけ返す
+    }
+
+    @GetMapping("/{id}")
+    public QuestionDto getOne(@PathVariable Long id) { return service.getOne(id); }
+}
