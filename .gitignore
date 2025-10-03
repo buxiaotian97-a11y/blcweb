@@ -36,3 +36,13 @@ target/
 .classpath
 .project
 .settings/
+
+### Eclipse workspace ###
+.metadata/
+
+### Logs ###
+*.log
+
+### OS ###
+.DS_Store
+Thumbs.db
