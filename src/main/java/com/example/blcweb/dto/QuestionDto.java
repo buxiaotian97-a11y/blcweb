@@ -1,6 +1,6 @@
-package blcweb.dto;
+package com.example.blcweb.dto;
 
-import blcweb.entity.Question;
+import com.example.blcweb.entity.Question;
 
 public class QuestionDto {
     private Long id;
