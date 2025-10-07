@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "questions")
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,11 +20,11 @@ public class Question {
     private int point;
 
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true; // 初期値をtrueにしたい場合はこのまま
 
-    protected Question() {} // ★JPA用デフォルトコンストラクタ
+    protected Question() { } // JPA用デフォルトコンストラクタ
 
-    // getter（必要ならsetterも）
+    // getters
     public Long getId() { return id; }
     public String getQtext() { return qtext; }
     public String getCategory() { return category; }
