@@ -26,7 +26,7 @@ public class QuestionDto {
         );
     }
 
-    // getterだけでOK（JacksonがJSONに変換）
+    // getter
     public Long getId() { return id; }
     public String getQtext() { return qtext; }
     public String getCategory() { return category; }
