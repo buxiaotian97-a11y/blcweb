@@ -3,63 +3,64 @@
   <head>
     <meta charset="utf-8">
     <title>社畜シミュレーター</title>
-    <!-- CSSはバージョン付きで1本だけ -->
-    <link rel="stylesheet" href="/css/title.css?v=1003">
+    <link rel="stylesheet" href="/css/title-back.css?v=1003">
+	<link rel="stylesheet" href="/css/title-character.css?v=1004">
+    <!-- defer を付けて、DOM構築後に実行させる -->
+    <script defer>
+      (() => {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        function line(host) {
+          const el = document.createElement('div');
+          el.className = 'gl-line' + (Math.random()<0.25 ? ' rgb' : '');
+          el.style.top = (Math.random()*100) + 'vh';
+          el.style.height = (Math.random()<0.8 ? 1 : 2) + 'px';
+          el.style.animationDuration = (90 + Math.random()*160) + 'ms';
+          host.appendChild(el);
+          el.addEventListener('animationend', () => el.remove());
+        }
+
+        function band(host) {
+          const el = document.createElement('div');
+          el.className = 'gl-band';
+          el.style.top = (Math.random()*100) + 'vh';
+          el.style.height = (8 + Math.random()*16) + 'px';
+          el.style.setProperty('--shift', ((Math.random()<0.5?-1:1)*(4+Math.random()*10)) + 'px');
+          el.style.animationDuration = (140 + Math.random()*260) + 'ms';
+          host.appendChild(el);
+          el.addEventListener('animationend', () => el.remove());
+        }
+
+        let run = true;
+        function loop(){
+          if (!run) return;
+          const host = document.getElementById('vhs-glitch');
+          if (!host) return;
+          const n = 1 + (Math.random()<0.35 ? (1+Math.floor(Math.random()*3)) : 0);
+          for (let i=0;i<n;i++) setTimeout(() => line(host), i*18);
+          if (Math.random()<0.25) band(host);
+          setTimeout(loop, 90 + Math.random()*220);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+          run = !document.hidden;
+          if (run) loop();
+        });
+
+        // DOM構築後に開始
+        window.addEventListener('DOMContentLoaded', loop);
+      })();
+    </script>
   </head>
-  <!-- VHSノイズ（横線 & 追い込み帯） -->
-  <div id="vhs-glitch" aria-hidden="true"></div>
-  <script>
-  (() => {
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const host = document.getElementById('vhs-glitch');
-
-    function line() {
-      const el = document.createElement('div');
-      el.className = 'gl-line' + (Math.random()<0.25 ? ' rgb' : '');
-      el.style.top = (Math.random()*100) + 'vh';
-      el.style.height = (Math.random()<0.8 ? 1 : 2) + 'px';
-      el.style.animationDuration = (90 + Math.random()*160) + 'ms';
-      host.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
-    }
-
-    function band() {
-      const el = document.createElement('div');
-      el.className = 'gl-band';
-      el.style.top = (Math.random()*100) + 'vh';
-      el.style.height = (8 + Math.random()*16) + 'px';
-      el.style.setProperty('--shift', ((Math.random()<0.5?-1:1)*(4+Math.random()*10)) + 'px');
-      el.style.animationDuration = (140 + Math.random()*260) + 'ms';
-      host.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
-    }
-
-    let run = true;
-    function loop(){
-      if (!run) return;
-      // 1〜数本の細線を連続発生
-      const n = 1 + (Math.random()<0.35 ? (1+Math.floor(Math.random()*3)) : 0);
-      for (let i=0;i<n;i++) setTimeout(line, i*18);
-      // たまに太い追い込み帯
-      if (Math.random()<0.25) band();
-      setTimeout(loop, 90 + Math.random()*220);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      run = !document.hidden;
-      if (run) loop();
-    });
-    loop();
-  })();
-  </script>
 
   <body>
-    <div class="title-wrap">
-      <div class="start-wrap">
-        <h1 class="game-title">社畜<br>シミュレーター</h1>
-        <h2 class="start">START</h2>
-      </div>
+    <div id="vhs-glitch" aria-hidden="true" style="pointer-events:none;"></div>
+
+    <div class="start-wrap">
+	<div class="title-wrap">
+      <h1 class="game-title" data-text="社畜">
+	</h1>
+      <a class="start" th:href="@{/home}" href="/home">START</a>
     </div>
   </body>
 </html>

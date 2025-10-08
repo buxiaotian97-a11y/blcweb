@@ -1,0 +1,185 @@
+.title-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 上寄せ */
+  align-items: center;
+  padding-top: 10vh;
+}
+
+/* 本体＝ゆれだけ */
+.game-title {
+  font-size: clamp(85px, 8vw, 100px);
+  font-family: 'GenEiAntique', serif;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 2px;
+  animation: 
+     blinkGlitch 5s steps(1,end) infinite;
+}
+
+
+/* パチンとグリッチをまとめた“影レイヤー” */
+.game-title::before{
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  -webkit-text-stroke: inherit;
+  white-space: pre-line;
+  line-height: inherit;
+  pointer-events: none;
+  will-change: opacity, filter, text-shadow, transform;
+  animation:
+    blinkSnap 1s steps(1,end) infinite,   /* パチン消し */
+    glitchKick 1s linear infinite,        /* グリッチ */
+	rgbGlitch 5s linear infinite,
+	blinkGlitch 5s steps(1,end) infinite;
+}
+
+@keyframes rgbGlitch {
+  0%, 18%, 22%, 48%, 52%, 78%, 82%, 100% {
+    filter: none;
+    transform: none;
+    text-shadow: none;
+  }
+  80%{ /* ←バグ発生点（3回/周期） */
+    transform: translate(0,0) skew(0.5deg);
+    /* R / G / B をそれぞれ別方向にズラす */
+    text-shadow:
+      2px 0   0 #f00,   /* 赤 */
+     -2px 0   0 #0ff,   /* シアン(=G+B) → 青成分も強調される */
+      0   2px 0 #0f0;   /* 緑 */
+    filter: contrast(180%) saturate(180%);
+  }
+  21%, 51%, 81% { /* 直後に更に飛ぶ */
+    transform: translate(-2px,1px) skew(-0.5deg);
+    text-shadow:
+      3px 0   0 #f00,
+     -3px 0   0 #00f,   /* 青だけ強めたいときは #00f */
+      0  -2px 0 #0f0;
+    filter: contrast(220%) saturate(220%) hue-rotate(-10deg);
+  }
+}
+
+.rgb-glitch {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+
+  /* 輪郭（任意） */
+  -webkit-text-stroke: 1px #000;
+}
+
+/* パチン消し（opacityだけ） */
+@keyframes blinkGlitch {
+ 80% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  49% {
+    opacity: 1;
+    transform: skew(2deg, 1deg) translate(2px, -1px);
+    filter: contrast(150%) saturate(200%) hue-rotate(10deg);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: translate(-3px, 2px) skew(-2deg, -1deg);
+    filter: hue-rotate(-30deg) contrast(300%) blur(1px);
+  }
+
+  51% {
+    opacity: 1;
+    transform: translate(1px, -1px);
+    filter: contrast(120%) hue-rotate(5deg);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+
+/* 瞬間グリッチ */
+@keyframes glitchKick{
+  0%,48%  { transform:none; filter:none; text-shadow:none; }
+  49%     { transform: skewX(3deg) translate(-2px, 1px);
+            filter: brightness(130%) contrast(120%);
+            text-shadow: 2px 0 rgba(255,60,60,.8), -2px 0 rgba(60,160,255,.8); }
+  50%     { transform:none; filter:none; text-shadow:none; }
+  51%     { transform: skewX(-2deg) translate(1px, -1px);
+            filter: brightness(150%) contrast(130%);
+            text-shadow: -1px 0 rgba(255,60,60,.8), 1px 0 rgba(60,160,255,.8); }
+  52%,100%{ transform:none; filter:none; text-shadow:none; }
+}
+
+.start {
+  position: absolute;
+  top: clamp(65vh, 70vh, 75vh);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: clamp(10px, 2vw, 16px) clamp(28px, 4vw, 48px);
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.08); 
+  background: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    text-shadow 0.2s ease,
+    transform 0.2s ease,
+    filter 0.2s ease;
+  filter: blur(0.2px) brightness(0.8);
+  opacity: 0.7;
+}
+
+/* ←カーソルが触れた瞬間に暴発 */
+.start:hover {
+  color: #ff3030;
+  border-color: #ff3030;
+  text-shadow:
+    2px 0 4px #f00,
+   -2px 0 4px #0ff;
+  filter: brightness(1.6) contrast(1.4);
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.4),
+    0 0 24px rgba(255, 0, 0, 0.2);
+  animation: startFlash 0.4s steps(2,end);
+}
+
+/* クリック時：一瞬強烈に反転 */
+.start:active {
+  color: #0ff;
+  border-color: #0ff;
+  filter: brightness(2.5) contrast(2.5);
+  transform: scale(0.98) rotate(1deg);
+}
+
+/* hoverでの“バチン！”アニメーション */
+@keyframes startFlash {
+  0%, 100% {
+    text-shadow: none;
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      3px 0 0 #f00,
+     -3px 0 0 #0ff,
+      0 2px 0 #0f0;
+    filter: brightness(2.8) contrast(3);
+  }
+}
