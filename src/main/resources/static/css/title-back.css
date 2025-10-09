@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'GenEiAntique';
+  src: url('/fonts/GenEiAntiqueNv2.otf') format('opentype');
+}
 :root{
   --tile: clamp(120px, 12vw, 200px); /* 柄の大きさ */
   --shift: calc(var(--tile) / 2);    /* 半タイルずらし */
@@ -10,22 +14,15 @@ body{
   background-image:
     /* 文字を読みやすくする薄い幕 */
     linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-    /* 手前：ビル */
-    url("/images/building2.png"),
+
     /* 奥：モノグラム(原点) */
     url("/images/sarari-1.png"),
     /* 奥：モノグラム(半タイルずらし) */
     url("/images/sarari-1.png");
 
-  background-position:
-    0 0,
-    center 80px,
-    0 0,
-    var(--shift) var(--shift);
-
   background-size:
     auto,
-    clamp(520px, 48vw, 500px) auto,
+    clamp(50px, 50vw, 50px) auto,
     var(--tile) auto,
     var(--tile) auto;
 
@@ -46,47 +43,6 @@ body{
     multiply;
 }
 
-.title-wrap{
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.game-title{
-  margin: 0;
-  text-align: center;
-  font-size: 90px;
-  line-height: 1.1;
-  color: #fff;
-  -webkit-text-stroke: 3px black;
-}
-.start-wrap{
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.start{
-  margin-top: 100px;
-  padding: 12px 32px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #333;
-  border: 3px solid #fff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.start:active{
-  background-color: #555;
-  transform: scale(1.05);
-}
-/* アニメON/OFF用（端末設定に配慮） */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
 
 :root{
   --tile: clamp(120px, 12vw, 200px);
@@ -191,5 +147,3 @@ body::after{
   75%  { transform: translateX(calc(var(--shift) * 0.35));  opacity: .38; }
   100% { transform: translateX(0);                 opacity: 0; }
 }
-}
-
