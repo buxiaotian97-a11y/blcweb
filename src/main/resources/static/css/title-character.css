@@ -16,12 +16,20 @@
   display: inline-block;
   text-align: center;
   letter-spacing: 2px;
+   -webkit-mask-image: url("/images/back.png");
+            mask-image: url("/images/back.png");
+    -webkit-mask-mode: luminance;
+            mask-mode: luminance;
+    -webkit-mask-size: cover;
+            mask-size: cover;
+    -webkit-mask-position: center;
+            mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
   animation: 
      blinkGlitch 5s steps(1,end) infinite;
 }
 
-
-/* パチンとグリッチをまとめた“影レイヤー” */
 .game-title::before{
   content: attr(data-text);
   position: absolute; inset: 0;
@@ -34,11 +42,16 @@
   pointer-events: none;
   will-change: opacity, filter, text-shadow, transform;
   animation:
-    blinkSnap 1s steps(1,end) infinite,   /* パチン消し */
-    glitchKick 1s linear infinite,        /* グリッチ */
+    blinkSnap 1s steps(1,end) infinite,
+    glitchKick 1s linear infinite,
 	rgbGlitch 5s linear infinite,
 	blinkGlitch 5s steps(1,end) infinite;
 }
+
+@keyframes hairCrack{
+  50%{ transform: translateY(.5px); }
+}
+
 
 @keyframes rgbGlitch {
   0%, 18%, 22%, 48%, 52%, 78%, 82%, 100% {
@@ -46,20 +59,19 @@
     transform: none;
     text-shadow: none;
   }
-  80%{ /* ←バグ発生点（3回/周期） */
+  80%{ /* ←バグ発生点 */
     transform: translate(0,0) skew(0.5deg);
-    /* R / G / B をそれぞれ別方向にズラす */
     text-shadow:
       2px 0   0 #f00,   /* 赤 */
-     -2px 0   0 #0ff,   /* シアン(=G+B) → 青成分も強調される */
+     -2px 0   0 #0ff,   /* シアン */
       0   2px 0 #0f0;   /* 緑 */
     filter: contrast(180%) saturate(180%);
   }
-  21%, 51%, 81% { /* 直後に更に飛ぶ */
+  21%, 51%, 81% {
     transform: translate(-2px,1px) skew(-0.5deg);
     text-shadow:
       3px 0   0 #f00,
-     -3px 0   0 #00f,   /* 青だけ強めたいときは #00f */
+     -3px 0   0 #00f,
       0  -2px 0 #0f0;
     filter: contrast(220%) saturate(220%) hue-rotate(-10deg);
   }
@@ -70,11 +82,10 @@
   display: inline-block;
   color: #fff;
 
-  /* 輪郭（任意） */
   -webkit-text-stroke: 1px #000;
 }
 
-/* パチン消し（opacityだけ） */
+/* パチン消し */
 @keyframes blinkGlitch {
  80% {
     opacity: 1;

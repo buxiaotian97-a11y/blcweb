@@ -58,9 +58,20 @@
 
     <div class="start-wrap">
 	<div class="title-wrap">
-      <h1 class="game-title" data-text="社畜">
-	</h1>
+      <h1 class="game-title" data-text="社畜">社<br>畜</h1>
       <a class="start" th:href="@{/home}" href="/home">START</a>
     </div>
+
+	<!-- マスク定義 -->
+	<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+	  <mask id="inkMask" maskUnits="objectBoundingBox">
+	    <rect x="0" y="0" width="100%" height="100%" fill="#fff"/>
+	    <image href="/images/ink-rough.png"
+	           x="0" y="0" width="100%" height="100%"
+	           preserveAspectRatio="xMidYMid slice"
+	           style="filter: invert(1) contrast(1.2);" />
+	  </mask>
+	</svg>
+
   </body>
 </html>
