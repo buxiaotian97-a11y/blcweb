@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Black Company Simulator | Home</title>
   
-  <link rel="stylesheet" th:href="@{/css/home-back.css}" href="/css/home.css">
-  <link rel="stylesheet" th:href="@{/css/home-button.css}" href="/css/home.css">
+  <link rel="stylesheet" th:href="@{/css/home-back.css}" href="/css/home-back.css">
+  <link rel="stylesheet" th:href="@{/css/home-button.css}" href="/css/home-button.css">
 
 </head>
 <body>
@@ -17,32 +17,17 @@
     <div class="wrap">
 
       <section class="home-grid layout-v2" aria-label="ホームUI">
-        <!-- 左上：グラフ（統計） -->
-        <div class="corner tl">
-          <a class="icon graph" th:href="@{/stats}" href="/stats" aria-label="統計">
-            <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor" aria-hidden="true">
-              <rect x="3" y="12" width="4" height="8" rx="1"></rect>
-              <rect x="10" y="8" width="4" height="12" rx="1"></rect>
-              <rect x="17" y="5" width="4" height="15" rx="1"></rect>
-            </svg>
-          </a>
-        </div>
 
         <!-- 上中央：部署＋名前のプレート -->
         <header class="nameplate">
           <div class="dept" th:text="${user.department}">営業部</div>
-          <div class="uname" th:text="${user.name}">佐藤 健太</div>
+          <div class="uname" >石黒　雄三（36）</div>
         </header>
-
-        <!-- 右上：設定（歯車） -->
-        <div class="corner tr">
-          <a class="icon gear" th:href="@{/settings}" href="/settings" aria-label="設定">
-            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"></path>
-            </svg>
-          </a>
-        </div>
+		
+		<!-- 下中央：出勤する（大ボタン） -->
+		<button class="btn-briefcase" style="--label-top:72%; --label-left:50%;">
+		  <span class="label">出勤する</span>
+		</button>
 
         <!-- 中央：キャラクター -->
         <div class="center-char">
@@ -51,41 +36,58 @@
           </div>
         </div>
 
-        <!-- 右：縦レベルゲージ＋診断ボタン -->
-        <aside class="level-stack">
-          <div class="lv">Lv.<span th:text="${user.level}">1</span></div>
-          <div class="level-vert" role="img" aria-label="レベルゲージ">
-            <span class="fill" style="--p:35%" th:style="'--p:' + ${user.expPercent} + '%' "></span>
-            <span class="ticks" aria-hidden="true"></span>
-          </div>
-          <a class="btn small" th:href="@{/diagnose}" href="/diagnose">診断する</a>
-        </aside>
+		<aside class="level-stack dial-mode">
+		  <div class="lv">Lv.<span th:text="${user.level}">1</span></div>
 
-        <!-- 下中央：出勤する（大ボタン） -->
-        <a class="btn primary cta cta-briefcase" th:href="@{/work}" href="/work">出勤する</a>
+		  <!-- 半円メーター（--p: 0〜100） -->
+		  <div class="dial" style="--p:35" th:style="'--p:' + ${user.expPercent}">
+		    <svg viewBox="0 0 200 120" aria-label="レベルメーター">
+		      <!-- 半円枠 -->
+		      <path d="M10,110 A90,90 0 0 1 190,110" class="arc"></path>
 
-        <!-- 左下：記録（IDカード風） -->
-        <div class="corner bl">
-          <a class="icon idcard" th:href="@{/records}" href="/records" aria-label="記録">
-            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-              <circle cx="8" cy="12" r="2"></circle>
-              <path d="M12 10h6M12 14h6"></path>
-            </svg>
-          </a>
-        </div>
+			  <!-- 目盛り（アーチに沿う放射状） -->
+			  <g class="ticks">
+			    <!-- 円の半径 R=90。アーチ近くに短い線（y=24〜36）を置いて回転させる -->
+			    <g transform="rotate(-75 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(-60 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(-45 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(-30 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(-15 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(0   100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(15  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(30  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(45  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(60  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			    <g transform="rotate(75  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
+			  </g>
 
-        <!-- 右下：称号＋ファイル -->
-        <div class="corner br group">
-          <a class="icon trophy" th:href="@{/titles}" href="/titles" aria-label="称号">
-            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M8 21h8M12 17v4M6 4h12v3a6 6 0 0 1-6 6 6 6 0 0 1-6-6V4z"></path>
-            </svg>
-          </a>
-          <a class="icon file" th:href="@{/records}" href="/records" aria-label="ファイル">
-            <img th:src="@{/images/folder.png}" src="/images/folder.png" alt="ファイル">
-          </a>
-        </div>
+
+		      <!-- 針（中心で回転） -->
+		      <g class="needle">
+		        <line x1="100" y1="110" x2="100" y2="36"/>
+		        <circle cx="100" cy="110" r="6"/>
+		      </g>
+		    </svg>
+		  </div>
+		</aside>
+		
+		<a class="btn small diagnose-btn" th:href="@{/diagnose}" href="/diagnose">診断する</a>
+
+		<!-- 右上ハンバーガー -->
+		<details class="hamburger at-tr" aria-label="メニュー">
+		  <summary class="hambtn" aria-label="メニューを開く">
+		    <span class="bars" aria-hidden="true"></span>
+		  </summary>
+
+		  <!-- ここが“真下に”展開される -->
+		  <nav class="list">
+		    <a href="/stats">📊 記録</a>
+		    <a href="/profile">🪪 キャラクター詳細</a>
+			<a href="/trophy">🏆 称号・アイテム一覧</a>
+		    <a href="/settings">⚙️ 設定</a>
+		  </nav>
+		</details>
+		
       </section>
 
       <div class="meta">

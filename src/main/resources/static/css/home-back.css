@@ -1,10 +1,30 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+}
+
+/* 背景ぼかしレイヤー */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/images/office-infelno.png") center center / cover no-repeat;
+  filter: blur(7px);
+  transform: scale(1.05);
+  z-index: -1;
+}
+
 /* =========================
    Design Tokens
 ========================= */
 :root{
   --tile: clamp(120px, 12vw, 200px); /* 柄の大きさ */
   --shift: calc(var(--tile) / 2);
-  --bg-dim: 0.60; /* 背景の暗さ(0=暗くない,1=真っ黒) */
+  --bg-color: 50,50,50;
+  --bg-dim: 0.25; /* 背景の暗さ(0=暗くない,1=真っ黒) */
   --maxw: 1080px;
   --btn-size: clamp(18px, 2.1vw, 20px);
   --title-size: clamp(44px, 9vw, 84px);
@@ -19,7 +39,7 @@ body{
   margin: 0;
   font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: #fff;
-  background-color:#000;
+  background-color:rgb(var(--bg-color));
 }
 img{ max-width: 100%; display: block; }
 a{ color: inherit; text-decoration: none; }
@@ -28,48 +48,30 @@ button{ font: inherit; }
 /* =========================
    Background Layers
 ========================= */
-.stage{
+.stage {
   min-height: 100dvh;
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background:
-    /* 1) ビルのシルエット */
-    url('/images/building2.png') center 80px / clamp(520px, 48vw, 760px) auto no-repeat,
-    /* 2) ベースの暗さ */
-    rgba(0,0,0,var(--bg-dim));
-  background-blend-mode: multiply;
 }
-
-/* 3) 蛍光灯のチラつき */
-.stage::before{
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(120% 80% at 50% 10%, rgba(255,255,240,0.08), rgba(0,0,0,0.0) 40%),
-              repeating-linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px);
-  mix-blend-mode: screen;
-  opacity: .35;
-  animation: roomFlicker 5.2s infinite steps(40) alternate;
-  pointer-events: none;
-}
-@keyframes roomFlicker{ 0%{opacity:.12} 5%{opacity:.32} 7%{opacity:.25} 8%{opacity:.35} 12%{opacity:.1} 13%{opacity:.35} 100%{opacity:.28} }
-
 /* 4) 横走査線 */
+/* 既存 .scanlines を置き換え */
 .scanlines{
-  position: absolute; inset: 0; pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.04) 0px,
-    rgba(255,255,255,0.04) 1px,
-    transparent 2px,
-    transparent 4px
+  position:absolute; inset:0; pointer-events:none;
+  /* 2pxの線 + 2pxの隙間 → はっきり見える */
+  background-image: linear-gradient(to bottom,
+    rgba(0,0,0,0.38) 0 2px,      /* 線の濃さ/太さ */
+    transparent 2px 4px          /* 間隔 */
   );
-  opacity: .25;
-  animation: scan 8s linear infinite;
+  background-size: 100% 4px;     /* 周期 */
+  mix-blend-mode: normal;        /* 発光しない */
+  opacity: .35;                  /* 濃さ */
+  animation: scan 6s linear infinite, scanFlicker 2.4s ease-in-out infinite;
 }
-@keyframes scan { 0% { background-position-y: 0; } 100% { background-position-y: 200px; } }
+@keyframes scan { from{background-position-y:0} to{background-position-y:200px} }
+@keyframes scanFlicker { 0%,100%{opacity:.30} 50%{opacity:.40} }
 
 /* =========================
    Header / Title
@@ -90,11 +92,6 @@ button{ font: inherit; }
   letter-spacing: .02em;
   line-height: 1.05;
   -webkit-text-stroke: 3px #000; /* 縁取り (Safari/Chrome) */
-  text-shadow: 0 0 0 #000,
-               2px 2px 0 #000,
-               -2px 2px 0 #000,
-               2px -2px 0 #000,
-               -2px -2px 0 #000;  /* 縁取りのフォールバック */
   filter: drop-shadow(0 20px 20px rgba(0,0,0,.5));
   animation: tubeFlicker 7s infinite steps(50) alternate;
 }
@@ -119,10 +116,6 @@ button{ font: inherit; }
   gap: clamp(14px,3vw,26px);
   align-items: center;
 }
-.topbar{ grid-area: top; display:flex; align-items:center; justify-content:space-between; }
-.topbar .deptname{ font-size: clamp(16px,1.8vw,20px); opacity:.9; }
-.topbar .uname{ font-weight: 800; margin-left:.4em; }
-.topbar .gear{ font-size: 22px; line-height:1; padding:8px; border-radius:10px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
 
 .panel.left{ grid-area: left; }
 .panel.center{ grid-area: center; display:grid; place-items:center; }
@@ -134,7 +127,6 @@ button{ font: inherit; }
   padding: 12px 14px; border-radius: 16px;
   background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
   border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 10px 24px rgba(0,0,0,.35);
   min-width: min(520px, 90vw);
 }
 .avatar{ width:84px; height:84px; background: url('/images/avatar.png') center/cover no-repeat, rgba(255,255,255,.08); border-radius: 12px; border:1px solid rgba(255,255,255,.18); }
@@ -145,43 +137,10 @@ button{ font: inherit; }
 .char img{ width: clamp(140px, 22vw, 280px); filter: drop-shadow(0 18px 24px rgba(0,0,0,.55)); }
 .char-label{ text-align:center; margin-top:8px; opacity:.85; }
 
-.levelbar{ 
-  width: 100%; max-width: 280px; padding: 12px; border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 10px 24px rgba(0,0,0,.35);
-  display:grid; gap: 10px;
-}
-.levelbar .lv{ font-weight: 800; text-align:center; letter-spacing:.02em; }
-.levelbar .bar{ height: 16px; border-radius: 10px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); position:relative; overflow:hidden; }
-.levelbar .bar span{
-  position:absolute; left:0; bottom:0; top:0; width:0;
-  background: linear-gradient(90deg, #64b5f6 0%, #1976d2 60%, #64b5f6 100%);
-  box-shadow: inset 0 2px 6px rgba(255,255,255,.25), 0 0 12px rgba(100,181,246,.45);
-  border-radius: 10px;
-}
-/* 伸びる＆光る演出 */
-.levelbar .bar span.gain{ animation: levelGain .8s ease forwards; }
-@keyframes levelGain{ from{ width:0 } to{ width: var(--p, 0%);} }
-/* レベルアップ時フラッシュ */
-.levelbar.flash{ animation: lvFlash .6s ease; }
-@keyframes lvFlash{ 0%{ box-shadow: 0 0 0 rgba(255,255,255,0);} 40%{ box-shadow: 0 0 32px rgba(255,255,255,.45);} 100%{ box-shadow: 0 10px 24px rgba(0,0,0,.35);} }
-
-.iconstrip{ display:flex; gap: 18px; align-items:center; }
-.iconstrip img{ width:32px; height:32px; opacity:.9; filter: drop-shadow(0 6px 8px rgba(0,0,0,.45)); }
-
 /* =========================
    Ominous Salaryman
 ========================= */
-.salaryman{
-  position: absolute; bottom: 8vh; left: -20vw;
-  width: clamp(80px, 14vw, 180px);
-  aspect-ratio: 3/6;
-  background: url('/images/salaryman.png') center / contain no-repeat;
-  filter: drop-shadow(0 10px 12px rgba(0,0,0,.6));
-  opacity: .9;
-  animation: walkAcross 18s linear infinite;
-}
+
 @keyframes walkAcross{
   0%{ transform: translateX(0) translateY(0); opacity:.0; }
   5%{ opacity:.85; }
@@ -199,8 +158,41 @@ button{ font: inherit; }
       "bl bc br";
     grid-template-columns: 1fr auto 1fr;
   }
-  .level-stack{ justify-self:center; }
 }
+/* 左位置はそのまま */
+:root{ --dial-left: -5vw; } 
+.level-stack.dial-mode{
+  position:absolute; left: var(--dial-left); top:50%; transform:translateY(-50%);
+  display:grid; gap:12px; align-items:flex-start; justify-items:start;
+}
+.level-stack.dial-mode .lv{ font-weight:700; margin-left:2px; font-size: clamp(20px, 2vw, 30px); }
+
+/* ダイヤルサイズ（レスポンシブ） */
+.dial{ width: clamp(200px, 22vw, 300px); color:#000; }
+.dial svg{ width:100%; height:auto; display:block; }
+
+/* 線スタイル（白・チープ寄せ、影なし） */
+.dial .arc,
+.dial .segs path,
+.dial .ticks line,
+.dial .needle line,
+.dial .needle circle{
+  fill:none; stroke:#000; stroke-width:10; stroke-linecap:round; stroke-linejoin:round;
+}
+.dial .segs path{ opacity:.9; }
+.dial .ticks line{ stroke-width:8; opacity:.35; }
+
+/* 針（--p を -90〜+90度にマッピング） */
+.dial .needle{
+  transform-origin:100px 110px;
+  transform: rotate(calc(-90deg + (var(--p,0) * 1.8deg)));
+  transition: transform .25s ease;
+}
+/* 針の先端を少し太く */
+.dial .needle line{ stroke-width:10; }
+.dial .needle circle{ fill:#000; stroke-width:5; }
+
+/* 旧・縦ゲージ用の装飾が残っていたら念のため無効化 */
+.level-vert, .level-vert *{ all: unset; }
 
 
-}
