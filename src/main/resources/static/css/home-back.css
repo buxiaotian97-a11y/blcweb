@@ -103,36 +103,6 @@ button{ font: inherit; }
   10% { opacity:1; }
   100% { opacity:.96; }
 }
-/* =========================
-   Home Layout
-========================= */
-.home-grid{ 
-  display: grid; 
-  grid-template-areas:
-    "top top top"
-    "left center right"
-    "foot foot foot";
-  grid-template-columns: 1fr auto 280px;
-  gap: clamp(14px,3vw,26px);
-  align-items: center;
-}
-
-.panel.left{ grid-area: left; }
-.panel.center{ grid-area: center; display:grid; place-items:center; }
-.panel.right{ grid-area: right; }
-.panel.footer{ grid-area: foot; display:grid; place-items:center; gap: 14px; }
-
-.profile-card{ 
-  display:grid; grid-template-columns: 84px 1fr; gap: 14px; align-items:center;
-  padding: 12px 14px; border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.18);
-  min-width: min(520px, 90vw);
-}
-.avatar{ width:84px; height:84px; background: url('/images/avatar.png') center/cover no-repeat, rgba(255,255,255,.08); border-radius: 12px; border:1px solid rgba(255,255,255,.18); }
-.stats{ display:grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin:0; }
-.stats dt{ opacity:.75; font-size: 12px; }
-.stats dd{ margin:0; font-weight:700; }
 
 .char img{ width: clamp(140px, 22vw, 280px); filter: drop-shadow(0 18px 24px rgba(0,0,0,.55)); }
 .char-label{ text-align:center; margin-top:8px; opacity:.85; }
@@ -159,40 +129,4 @@ button{ font: inherit; }
     grid-template-columns: 1fr auto 1fr;
   }
 }
-/* 左位置はそのまま */
-:root{ --dial-left: -5vw; } 
-.level-stack.dial-mode{
-  position:absolute; left: var(--dial-left); top:50%; transform:translateY(-50%);
-  display:grid; gap:12px; align-items:flex-start; justify-items:start;
-}
-.level-stack.dial-mode .lv{ font-weight:700; margin-left:2px; font-size: clamp(20px, 2vw, 30px); }
-
-/* ダイヤルサイズ（レスポンシブ） */
-.dial{ width: clamp(200px, 22vw, 300px); color:#000; }
-.dial svg{ width:100%; height:auto; display:block; }
-
-/* 線スタイル（白・チープ寄せ、影なし） */
-.dial .arc,
-.dial .segs path,
-.dial .ticks line,
-.dial .needle line,
-.dial .needle circle{
-  fill:none; stroke:#000; stroke-width:10; stroke-linecap:round; stroke-linejoin:round;
-}
-.dial .segs path{ opacity:.9; }
-.dial .ticks line{ stroke-width:8; opacity:.35; }
-
-/* 針（--p を -90〜+90度にマッピング） */
-.dial .needle{
-  transform-origin:100px 110px;
-  transform: rotate(calc(-90deg + (var(--p,0) * 1.8deg)));
-  transition: transform .25s ease;
-}
-/* 針の先端を少し太く */
-.dial .needle line{ stroke-width:10; }
-.dial .needle circle{ fill:#000; stroke-width:5; }
-
-/* 旧・縦ゲージ用の装飾が残っていたら念のため無効化 */
-.level-vert, .level-vert *{ all: unset; }
-
 

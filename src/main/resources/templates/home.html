@@ -22,12 +22,26 @@
         <header class="nameplate">
           <div class="dept" th:text="${user.department}">営業部</div>
           <div class="uname" >石黒　雄三（36）</div>
+		  <aside class="level-stack dial-mode">
+		  		  <div class="lv">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
 		<!-- 下中央：出勤する（大ボタン） -->
-		<button class="btn-briefcase" style="--label-top:72%; --label-left:50%;">
+		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
+		  <img class="fx" src="/images/clear-bag.png" alt="">
 		  <span class="label">出勤する</span>
 		</button>
+		
+		<script>
+		  document.querySelectorAll('.btn-briefcase').forEach(btn => {
+		    btn.addEventListener('click', () => {
+		      btn.classList.remove('flash');
+		      void btn.offsetWidth;
+		      btn.classList.add('flash');
+		      setTimeout(() => btn.classList.remove('flash'), 1100);
+		    });
+		  });
+		</script>
 
         <!-- 中央：キャラクター -->
         <div class="center-char">
@@ -35,41 +49,6 @@
             <img th:src="@{${user.character} == 'restaurant' ? '/images/restaurant.png' : '/images/sarari-3.png'}" src="/images/sarari-3.png" alt="キャラクター">
           </div>
         </div>
-
-		<aside class="level-stack dial-mode">
-		  <div class="lv">Lv.<span th:text="${user.level}">1</span></div>
-
-		  <!-- 半円メーター（--p: 0〜100） -->
-		  <div class="dial" style="--p:35" th:style="'--p:' + ${user.expPercent}">
-		    <svg viewBox="0 0 200 120" aria-label="レベルメーター">
-		      <!-- 半円枠 -->
-		      <path d="M10,110 A90,90 0 0 1 190,110" class="arc"></path>
-
-			  <!-- 目盛り（アーチに沿う放射状） -->
-			  <g class="ticks">
-			    <!-- 円の半径 R=90。アーチ近くに短い線（y=24〜36）を置いて回転させる -->
-			    <g transform="rotate(-75 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(-60 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(-45 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(-30 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(-15 100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(0   100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(15  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(30  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(45  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(60  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			    <g transform="rotate(75  100 110)"><line x1="100" y1="24" x2="100" y2="36"/></g>
-			  </g>
-
-
-		      <!-- 針（中心で回転） -->
-		      <g class="needle">
-		        <line x1="100" y1="110" x2="100" y2="36"/>
-		        <circle cx="100" cy="110" r="6"/>
-		      </g>
-		    </svg>
-		  </div>
-		</aside>
 		
 		<a class="btn small diagnose-btn" th:href="@{/diagnose}" href="/diagnose">診断する</a>
 
@@ -120,18 +99,6 @@
     }
     window.addEventListener('pointermove', onMove);
 
-    // ============ 実装時のナビゲーション置き換えフック
-    document.getElementById('startBtn').addEventListener('click', (e) => {
-      // TODO: ここをフロントルーター遷移 or 通常のリンク先に置換
-      // 例) location.href = '/play';
-      // 今はデモなのでアンカーのまま
-    });
-      // レベルゲージ初期化（data-p を width に反映してアニメ開始）
-    document.querySelectorAll('.levelbar .bar span').forEach(sp =>{
-      const p = sp.getAttribute('data-p') || 0;
-      sp.style.setProperty('--p', p + '%');
-      sp.classList.add('gain');
-    });
   </script>
 </body>
 </html>

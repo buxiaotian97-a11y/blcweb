@@ -7,7 +7,7 @@
   padding: var(--padY) var(--padX);
   border-radius: var(--radius);
   border: 2px solid rgba(255,255,255,.22);
-  background: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0.8));
+  background: transparent;
   backdrop-filter: blur(2px);
   font-weight: 700;
   font-size: clamp(18px, 2.4vw, 24px);
@@ -22,10 +22,9 @@
 .btn:focus-visible{ outline: 3px solid #88c0ff; outline-offset: 3px; }
 .btn .sub{ opacity:.75; font-weight: 500; font-size: var(--btn-size); letter-spacing:.02em; }
 
-/* Variants */
 .btn.primary.cta{ min-width: min(560px, 92vw); font-size: clamp(20px,2.6vw,28px); }
 
-/* Ripple（クリック時のフラッシュ）*/
+/* クリック時のフラッシュ */
 .btn::after{
   content:""; position:absolute; inset:0;
   background: radial-gradient(600px 600px at var(--mx,50%) var(--my,50%), rgba(255,255,255,.18), transparent 40%);
@@ -37,17 +36,16 @@
 
 .hamburger.at-tr{ position:fixed; top:var(--corner-pad); right:var(--corner-pad); z-index:30; }
 
-/* 三角マーカー消す */
 .hamburger > summary{ list-style:none; appearance:none; cursor:pointer; }
 .hamburger > summary::-webkit-details-marker{ display:none; }
 .hamburger > summary::marker{ content:""; }
 
-/* ハンバーガーの見た目（CSSだけ） */
+/* ハンバーガーの見た目 */
 .hambtn{
   display:grid; place-items:center;
   width:80px; height:80px; border-radius:12px;
-  background: rgba(0,0,0,1);
-  border: 1px solid rgba(255,255,255,.30);
+  background: transparent;
+  border: 2px solid #fff;
   color:#fff;
 }
 .bars, .bars::before, .bars::after{
@@ -57,7 +55,7 @@
 .bars::before{ position:absolute; top:-13px; left:0; }
 .bars::after{  position:absolute; top: 13px; left:0; }
 
-/* 右上のコンテナは固定のまま */
+/* 右上固定 */
 .hamburger.at-tr{
   position: fixed;
   top: var(--corner-pad,16px);
@@ -65,13 +63,13 @@
   z-index: 30;
 }
 
-/* パネル本体（右固定＆高さ/不透明度のアニメはそのまま） */
+/* パネル本体 */
 .hamburger .list{
   font-size: clamp(20px, 1.4vw, 20px);
   font-weight: 600;
   position:absolute; top:calc(100% + 8px); right:0;
   min-width:300px; margin:0; padding:8px; display:grid; gap:6px;
-  border-radius:12px; background:rgba(0,0,0,1);
+  border-radius:12px; background:transparent;
   border:1px solid rgba(255,255,255,.22); box-shadow:0 10px 24px rgba(0,0,0,.38);
   backdrop-filter: blur(6px);
   overflow:hidden; max-height:0; opacity:0; transform:translateY(-6px);
@@ -82,19 +80,19 @@
     transform  .28s cubic-bezier(.2,.8,.2,1);
 }
 
-/* 中の項目の初期状態（見えない＆少し上） */
+/* 中の項目の初期状態 */
 .hamburger .list > *{
   opacity:0;
   transform: translateY(-6px);
   transition: opacity .24s ease, transform .28s cubic-bezier(.2,.8,.2,1);
 }
 
-/* 開いた時：本体 */
+/* 本体 */
 .hamburger[open] .list{
   max-height:60vh; opacity:1; transform: translateY(0);
 }
 
-/* 開いた時：項目を上から順に出す（ズラララ） */
+/* 開いた時：項目を上から順に出す */
 .hamburger[open] .list > *{ opacity:1; transform: translateY(0); }
 .hamburger[open] .list > *:nth-child(1){ transition-delay: .05s; }
 .hamburger[open] .list > *:nth-child(2){ transition-delay: .10s; }
@@ -121,48 +119,77 @@
 /* 親を基準にする */
 .home-grid.layout-v2 { position: relative; }
 
-/* バッグボタン：絶対配置＋ラベル位置つまみ */
 .btn-briefcase{
-  margin-left: auto;
   all: unset;
   position: absolute;
   left: 50%;
-  bottom: clamp(-40px, 0vh, -40px);
+  bottom: clamp(-15px, 0vh, -15px);
   transform: translateX(-50%);
   z-index: 2;
-
-  display: grid;
-  place-items: center;
+  display: inline-block;
   cursor: pointer;
-
-  width: clamp(200px, 28vw, 350px);
-  aspect-ratio: 1.4 / 1;
-  background: url("/images/bag.png") center/contain no-repeat;
-  transition: transform .2s ease, filter .2s ease;
-
-  /* ラベル位置のデフォルト（つまみ） */
-  --label-left: 50%;
-  --label-top:  62%;
-  --label-dx:   0px;
-  --label-dy:   0px;
-  --label-size: clamp(25px, 1.8vw, 45px);
+  line-height: 0;
 }
-.btn-briefcase:hover  { transform: translateX(-50%) translateY(-2px); filter: brightness(1.12); }
-.btn-briefcase:active { transform: translateX(-50%) translateY(0);    filter: brightness(0.9); }
 
-/* ラベル（固定座標） */
+/* バッグ画像 */
+.btn-briefcase .fx{
+  display:block;
+  width: clamp(150px, 20vw, 230px);
+  height:auto;
+  transform-origin: center;
+  filter:
+    drop-shadow(0 0 10px rgba(255,255,255,.18))
+    drop-shadow(0 6px 28px rgba(0,0,0,.65));
+}
+
+/* 出勤するラベル（静止） */
 .btn-briefcase .label{
-  position: absolute;
-  left: var(--label-left);
-  top:  var(--label-top);
-  transform: translate(-50%, -50%) translate(var(--label-dx), var(--label-dy));
-  font-size: var(--label-size);
-  font-weight: 700;
+  font-weight:900; font-size: clamp(20px, 2.6vw, 28px);
+  white-space: nowrap;
+  position:absolute;
+  left:50%;
+  top:72%;
+  transform: translate(-50%,-50%);
+  padding: 6px 14px;
   color:#fff;
-  letter-spacing:.06em;
-  text-shadow: 0 2px 6px rgba(0,0,0,.6);
-  pointer-events: none;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing:.05em;
+  pointer-events:none;
 }
+
+/* ホバー時：親全体を揺らす（バッグ＋文字まとめて） */
+.btn-briefcase:hover {
+  animation: jitter 0.25s infinite steps(2,end);
+}
+
+.btn-briefcase.flash{
+  animation: shock 1s steps(10,end), flashBlack 1s ease-out;
+}
+
+/* 黒→元に戻る */
+@keyframes flashBlack{
+  0%   { filter: brightness(0) contrast(1.2); }
+  30%  { filter: brightness(0.2) contrast(1.2); }
+  100% { filter: brightness(1) contrast(1); }
+}
+
+/* アニメーション */
+@keyframes jitter{
+  0%,100%{ transform: translateX(-50%) translate(0,0) }
+  20%{ transform: translateX(-50%) translate(-2px,2px) }
+  40%{ transform: translateX(-50%) translate(2px,2px) }
+  60%{ transform: translateX(-50%) translate(-.6px,.6px) }
+  80%{ transform: translateX(-50%) translate(.6px,-.6px) }
+}
+
+@keyframes shock{
+  0%  { transform: translateX(-50%) translate(0,0) rotate(0) }
+  25% { transform: translateX(-50%) translate(-2px,1px) rotate(-0.6deg) }
+  50% { transform: translateX(-50%) translate(2px,-1px) rotate(0.6deg) }
+  75% { transform: translateX(-50%) translate(-1px,1px) rotate(0.3deg) }
+  100%{ transform: translateX(-50%) translate(0,0) rotate(0) }
+}
+
 
 /* =========================
    Misc
@@ -188,13 +215,14 @@
 /* 上中央の名前プレート */
 .nameplate{ grid-area: tc; justify-self:center; text-align:center;
   padding: 8px 18px; border-radius: 10px;
-  background: rgba(0,0,0,1);
+  background: transparent;
   border:2px solid rgba(255,255,255,.85);
   box-shadow: 0 8px 18px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
   min-width: clamp(260px, 36vw, 520px);
 }
 .nameplate .dept{ font-weight:700; opacity:.9; letter-spacing:.08em; }
 .nameplate .uname{ font-weight:900; font-size: clamp(20px, 2.6vw, 28px); }
+.nameplate .level-stack{ font-weight:700; opacity:.9; letter-spacing:.08em; }
 
 /* 中央キャラ */
 .center-char{ grid-area: mc; display:grid; place-items:center; }
@@ -215,7 +243,7 @@
 .btn-icon{
 	width: 24px;
 	 height: 24px;
-	 margin-right: 8px; /* 文字との間隔 */
+	 margin-right: 8px;
 	 vertical-align: middle;
 }
 
@@ -234,8 +262,8 @@
   position: absolute;
   right: max(24px, 3vw);
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-10%);
   z-index: 2;
 }
-.btn.small{ min-width: auto; padding: 8px 14px; font-size: clamp(14px, 1.6vw, 20px);  border-radius: 12px; }
+.btn.small{ min-width: auto; padding: 8px 14px; font-size: clamp(24px, 1.6vw, 30px);  border: 2px solid #fff; }
 
