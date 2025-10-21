@@ -5,7 +5,7 @@
     <title>社畜シミュレーター</title>
     <link rel="stylesheet" href="/css/title-back.css?v=1003">
 	<link rel="stylesheet" href="/css/title-character.css?v=1004">
-    <!-- defer を付けて、DOM構築後に実行させる -->
+
     <script defer>
       (() => {
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -62,7 +62,6 @@
       <a class="start" th:href="@{/home}" href="/home">START</a>
     </div>
 
-	<!-- マスク定義 -->
 	<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
 	  <mask id="inkMask" maskUnits="objectBoundingBox">
 	    <rect x="0" y="0" width="100%" height="100%" fill="#fff"/>

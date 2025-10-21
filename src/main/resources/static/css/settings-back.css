@@ -1,0 +1,31 @@
+.scanlines{
+  position:absolute; inset:0; pointer-events:none;
+  background-image: linear-gradient(to bottom,
+    rgba(0,0,0,0.38) 0 2px,      /* 線の濃さ/太さ */
+    transparent 2px 4px          /* 間隔 */
+  );
+  background-size: 100% 4px;     /* 周期 */
+  mix-blend-mode: normal;        /* 発光しない */
+  opacity: .35;                  /* 濃さ */
+  animation: scan 6s linear infinite, scanFlicker 2.4s ease-in-out infinite;
+}
+@keyframes scan { from{background-position-y:0} to{background-position-y:200px} }
+@keyframes scanFlicker { 0%,100%{opacity:.30} 50%{opacity:.40} }
+
+.flicker-bg{
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.08), transparent 80%),
+              linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.15));
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: flicker 6s infinite steps(1);
+  z-index: 0;
+  opacity: 0.9;
+}
+
+@keyframes flicker {
+  0%, 5%, 8%, 9%, 12%, 13%, 20%, 100% { opacity: 0.9; }
+  6%, 10%, 11%, 14%, 18% { opacity: 0.3; }
+  7%, 15%, 17% { opacity: 0.1; }
+}

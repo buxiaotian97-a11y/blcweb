@@ -1,0 +1,12 @@
+.font {
+-webkit-mask-image: url("/images/ink-rough.png");
+         mask-image: url("/images/ink-rough.png");
+ -webkit-mask-mode: luminance;
+         mask-mode: luminance;
+ -webkit-mask-size: cover;
+         mask-size: cover;
+ -webkit-mask-position: center;
+         mask-position: center;
+ -webkit-mask-repeat: no-repeat;
+         mask-repeat: no-repeat;
+}

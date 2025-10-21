@@ -13,7 +13,7 @@ public class QuestionService {
 
     public QuestionDto findNext(Long after){
         return (after == null
-            ? repo.findTopByOrderByIdAsc()
+            ? repo.findFirstByOrderByIdAsc()
             : repo.findFirstByIdGreaterThanOrderByIdAsc(after))
             .map(QuestionDto::from)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
