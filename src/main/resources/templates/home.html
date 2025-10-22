@@ -7,6 +7,7 @@
   
   <link rel="stylesheet" th:href="@{/css/home-back.css}" href="/css/home-back.css">
   <link rel="stylesheet" th:href="@{/css/home-button.css}" href="/css/home-button.css">
+  <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
 
 </head>
 <body>
@@ -19,17 +20,17 @@
       <section class="home-grid layout-v2" aria-label="ホームUI">
 
         <!-- 上中央：部署＋名前のプレート -->
-        <header class="nameplate">
-          <div class="dept" th:text="${user.department}">営業部</div>
-          <div class="uname" >石黒　雄三（36）</div>
+        <header class="nameplate font2">
+          <div class="dept font2" th:text="${user.department}">営業部</div>
+          <div class="uname font2" >石黒　雄三（36）</div>
 		  <aside class="level-stack dial-mode">
-		  		  <div class="lv">Lv.<span th:text="${user.level}">1</span></div>
+		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
 		<!-- 下中央：出勤する（大ボタン） -->
 		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
-		  <img class="fx" src="/images/clear-bag.png" alt="">
-		  <span class="label">出勤する</span>
+		  <img class="fx font" src="/images/clear-bag.png" alt="">
+		  <span class="label font">出勤する</span>
 		</button>
 		
 		<script>
@@ -45,21 +46,21 @@
 
         <!-- 中央：キャラクター -->
         <div class="center-char">
-          <div class="char">
+          <div class="char font2">
             <img th:src="@{${user.character} == 'restaurant' ? '/images/restaurant.png' : '/images/sarari-3.png'}" src="/images/sarari-3.png" alt="キャラクター">
           </div>
         </div>
 		
-		<a class="btn small diagnose-btn" th:href="@{/diagnose}" href="/diagnose">診断する</a>
+		<a class="btn small diagnose-btn font" th:href="@{/diagnose}" href="/diagnose">診断する</a>
 
 		<!-- 右上ハンバーガー -->
 		<details class="hamburger at-tr" aria-label="メニュー">
-		  <summary class="hambtn" aria-label="メニューを開く">
+		  <summary class="hambtn font" aria-label="メニューを開く">
 		    <span class="bars" aria-hidden="true"></span>
 		  </summary>
 
 		  <!-- ここが“真下に”展開される -->
-		  <nav class="list">
+		  <nav class="list font">
 		    <a href="/stats">📊 記録</a>
 		    <a href="/profile">🪪 キャラクター詳細</a>
 			<a href="/trophy">🏆 称号・アイテム一覧</a>
@@ -69,7 +70,7 @@
 		
       </section>
 
-      <div class="meta">
+      <div class="meta font">
         <span>v0.1.0</span>
       </div>
     </div>
