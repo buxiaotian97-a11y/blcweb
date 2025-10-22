@@ -15,7 +15,7 @@
 	<div class="flicker-bg"></div>
       <h1 id="settings-title" class=" font ">Setting</h1>
 
-      <form th:action="@{/settings}" th:object="${form}" method="post" class="form">
+      <form th:action="@{/dataset}" th:object="${form}" method="post" class="form">
 
         <!-- 名前 -->
         <label class="row">
@@ -26,7 +26,7 @@
         <!-- 事業部 -->
         <label class="row">
           <span class="label font">事業部</span>
-          <input id="dept" name="dept" type="text" value="営業部" />
+          <input id="dept" th:field="*{departmentName}" type="text" value="営業部" />
         </label>
 
         <!-- 称号通知 -->

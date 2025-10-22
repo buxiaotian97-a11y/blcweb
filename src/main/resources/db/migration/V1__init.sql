@@ -6,7 +6,8 @@ SET time_zone = '+09:00';
 												
 CREATE TABLE IF NOT EXISTS users (												
 id BIGINT AUTO_INCREMENT PRIMARY KEY,												
-name VARCHAR(10) NOT NULL,												
+name VARCHAR(100) NOT NULL,
+department_name VARCHAR(100) NOT NULL,												
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP												
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;												
 												
