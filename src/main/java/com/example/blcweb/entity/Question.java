@@ -20,11 +20,11 @@ public class Question {
   private int point;
 
   @Column(nullable = false)
-  private boolean active = true; // デフォルト有効
+  private boolean active = true;
 
-  protected Question() {} // JPA用デフォルトコンストラクタ
+  protected Question() {} // JPA用
 
-  // getters
+  // --- getters（DTOで使う） ---
   public Long getId() { return id; }
   public String getQtext() { return qtext; }
   public String getCategory() { return category; }

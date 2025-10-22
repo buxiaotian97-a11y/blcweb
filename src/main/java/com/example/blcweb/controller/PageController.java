@@ -24,17 +24,34 @@ public class PageController {
         ));
         return "home"; // templates/home.html
     }
+    
+    @GetMapping("/settings")
+    public String settings(Model model) {
+        // ダミーのフォームデータ
+        record Form(String displayName, Long departmentId, boolean notifyTitle) {}
+        model.addAttribute("form", new Form("佐藤 健太", 1L, true));
+
+        // ダミーの部署リスト
+        record Dept(Long id, String name) {}
+        model.addAttribute("departments", java.util.List.of(
+            new Dept(1L, "営業部"),
+            new Dept(2L, "開発部")
+        ));
+
+        return "settings";
+    }
+
 
     @GetMapping("/records")  public String records()  { return "records";  }
     @GetMapping("/titles")   public String titles()   { return "titles";   }
-    @GetMapping("/settings") public String settings() { return "settings"; }
     @GetMapping("/diagnose") public String diagnose() { return "diagnose"; }
     @GetMapping("/work")     public String work()     { return "work";     }
 
-    // ↓ これを追加（ダミー表示用のVM）
     public record UserVM(
         String department, String name, String title,
         int days, String lastCheckedAt,
         int level, int expPercent, String character, String characterName
     ) {}
 }
+
+
