@@ -6,9 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
+import com.example.blcweb.form.DataSetForm;
+import com.example.blcweb.service.DataSetService;
 
 @Controller
 public class PageController {
+	
+	private final DataSetService dataSetService;
+    public PageController(DataSetService dataSetService) {
+        this.dataSetService = dataSetService;
+    }
 
     @GetMapping("/title-page")
     public String showTitle(Model model) {
@@ -30,17 +37,11 @@ public class PageController {
     
     @GetMapping("/settings")
     public String settings(Model model) {
-        // ダミーのフォームデータ
-        record Form(String displayName, Long departmentId, boolean notifyTitle) {}
-        model.addAttribute("form", new Form("佐藤 健太", 1L, true));
+        if (!model.containsAttribute("form")) {
+            model.addAttribute("form", new DataSetForm("佐藤 健太", "営業部", true));
+        }
 
-        // ダミーの部署リスト
-        record Dept(Long id, String name) {}
-        model.addAttribute("departments", java.util.List.of(
-            new Dept(1L, "営業部"),
-            new Dept(2L, "開発部")
-        ));
-
+        model.addAttribute("list", dataSetService.findAll());
         return "settings";
     }
 
