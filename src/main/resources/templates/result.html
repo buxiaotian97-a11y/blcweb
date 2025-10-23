@@ -4,26 +4,59 @@
   <meta charset="utf-8" />
   <title>診断結果 | Black Company Simulator</title>
   <link rel="stylesheet" href="/css/question.css" />
-
   <link rel="stylesheet" href="/css/button.css" />
   <link rel="stylesheet" href="/css/result.css" />
   <link rel="stylesheet" href="/css/font.css" />
+  <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
+  <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
 </head>
-<body>
+<body class="result"
+      th:classappend="${backed != null ? ' ' + backed : ''}">
 	<main class="result-screen">
       <div class="scanlines"></div>
-	  <div class="result-bubble font2">
+	  <div class="result-bubble result-box">
 	    <p class="label">あなたのブラック度は、、、</p>
-	    <p class="score">100点</p>
-	    <p class="message">あなたは馬車馬です。<br>今すぐ転職について考えましょう。</p>
+		<p class="score" th:text="${score + '点'}"></p>
+		<p class="label" th:text="${resultMsg}"></p>
+		<p th:text="${modeMsg}"></p>
+
 	  </div>
 	  
-	  <div>
-		<a href="/site" class="btn feature">新たな道へ</a>
-		</div>
+	  <div class="fade-to-light" id="fadeEffect"></div>
+
+	  <div th:if="${unlocked}">
+	    <a href="/nework" class="btn feature" id="toNework">新たな道へ</a>
+	  </div>
+
+	  <div th:if="${!unlocked}">
+	    <button class="btn feature locked" disabled>工事中</button>
+	  </div>
 
 	  <div class="button-area">
 	    <a href="/home" class="btn small font">ホームへ戻る</a>
 	    <a href="/mode" class="btn small font">もう一度診断する</a>
 	  </div>
 	</main>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  const link = document.getElementById("toNework");
+	  const effect = document.getElementById("fadeEffect"); 
+
+	  link.addEventListener("click", (e) => {
+	    e.preventDefault();
+
+	    if (document.startViewTransition) {
+	      document.startViewTransition(() => {
+	        window.location.href = link.href;
+	      });
+	      return;
+	    }
+	    effect.classList.add("active");
+	    void effect.offsetWidth;
+	    window.location.href = link.href;
+	  });
+	});
+	</script>
+
+</body>

@@ -16,6 +16,7 @@
   cursor: pointer;
   transition: transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease;
   position: relative; overflow: hidden;
+<<<<<<< HEAD
   font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
                  "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue",
                  Arial, sans-serif;
@@ -87,3 +88,4 @@ a:active {
   text-decoration: none !important;
   color: inherit;
 }
+.btn.small{ min-width: auto; padding: 8px 14px; font-size: clamp(24px, 1.6vw, 30px);  border: 2px solid #fff; }
