@@ -39,4 +39,8 @@ public class DataSetEntity {
     
     public void setName(String name){ this.name = name; }
     public void setDepartmentName(String departmentName){ this.departmentName = departmentName; }
+    
+    public String getDepartmentName() { return departmentName; }
+    public String getName() { return name; }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.blcweb.entity.DataSetEntity;
 import com.example.blcweb.repository.DataSetRepository;
+import java.util.Optional;
 
 @Service
 public class DataSetService {
@@ -29,4 +30,9 @@ public class DataSetService {
     public List<DataSetEntity> findAll() {
         return dataSetRepo.findAll();
     }
+    
+    public Optional<DataSetEntity> findLatest() {
+        return dataSetRepo.findTopByOrderByIdDesc();
+    }
+
 }

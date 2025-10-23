@@ -22,8 +22,8 @@
 
         <!-- 上中央：部署＋名前のプレート -->
         <header class="nameplate font2">
-          <div class="dept font2" th:text="${user.department}">営業部</div>
-          <div class="uname font2" >石黒　雄三（36）</div>
+          <div class="dept font2" th:text="${user.department}"></div>
+          <div class="uname font2" th:text="${user.name}"></div>
 		  <aside class="level-stack dial-mode">
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
