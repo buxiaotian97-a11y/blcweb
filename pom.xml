@@ -91,6 +91,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+  <groupId>org.flywaydb</groupId>
+  <artifactId>flyway-maven-plugin</artifactId>
+  <version>11.7.2</version>
+  <configuration>
+    <url>jdbc:mysql://localhost:3306/blc?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Tokyo</url>
+    <user>root</user>
+    <password>blc_dev_pass</password>
+    <locations>
+      <location>filesystem:src/main/resources/db/migration</location>
+    </locations>
+  </configuration>
+</plugin>
+			
 		</plugins>
 	</build>
 
