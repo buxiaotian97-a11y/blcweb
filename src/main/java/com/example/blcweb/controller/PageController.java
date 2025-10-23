@@ -201,6 +201,9 @@ public class PageController {
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
 
+
+
+
     public record UserVM(
         String department, String name, String title,
         int days, String lastCheckedAt,
