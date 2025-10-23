@@ -27,19 +27,46 @@ public class PageController {
 
     @GetMapping("/home")
     public String showHome(Model model) {
-        model.addAttribute("user", new UserVM(
-            "営業部", "佐藤 健太", "社畜見習い",
-            12, "2025/10/01",
-            1, 35, "salaryman", "サラリーマン"
-        ));
+        var latestOpt = dataSetService.findLatest();
+
+        var user = latestOpt
+            .map(e -> new UserVM(
+                e.getDepartmentName(),
+                e.getName(),
+                "社畜見習い",
+                12,
+                "2025/10/01",
+                1,
+                35,
+                "salaryman",
+                "サラリーマン"
+            ))
+            .orElseGet(() -> new UserVM(
+                "未設定の部署",
+                "未設定の名前",
+                "社畜見習い",
+                0,
+                "—",
+                1,
+                0,
+                "salaryman",
+                "サラリーマン"
+            ));
+
+        model.addAttribute("user", user);
         return "home";
     }
     
     @GetMapping("/settings")
     public String settings(Model model) {
         if (!model.containsAttribute("form")) {
-            // DataSetFormに合わせる（displayName / departmentName / notifyTitle）
-            model.addAttribute("form", new DataSetForm("佐藤 健太", "営業部", true));
+        	var latestOpt = dataSetService.findLatest();
+        	
+        	var form = latestOpt
+                    .map(e -> new DataSetForm(e.getName(), e.getDepartmentName(), true))
+                    .orElseGet(() -> new DataSetForm("", "", true));
+
+                model.addAttribute("form", form);
         }
 
         model.addAttribute("list", dataSetService.findAll());
