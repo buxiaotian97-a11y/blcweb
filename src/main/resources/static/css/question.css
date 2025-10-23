@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+main.diagnosis {
+  position: relative;
+  width: min(700px, 92vw);
+  text-align: center;
+}
+
+.room {
+	position: fixed;
+	  inset: 0;
+	    background: url("/images/white-office.png") center center / cover no-repeat;
+	    z-index: -1; 
+}
+
+/* ホワイトボード */
+.board-wrap{
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 580px;
+  background: transparent;
+}
+
+/* 枠PNG */
+.board-frame{
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.board-fill{
+  position: absolute;
+  z-index: 1;  
+  inset: 14% 6% 18% 6%;  
+  background: #fff;
+  border-radius: 10px; 
+  box-shadow: inset 0 2px 12px rgba(0,0,0,.06);
+}
+
+/* テキストは白塗りの上に */
+.question-content{
+  position: absolute;
+  z-index: 3;
+  inset: 16% 8% 20% 8%;
+  color: #222;
+  text-align: center;
+}
+
+.board-img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+}
+
+.question-no {
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.question-text {
+  font-size: 1.8rem;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+/* YES / NOボタン */
+.answer-buttons {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.answer-buttons button {
+  padding: 12px 40px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: 0.25s ease;
+}
+
+.btn-yes {
+  background: #222;
+}
+.btn-no {
+  background: #222;
+}
+.answer-buttons button:hover {
+  transform: scale(1.05);
+  background: #000;
+}

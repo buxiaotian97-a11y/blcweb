@@ -1,0 +1,79 @@
+.mode-wrap {
+  max-width: 680px;
+  margin: 10vh auto 6vh;
+  padding: 0 20px;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.mode-head {
+  font-weight: 900;
+  font-size: clamp(22px, 3.4vw, 30px);
+  letter-spacing: 0.04em;
+  margin-bottom: 22px;
+}
+
+.mode-form {
+  display: grid;
+  gap: 14px;
+}
+
+.mode-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  text-align: left;
+  padding: 16px 18px;
+  border: 1.5px solid rgba(255,255,255,.18);
+  border-radius: 14px;
+  background: rgba(0,0,0,.35);
+  cursor: pointer;
+  transition: all .18s ease;
+}
+
+.mode-card:hover {
+  border-color: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.05);
+  transform: translateY(-1px);
+}
+
+.mode-card input[type="radio"] {
+  margin-top: 5px;
+  accent-color: #fff;
+}
+
+.mode-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.mode-desc {
+  opacity: .8;
+  font-size: .9rem;
+  margin-top: 3px;
+}
+
+.mode-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 26px;
+  justify-content: flex-end;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  }
+}
+
+.btn.ghost:hover {
+  background: rgba(255,255,255,.08);
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(8px);}
+  to {opacity:1; transform: translateY(0);}
+}
