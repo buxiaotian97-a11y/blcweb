@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface DataSetRepository extends JpaRepository<DataSetEntity, Long> {
     Optional<DataSetEntity> findByName(String name);
     Optional<DataSetEntity> findByDepartmentName(String departmentName);
+    Optional<DataSetEntity> findTopByOrderByIdDesc();
 }
