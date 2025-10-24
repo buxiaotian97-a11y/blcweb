@@ -29,7 +29,9 @@
 		
 		<!-- 下中央：出勤する（大ボタン） -->
 		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
+		  <div class="img-wrap">
 		  <img class="fx font" src="/images/clear-bag.png" alt="">
+		  <img class="overlay-img" src="/images/lock.png" alt="">
 		  <span class="label font">出勤する</span>
 		</button>
 		
@@ -86,9 +88,8 @@
       });
     });
 
-    // ============ わずかなパララックス(背景全体)
     const stage = document.querySelector('.stage');
-    const strength = 8; // px
+    const strength = 8; 
     let rafId = null;
     function onMove(e){
       const x = (e.clientX / window.innerWidth - 0.5) * strength;
