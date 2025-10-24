@@ -37,8 +37,6 @@ body::before {
 html,body{ height: 100%; }
 body{
   margin: 0;
-  font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #fff;
   background-color:rgb(var(--bg-color));
 }
 img{ max-width: 100%; display: block; }
@@ -57,17 +55,15 @@ button{ font: inherit; }
   isolation: isolate;
 }
 /* 4) 横走査線 */
-/* 既存 .scanlines を置き換え */
 .scanlines{
   position:absolute; inset:0; pointer-events:none;
-  /* 2pxの線 + 2pxの隙間 → はっきり見える */
   background-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.38) 0 2px,      /* 線の濃さ/太さ */
-    transparent 2px 4px          /* 間隔 */
+    rgba(0,0,0,0.38) 0 2px,     
+    transparent 2px 4px       
   );
-  background-size: 100% 4px;     /* 周期 */
-  mix-blend-mode: normal;        /* 発光しない */
-  opacity: .35;                  /* 濃さ */
+  background-size: 100% 4px;   
+  mix-blend-mode: normal;       
+  opacity: .35;          
   animation: scan 6s linear infinite, scanFlicker 2.4s ease-in-out infinite;
 }
 @keyframes scan { from{background-position-y:0} to{background-position-y:200px} }
@@ -91,7 +87,7 @@ button{ font: inherit; }
   font-weight: 800;
   letter-spacing: .02em;
   line-height: 1.05;
-  -webkit-text-stroke: 3px #000; /* 縁取り (Safari/Chrome) */
+  -webkit-text-stroke: 3px #000;
   filter: drop-shadow(0 20px 20px rgba(0,0,0,.5));
   animation: tubeFlicker 7s infinite steps(50) alternate;
 }

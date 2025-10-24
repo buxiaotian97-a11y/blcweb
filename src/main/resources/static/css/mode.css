@@ -62,17 +62,6 @@
   justify-content: flex-end;
 }
 
-.btn.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.25);
-  color: #fff;
-  }
-}
-
-.btn.ghost:hover {
-  background: rgba(255,255,255,.08);
-}
-
 @keyframes fadeIn {
   from {opacity:0; transform: translateY(8px);}
   to {opacity:1; transform: translateY(0);}

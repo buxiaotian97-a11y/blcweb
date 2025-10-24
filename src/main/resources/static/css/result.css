@@ -1,0 +1,96 @@
+body {}
+body.dark-level-2 { filter: brightness(0.7); }
+body.dark-level-3 { filter: brightness(0.4); }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/images/infelno.png") center center / cover no-repeat;
+  filter: blur(3px);
+  transform: scale(1.05);
+  z-index: -1;
+}
+
+.scanlines{
+  position:absolute; inset:0; pointer-events:none;
+  background-image: linear-gradient(to bottom,
+    rgba(0,0,0,0.38) 0 2px,     
+    transparent 2px 4px       
+  );
+  background-size: 100% 4px;   
+  mix-blend-mode: normal;       
+  opacity: .35;          
+  animation: scan 6s linear infinite, scanFlicker 2.4s ease-in-out infinite;
+}
+@keyframes scan { from{background-position-y:0} to{background-position-y:200px} }
+@keyframes scanFlicker { 0%,100%{opacity:.30} 50%{opacity:.40} }
+
+.result-text {
+	color: #fff;
+	font-size: 
+}
+
+.result-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  color: #fff;
+  font-family: "Shippori Mincho", serif;
+}
+
+/* 吹き出し本体 */
+.result-bubble {
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  border-radius: 16px;
+  padding: clamp(20px, 2.4vw, 32px) clamp(28px, 4vw, 48px); 
+  width: min(92vw, 720px); 
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  box-sizing: border-box; 
+}
+
+.result-bubble .label {
+  font-size: clamp(26px, 2vw, 30px);
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.result-bubble .score {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 900;
+  color: #e53935;
+  margin: 4px 0 12px;
+}
+
+.result-bubble .message {
+  font-size: clamp(20px, 2vw, 28px);
+  color: #333;
+  line-height: 1.6;
+}
+
+.feature {
+  color: #FFFF33 !important;       
+  background: #e60000 !important;    
+  border: 2px solid #ffd54f; 
+  justify-content:center;
+  text-decoration: none;
+  display:inline-flex; 
+  padding: 24px 48px;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.button-area {
+  display: flex;
+  justify-content: center;
+  gap: clamp(40px, 6vw, 80px);
+  margin-bottom: clamp(24px, 5vh, 40px);
+  z-index: 2;
+}

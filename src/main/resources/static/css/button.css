@@ -62,5 +62,25 @@
   transform: translateY(-10%);
   z-index: 2;
 }
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  }
+}
+
+.btn.ghost:hover {
+  background: rgba(255,255,255,.08);
+}
+
 .btn.small{ min-width: auto; padding: 8px 14px; font-size: clamp(24px, 1.6vw, 30px);  border: 2px solid #fff; }
 
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none !important;
+  color: inherit;
+}
