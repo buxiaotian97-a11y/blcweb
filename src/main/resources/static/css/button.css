@@ -16,7 +16,6 @@
   cursor: pointer;
   transition: transform .14s ease, box-shadow .14s ease, background .14s ease, border-color .14s ease;
   position: relative; overflow: hidden;
-<<<<<<< HEAD
   font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
                  "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue",
                  Arial, sans-serif;
