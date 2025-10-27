@@ -55,11 +55,6 @@ public class PageController {
 
         model.addAttribute("user", user);
 
-        model.addAttribute("user", new UserVM(
-            "営業部", "佐藤 健太", "社畜見習い",
-            12, "2025/10/01",
-            1, 35, "salaryman", "サラリーマン"
-        ));
         return "home";
     }
     
