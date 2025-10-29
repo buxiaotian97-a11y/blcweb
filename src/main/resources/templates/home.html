@@ -20,7 +20,7 @@
 
       <section class="home-grid layout-v2" aria-label="ホームUI">
 
-        <!-- 上中央：部署＋名前のプレート -->
+        <!-- 部署＋名前のプレート -->
         <header class="nameplate font2">
           <div class="dept font2" th:text="${user.department}"></div>
           <div class="uname font2" th:text="${user.name}"></div>
@@ -28,7 +28,7 @@
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
-		<!-- 下中央：出勤する（大ボタン） -->
+		<!-- 出勤する（大ボタン） -->
 		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
 		  <div class="img-wrap">
 		  <img class="fx font" src="/images/clear-bag.png" alt="">
