@@ -34,13 +34,6 @@ public class PageController {
         record Form(String displayName, Long departmentId, boolean notifyTitle) {}
         model.addAttribute("form", new Form("佐藤 健太", 1L, true));
 
-        // ダミーの部署リスト
-        record Dept(Long id, String name) {}
-        model.addAttribute("departments", java.util.List.of(
-            new Dept(1L, "営業部"),
-            new Dept(2L, "開発部")
-        ));
-
         return "settings";
     }
 
@@ -115,11 +108,12 @@ public class PageController {
             model.addAttribute("question", new QuestionVM(questionId + 1, qtext));
             return "question";
         }
-
-
-
-
-
+        
+       
+            @GetMapping("/nework")
+            public String showLinks() {
+                return "nework"; 
+            }
 
 
     @GetMapping("/records")  public String records()  { return "records";  }

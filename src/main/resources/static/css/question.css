@@ -27,12 +27,11 @@ main.diagnosis {
   top: 8%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  max-width: 580px;
+  width: 120%;
+  max-width: 650px;
   background: transparent;
 }
 
-/* 枠PNG */
 .board-frame{
   display: block;
   width: 100%;
@@ -80,7 +79,7 @@ main.diagnosis {
 
 /* YES / NOボタン */
 .answer-buttons {
-  margin-top: 10vh;
+  margin-top: 35vh;
   display: flex;
   justify-content: center;
   gap: 2rem;
