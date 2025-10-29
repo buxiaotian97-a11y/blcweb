@@ -71,6 +71,19 @@
 		  </nav>
 		</details>
 		
+		<script>
+		  document.addEventListener("click", function (e) {
+		    const menu = document.querySelector(".hamburger");
+		    if (!menu) return;
+
+		    if (menu.contains(e.target)) return;
+
+		    if (menu.hasAttribute("open")) {
+		      menu.removeAttribute("open");
+		    }
+		  });
+		</script>
+		
       </section>
 
       <div class="meta font">
@@ -80,7 +93,6 @@
   </main>
 
   <script>
-    // ============ ボタンの波紋位置をカーソルに合わせる
     document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('pointerdown', e => {
         const rect = btn.getBoundingClientRect();
