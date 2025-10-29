@@ -1,0 +1,7 @@
+body {
+  overflow: hidden;
+}
+
+body.scrollable {
+  overflow-y: auto;
+}
