@@ -11,9 +11,16 @@ public class QuestionController {
     public QuestionController(QuestionService service){ this.service = service; }
 
     @GetMapping("/next")
-    public QuestionDto next(@RequestParam(required=false) Long after){
-        return service.findNext(after);
+    public QuestionDto next(
+        @RequestParam(required = false) Long after,
+        @RequestParam(defaultValue = "1") int answer
+    ) {
+        if (after == null) {
+            return service.findFirst();
+        }
+        return service.findNext(after, answer);
     }
+
 
     @GetMapping("/{id}")
     public QuestionDto getOne(@PathVariable Long id){
