@@ -22,11 +22,11 @@
     </div>
 
     <!-- YES / NOボタン -->
-    <form th:action="@{/question}" method="post" class="answer-buttons">
-      <input type="hidden" name="questionId" th:value="${question.id}" />
-      <button type="submit" name="answer" value="YES" class="btn-yes">YES</button>
-      <button type="submit" name="answer" value="NO" class="btn-no">NO</button>
-    </form>
+	<form th:action="@{/question}" method="post" class="answer-buttons">
+	      <input type="hidden" name="questionId" th:value="${question.id}" />
+	      <button type="submit" name="answer" value="1" class="btn-yes">YES</button>
+	      <button type="submit" name="answer" value="0" class="btn-no">NO</button>
+	    </form>
   </main>
 </body>
 </html>
