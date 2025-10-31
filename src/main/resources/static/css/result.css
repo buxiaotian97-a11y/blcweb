@@ -41,7 +41,6 @@ body::before {
   font-family: "Shippori Mincho", serif;
 }
 
-/* 吹き出し本体 */
 .result-bubble {
   background: #fff;       
   backdrop-filter: none; 

@@ -25,9 +25,10 @@
 }
 
 .font3 {
-	font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+	font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
 	font-weight: 500;
 	color: #f8f8ff; 
 	text-shadow: 0 0 6px rgba(255, 255, 255, 0.25); 
 	letter-spacing: 0.04em;
+	fill: currentColor; 
 }

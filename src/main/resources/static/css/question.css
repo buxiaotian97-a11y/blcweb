@@ -50,7 +50,6 @@ main.diagnosis {
   box-shadow: inset 0 2px 12px rgba(0,0,0,.06);
 }
 
-/* テキストは白塗りの上に */
 .question-content{
   position: absolute;
   z-index: 3;
