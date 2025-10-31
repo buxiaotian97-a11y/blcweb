@@ -13,10 +13,12 @@
 <body>
 	<main class="result-screen">
       <div class="scanlines"></div>
-	  <div class="result-bubble font2">
+	  <div class="result-bubble result-box">
 	    <p class="label">あなたのブラック度は、、、</p>
-	    <p class="score">100点</p>
-	    <p class="message">あなたは馬車馬です。<br>今すぐ転職について考えましょう。</p>
+		<p class="score" th:text="${score + '点'}"></p>
+		<p class="label" th:text="${resultMsg}"></p>
+		<p th:text="${modeMsg}"></p>
+
 	  </div>
 	  
 	  <div class="fade-to-light" id="fadeEffect"></div>
@@ -52,7 +54,4 @@
 	});
 	</script>
 
-
-
-	
 </body>

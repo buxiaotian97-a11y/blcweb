@@ -36,6 +36,9 @@ public class Question {
   // 最初の質問にしたい場合 true
   @Column(name = "is_start", nullable = false)
   private boolean isStart = false;
+  
+  @Column(name = "finish", nullable = false)
+  private boolean finish;
 
   protected Question() {} // JPA用デフォルトコンストラクタ
 
@@ -58,4 +61,7 @@ public class Question {
   public void setNextYesId(Long nextYesId) { this.nextYesId = nextYesId; }
   public void setNextNoId(Long nextNoId) { this.nextNoId = nextNoId; }
   public void setStart(boolean isStart) { this.isStart = isStart; }
+  
+  public boolean isFinish() { return finish; }
+  public void setFinish(boolean finish) { this.finish = finish; }
 }
