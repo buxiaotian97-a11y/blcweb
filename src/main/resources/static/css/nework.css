@@ -1,49 +1,133 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+  position: relative;
+  color: #fff;
+}
 body {
   background: #111;
   color: #fff;
   font-family: "Shippori Mincho", serif;
   text-align: center;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  opacity: 0;
+  animation: fadeIn .9s ease forwards;
 }
+@keyframes fadeIn { from {opacity:0} to {opacity:1} }
 
-.container {
-  padding: 40px;
-}
+.container { padding: 40px; }
 
-.title {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  font-size: 1rem;
-  margin-bottom: 32px;
-  color: #ccc;
-}
-
-.site-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
-}
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-}
+.title { font-size: 2.2rem; margin-bottom: 8px; }
+.subtitle { font-size: 1rem; margin-bottom: 32px; color: #ccc; }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/images/heaven.png") center center / cover no-repeat;
+  background: url("/images/heaven's.png") center center / cover no-repeat;
   filter: blur(7px);
   transform: scale(1.05);
   z-index: -1;
 }
+
+/* ===== リボン ===== */
+.ribbon-wrapper {
+  position: relative;
+  width: 600px;
+  max-width: 92vw;
+  margin: 80px auto 24px;
+}
+.ribbon-bg { width: 100%; display: block; }
+.ribbon-text {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* ===== 導入文 ===== */
+.intro-message {
+  margin: 18px auto 28px;
+  max-width: min(960px, 92vw);
+  padding: clamp(14px, 2.6vw, 22px) clamp(16px, 3vw, 28px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 14px;
+  line-height: 1.85;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+.support {
+  margin: 8px auto 28px;
+  max-width: min(1100px, 94vw);
+}
+.support > h2 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  letter-spacing: 0.08em;
+  margin: 0 0 14px;
+  opacity: 0.9;
+}
+.support-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2.2vw, 18px);
+}
+@media (max-width: 720px) {
+  .support-list { grid-template-columns: 1fr; }
+}
+
+.support-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 14px;
+  padding: clamp(14px, 2.6vw, 20px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 138px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.support-card:hover, {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.32);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.support-title { font-size: clamp(16px, 2vw, 18px); margin: 2px 0 4px; }
+.support-desc {
+  margin: 0 0 8px;
+  color: #ddd;
+  line-height: 1.7;
+  font-size: clamp(13px, 1.7vw, 14px);
+}
+.support-actions { margin-top: auto; display: flex; gap: 10px; justify-content: flex-end; }
+.btn.small { padding: 8px 14px; border-radius: 10px; font-size: 0.92rem; }
+
+.sites {
+  margin: 8px auto 28px;
+  max-width: min(1100px, 94vw);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2.2vw, 18px);
+}
+@media (max-width: 720px) {
+  .sites { grid-template-columns: 1fr; }
+}
+
+.support-card img{ 
+	display:block; 
+	width: 50px; 
+	height:auto; 
+	margin: 0 auto 12px; 
+	object-fit: contain; 
+}
+
+.btn.small.ghost.font3[href="/home"] {
+  display: inline-block;
+  margin-top: 60px;  
+  margin-bottom: 80px; 
+}
+

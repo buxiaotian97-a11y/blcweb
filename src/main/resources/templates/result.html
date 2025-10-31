@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/result.css" />
   <link rel="stylesheet" href="/css/font.css" />
   <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
+  <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
 </head>
 <body>
 	<main class="result-screen">
@@ -18,12 +19,40 @@
 	    <p class="message">あなたは馬車馬です。<br>今すぐ転職について考えましょう。</p>
 	  </div>
 	  
+	  <div class="fade-to-light" id="fadeEffect"></div>
+
 	  <div>
-		<a href="/nework" class="btn feature">新たな道へ</a>
-		</div>
+	    <a href="/nework" class="btn feature" id="toNework">新たな道へ</a>
+	  </div>
 
 	  <div class="button-area">
 	    <a href="/home" class="btn small font">ホームへ戻る</a>
 	    <a href="/mode" class="btn small font">もう一度診断する</a>
 	  </div>
 	</main>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  const link = document.getElementById("toNework");
+	  const effect = document.getElementById("fadeEffect"); 
+
+	  link.addEventListener("click", (e) => {
+	    e.preventDefault();
+
+	    if (document.startViewTransition) {
+	      document.startViewTransition(() => {
+	        window.location.href = link.href;
+	      });
+	      return;
+	    }
+	    effect.classList.add("active");
+	    void effect.offsetWidth;
+	    window.location.href = link.href;
+	  });
+	});
+	</script>
+
+
+
+	
+</body>
