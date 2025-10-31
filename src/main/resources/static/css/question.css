@@ -75,7 +75,14 @@ main.diagnosis {
 .question-text {
   font-size: 1.8rem;
   line-height: 1.6;
-  margin-top: 0.5rem;
+  margin-top: 2.0rem;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: block;          
+  justify-self: center;  
+  align-self: center;  
 }
 
 /* YES / NOボタン */

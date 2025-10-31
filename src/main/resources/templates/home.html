@@ -28,13 +28,15 @@
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
-		<!-- 下中央：出勤する（大ボタン） -->
+		<div class="cta-stack">
+		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診断する</a>
 		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
 		  <div class="img-wrap">
 		  <img class="fx font" src="/images/clear-bag.png" alt="">
 		  <img class="overlay-img" src="/images/lock.png" alt="">
 		  <span class="label font">出勤する</span>
 		</button>
+		</div>
 		
 		<script>
 		  document.querySelectorAll('.btn-briefcase').forEach(btn => {
@@ -53,8 +55,6 @@
             <img th:src="@{${user.character} == 'restaurant' ? '/images/restaurant.png' : '/images/sarari-3.png'}" src="/images/sarari-3.png" alt="キャラクター">
           </div>
         </div>
-		
-		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診断する</a>
 
 		<!-- 右上ハンバーガー -->
 		<details class="hamburger at-tr" aria-label="メニュー">
@@ -113,6 +113,8 @@
       });
     }
     window.addEventListener('pointermove', onMove);
+	
+	
 
   </script>
 </body>
