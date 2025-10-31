@@ -26,19 +26,28 @@ public class QuestionService {
 
         Question prev = repo.findById(prevQuestionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        if (prev.isFinish()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "END");
+        }
 
         Long nextId = (answer == 1) ? prev.getNextYesId() : prev.getNextNoId();
         if (nextId == null) {
             // 分岐終端（結果へ）
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "END");
         }
-
-        return repo.findById(nextId)
-                .map(QuestionDto::from)
+        
+        Question next = repo.findById(nextId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (next.isFinish()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "END");
+        }
+
+        return QuestionDto.from(next);
+        
     }
 
-    /** YES/NO の配点（いまは YES=point, NO=0）。将来 yesPoint/noPoint に差し替え可 */
     public int getPointFor(Long questionId, int answer) {
         Question q = repo.findById(questionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

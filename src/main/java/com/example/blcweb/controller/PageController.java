@@ -155,10 +155,10 @@ public class PageController {
 
         // モード別メッセージ
         String modeMsg = switch (mode) {
-            case "shura"  -> "修羅モード：あなたのブラック耐性は限界突破です。";
-            case "iyashi" -> "癒しモード：心のオアシスが必要です。";
-            case "ai"     -> "AI診断：あなたは隠れブラック体質かもしれません。";
-            default       -> "通常モード：判定完了。";
+            case "shura"  -> "修羅モード";
+            case "iyashi" -> "癒しモード";
+            case "ai"     -> "AI診断";
+            default       -> "通常モード";
         };
 
         // スコア帯メッセージ（DB不使用の固定レンジ版）
@@ -196,6 +196,12 @@ public class PageController {
 
         return "result";
     }
+    
+    @GetMapping("/nework")
+    public String showLinks() {
+        return "nework"; 
+    }
+
 
     @GetMapping("/records")  public String records()  { return "records"; }
     @GetMapping("/titles")   public String titles()   { return "titles"; }

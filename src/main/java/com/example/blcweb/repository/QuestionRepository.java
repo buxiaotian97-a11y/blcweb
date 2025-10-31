@@ -8,4 +8,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
   Optional<Question> findFirstByOrderByIdAsc();
   Optional<Question> findFirstByIsStartTrue();
   Optional<Question> findFirstByIdGreaterThanOrderByIdAsc(Long id);
+  Optional<Question> findFirstByIsStartTrueAndFinishFalse();
+  Optional<Question> findFirstByFinishFalseOrderByIdAsc();
 }
