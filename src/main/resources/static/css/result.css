@@ -12,6 +12,12 @@ body::before {
   z-index: -1;
 }
 
+body.result.bg-office-day::before     { background-image:url("/images/bg-office-day.png"); }
+body.result.bg-office-evening::before { background-image:url("/images/infelno.png"); }
+body.result.bg-office-night::before   { background-image:url("/images/infelno.png"); }
+body.result.bg-hell-prep::before      { background-image:url("/images/infelno.png"); }
+body.result.bg-hell::before           { background-image:url("/images/infelno.png"); }
+
 .scanlines{
   position:absolute; inset:0; pointer-events:none;
   background-image: linear-gradient(to bottom,
