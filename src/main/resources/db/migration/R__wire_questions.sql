@@ -1,8 +1,4 @@
-UPDATE questions SET finish = 1 WHERE code IN (
-  'Q_SUICIDAL',
-  'Q_NEET',
-  'Q_PAID_LEAVE'
-);
+UPDATE questions SET finish = 1 WHERE code IN ('FINISH');
 
 UPDATE questions q SET
   next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_BLACK_FEEL'),
@@ -40,22 +36,22 @@ UPDATE questions q SET
 WHERE q.code='Q_OT_PAY';
 
 UPDATE questions q SET
-  next_yes_id = NULL,
+  next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH'),
   next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_SLEEP')
 WHERE q.code='Q_PAID_LEAVE';
 
 UPDATE questions q SET
   next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_SUICIDAL'),
-  next_no_id  = NULL
+  next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH')
 WHERE q.code='Q_SLEEP';
 
 UPDATE questions q SET
-  next_yes_id = NULL,
-  next_no_id  = NULL
+  next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH'),
+  next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH')
 WHERE q.code='Q_SUICIDAL';
 
 UPDATE questions q SET
-  next_yes_id = NULL,
+  next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH'),
   next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_MINOR')
 WHERE q.code='Q_STUDENT';
 
@@ -75,6 +71,6 @@ UPDATE questions q SET
 WHERE q.code='Q_DISABLED';
 
 UPDATE questions q SET
-  next_yes_id = NULL,
-  next_no_id  = NULL
+  next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH'),
+  next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='FINISH')
 WHERE q.code='Q_NEET';

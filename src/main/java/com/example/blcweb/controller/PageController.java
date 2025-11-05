@@ -181,6 +181,8 @@ public class PageController {
         model.addAttribute("mode", mode);
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
+        model.addAttribute("unlocked", score >= 30);
+        model.addAttribute("backed", backgroundClassFor(score));
 
         // 互換用の別名（もし result.html がこちらを見ているなら）
         model.addAttribute("resultMessage", resultMsg);
@@ -197,9 +199,18 @@ public class PageController {
         return "result";
     }
     
-    @GetMapping("/nework")
-    public String showLinks() {
-        return "nework"; 
+    @GetMapping("/result")
+    public String finishAndShowResult(Model model, HttpSession session) {
+        Integer score = (Integer) session.getAttribute("score");
+        int s = (score != null) ? score : 0;
+
+        boolean unlocked = s >= 30;
+        String backed = backgroundClassFor(s);
+
+        model.addAttribute("score", s);
+        model.addAttribute("unlocked", unlocked);
+        model.addAttribute("backed", backed);
+        return "result";
     }
 
 
@@ -207,7 +218,13 @@ public class PageController {
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
 
-
+    private String backgroundClassFor(int score) {
+        if (score < 200)  return "bg-office-day";
+        if (score < 400)  return "bg-office-evening";
+        if (score < 600)  return "bg-office-night";
+        if (score < 800)  return "bg-hell-prep";
+        return "bg-hell";
+    }
 
     public record UserVM(
         String department, String name, String title,

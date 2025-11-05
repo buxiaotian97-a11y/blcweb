@@ -19,7 +19,7 @@ INSERT INTO trans (code, yes_code, no_code) VALUES
 ('Q_MINOR','Q_CARE','Q_CARE'),
 ('Q_CARE','Q_DISABLED','Q_DISABLED'),
 ('Q_DISABLED','Q_NEET','Q_NEET'),
-('Q_NEET',NULL,NULL);
+('Q_NEET','FINISH','FINISH');
 
 INSERT INTO questions (code, qtext, category, point, active, is_start)
 VALUES
@@ -37,7 +37,8 @@ VALUES
 ('Q_STUDENT','あなたは学生ですか？','profile',-10,1,0),
 ('Q_CARE','身内の介護をしていますか？','profile',-10,1,0),
 ('Q_DISABLED','身体的、精神的要因によって働くことが困難ですか？（公的機関で認められたもの）','profile',-10,1,0),
-('Q_NEET','あなたはニートですね？','profile',-960,1,0)
+('Q_NEET','あなたはニートですね？','profile',-960,1,0),
+('FINISH','質問終了','finish',0,1,0)
 AS new
 ON DUPLICATE KEY UPDATE
   qtext=new.qtext, category=new.category, point=new.point,
