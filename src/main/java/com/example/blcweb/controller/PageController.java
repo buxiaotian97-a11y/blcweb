@@ -104,6 +104,8 @@ public class PageController {
         if (session.getAttribute(ATTR_SCORE) == null) {
             session.setAttribute(ATTR_SCORE, 0);
             session.setAttribute(ATTR_COUNT, 0);
+            session.setAttribute("brightnessLevel", 80);
+            model.addAttribute("brightnessClass", "brightness-80");
         }
 
         // ✅ 最初の1問（分岐対応）
@@ -131,13 +133,24 @@ public class PageController {
         int cnt = ((Integer) session.getAttribute(ATTR_COUNT)) + 1;
         session.setAttribute(ATTR_COUNT, cnt);
 
+        Integer brightness = (Integer) session.getAttribute("brightnessLevel");
+        if (brightness == null) brightness = 100;
+
+        if (answer == 1 && brightness > 50) {   
+            brightness -= 10;
+        } else if (answer == 0 && brightness < 100) { 
+            brightness += 10;
+        }
+
+        session.setAttribute("brightnessLevel", brightness);
+        model.addAttribute("brightnessClass", "brightness-" + brightness);
+        
         // 10問で打ち切り
         if (cnt >= MAX_QUESTIONS) {
             return finishAndShowResult(session, model, mode, score, cnt);
         }
 
         try {
-            // ✅ 分岐して次の質問へ
             var nextQ = questionService.findNext(questionId, answer);
             model.addAttribute("question", nextQ);
             model.addAttribute("remaining", MAX_QUESTIONS - cnt);
@@ -211,6 +224,12 @@ public class PageController {
         model.addAttribute("unlocked", unlocked);
         model.addAttribute("backed", backed);
         return "result";
+    }
+    
+    @GetMapping("/nework")
+    public String showNework(Model model) {
+    	model.addAttribute("nework", "転職サイト");
+    	return "nework";
     }
 
 

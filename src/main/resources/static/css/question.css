@@ -6,6 +6,7 @@ body {
   align-items: center;
   min-height: 100vh;
   font-family: "Noto Sans JP", sans-serif;
+  transition: filter 0.6s ease;
 }
 
 main.diagnosis {
@@ -20,6 +21,13 @@ main.diagnosis {
 	    background: url("/images/white-office.png") center center / cover no-repeat;
 	    z-index: -1; 
 }
+
+body.brightness-100 { filter: brightness(1.0); }
+body.brightness-90  { filter: brightness(0.9); }
+body.brightness-80  { filter: brightness(0.8); }
+body.brightness-70  { filter: brightness(0.7); }
+body.brightness-60  { filter: brightness(0.6); }
+body.brightness-50  { filter: brightness(0.5); }
 
 /* ホワイトボード */
 .board-wrap{
