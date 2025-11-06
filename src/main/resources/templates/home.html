@@ -28,13 +28,13 @@
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
-		<div class="btn-stack">
-		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診断する</a>
-		<button class="btn-briefcase locked" style="--label-top:60%; --label-left:40%;">
+		<div>
+		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診　断</a>
+		<button class="btn-briefcase locked" >
 		  <div class="img-wrap">
 		  <img class="fx font" src="/images/clear-bag.png">
 		  <img class="overlay-img" src="/images/lock.png">
-		  <span class="label font">出勤する</span>
+		  <span class="label font">出　勤</span>
 		  </div>
 		</button>
 		</div>
@@ -53,7 +53,7 @@
         <!-- 中央：キャラクター -->
         <div class="center-char">
           <div class="char font2">
-            <img th:src="@{${user.character} == 'restaurant' ? '/images/restaurant.png' : '/images/sarari-3.png'}" src="/images/sarari-3.png" alt="キャラクター">
+            <img th:src="@{${user.character} == 'restaurant' ? '/images/restaurant.png' : '/images/sarari-men.png'}" src="/images/sarari-men.png" alt="キャラクター">
           </div>
         </div>
 
