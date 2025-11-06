@@ -76,11 +76,19 @@
 
 .home-grid.layout-v2 { position: relative; }
 
+.btn-stack{
+  position: absolute;
+  right: max(24px, 3vw);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
 .btn-briefcase{
   all: unset;
   position: absolute;
   right: max(24px, 3vw);  
-  top: calc(50% + 80px);    
+  top: 100%;    
   left: auto;             
   bottom: auto;       
   transform: none;    
@@ -136,6 +144,23 @@
   left: 50%;
   width: 80px;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.overlay-img-small {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.locked {
+  pointer-events: none; 
+  cursor: not-allowed;
+  filter: grayscale(70%);
+  position: relative;  
 }
 
 .btn-briefcase.disabled .label {
@@ -230,7 +255,7 @@
 .diagnose-btn { 
   position: absolute;
   right: max(24px, 3vw);
-  top: 50%;
+  top: 25% !important;
   transform: translateY(-10%);
   z-index: 2;
 }

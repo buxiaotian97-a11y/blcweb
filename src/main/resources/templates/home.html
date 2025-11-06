@@ -28,13 +28,14 @@
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
-		<div class="cta-stack">
+		<div class="btn-stack">
 		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診断する</a>
-		<button class="btn-briefcase" style="--label-top:60%; --label-left:40%;">
+		<button class="btn-briefcase locked" style="--label-top:60%; --label-left:40%;">
 		  <div class="img-wrap">
-		  <img class="fx font" src="/images/clear-bag.png" alt="">
-		  <img class="overlay-img" src="/images/lock.png" alt="">
+		  <img class="fx font" src="/images/clear-bag.png">
+		  <img class="overlay-img" src="/images/lock.png">
 		  <span class="label font">出勤する</span>
+		  </div>
 		</button>
 		</div>
 		
@@ -63,11 +64,26 @@
 		  </summary>
 
 		  <!-- ここが“真下に”展開される -->
-		  <nav class="list font">
-		    <a href="/stats">📊 記録</a>
-		    <a href="/profile">🪪 キャラクター詳細</a>
-			<a href="/trophy">🏆 称号・アイテム一覧</a>
-		    <a href="/settings">⚙️ 設定</a>
+		  <nav class="list">
+			<a class="locked" href="/status">
+			  <div class="img-wrap">
+			  <img src="/images/lock.png" class="overlay-img-small" />
+			  <span class="font">📊 記録</span>
+			  </div>
+		      </a>
+			<a class="locked" href="/profile">
+			  <div class="img-wrap">
+			  <img src="/images/lock.png" class="overlay-img-small" />
+			  <span class="font">🪪 キャラクター詳細</span>
+			  </div>
+			</a>
+			<a class="locked" href="/trophy">
+			  <div class="img-wrap">
+		      <img src="/images/lock.png" class="overlay-img-small" />
+			  <span class="font">🏆 称号・アイテム一覧</span>
+			  </div>
+			</a>
+		    <a class="font" href="/settings">⚙️ 設定</a>
 		  </nav>
 		</details>
 		
