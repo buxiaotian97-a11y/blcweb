@@ -210,3 +210,64 @@
   margin: 0;          
   flex: 0 0 auto;
 }
+
+/* 隠ボタン */
+.start {
+  position: absolute;
+  top: clamp(65vh, 70vh, 75vh);
+  left: 25%;
+  transform: translateX(-50%);
+  padding: clamp(10px, 2vw, 16px) clamp(28px, 4vw, 48px);
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 700;
+  color: #333 !important;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    text-shadow 0.2s ease,
+    transform 0.2s ease,
+    filter 0.2s ease;
+  filter: blur(0.2px) brightness(0.8);
+  opacity: 0.7;
+}
+
+/* ←カーソルが触れた瞬間に暴発 */
+.start:hover {
+  color: #fff;
+  border-color: #fff;
+  text-shadow:
+    2px 0 4px #fff,
+   -2px 0 4px #fff;
+  filter: brightness(1.6) contrast(1.4);
+  box-shadow:
+    0 0 12px #fff,
+    0 0 24px #fff;
+  animation: startFlash 0.4s steps(2,end);
+}
+
+.start:active {
+  transform: translateX(-50%) scale(0.94);
+  filter: brightness(0.85);
+  box-shadow: 0 0 4px rgba(255,255,255,0.1);
+}
+
+/* hoverでの“バチン！”アニメーション */
+@keyframes startFlash {
+  0%, 100% {
+    text-shadow: none;
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      3px 0 0 #fff,
+     -3px 0 0 #fff,
+      0 2px 0 #fff;
+    filter: brightness(2.8) contrast(3);
+  }
