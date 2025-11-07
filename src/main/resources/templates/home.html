@@ -28,27 +28,14 @@
 		  		  <div class="lv font2">Lv.<span th:text="${user.level}">1</span></div>
         </header>
 		
-		<div>
-		<a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診　断</a>
-		<button class="btn-briefcase locked" >
-		  <div class="img-wrap">
-		  <img class="fx font" src="/images/clear-bag.png">
-		  <img class="overlay-img" src="/images/lock.png">
-		  <span class="label font">出　勤</span>
-		  </div>
-		</button>
+		<div class="rb-actions">
+		  <a class="btn small diagnose-btn font" th:href="@{/mode}" href="/mode">診　断</a>
+		  <div class="img-wrap locked">
+		  <img src="/images/lock.png" class="overlay-img-small" />
+		  <a class="btn small diagnose-btn font" th:href="@{/game}" href="/game">
+			出　勤</a>
+            </div>
 		</div>
-		
-		<script>
-		  document.querySelectorAll('.btn-briefcase').forEach(btn => {
-		    btn.addEventListener('click', () => {
-		      btn.classList.remove('flash');
-		      void btn.offsetWidth;
-		      btn.classList.add('flash');
-		      setTimeout(() => btn.classList.remove('flash'), 1100);
-		    });
-		  });
-		</script>
 
         <!-- 中央：キャラクター -->
         <div class="center-char">
