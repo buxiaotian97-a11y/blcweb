@@ -83,7 +83,7 @@ public class PageController {
     // ========== モード選択画面 ==========
     @GetMapping("/mode")
     public String showModeSelect() {
-        return "mode"; // ← 先頭スラッシュ不要
+        return "mode"; 
     }
 
     @GetMapping("/question")
