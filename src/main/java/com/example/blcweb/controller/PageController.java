@@ -11,20 +11,23 @@ import jakarta.servlet.http.HttpSession;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
+import com.example.blcweb.repository.ResultRepository;
 
 @Controller
 public class PageController {
 
     private final DataSetService dataSetService;
     private final QuestionService questionService; 
+    private final ResultRepository resultRepository; 
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
     private static final int MAX_QUESTIONS = 10;
 
-    public PageController(DataSetService dataSetService, QuestionService questionService) { 
+    public PageController(DataSetService dataSetService, QuestionService questionService, ResultRepository resultRepository) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
+        this.resultRepository = resultRepository;
     }
 
     @GetMapping("/title-page")
@@ -124,7 +127,6 @@ public class PageController {
     ) {
         String mode = (String) session.getAttribute(ATTR_MODE);
 
-        // スコア加算（YES=point/NO=0 仕様）
         int add   = questionService.getPointFor(questionId, answer);
         int score = ((Integer) session.getAttribute(ATTR_SCORE)) + add;
         session.setAttribute(ATTR_SCORE, score);
@@ -156,17 +158,14 @@ public class PageController {
             model.addAttribute("remaining", MAX_QUESTIONS - cnt);
             return "question";
         } catch (org.springframework.web.server.ResponseStatusException e) {
-            // 分岐終端（nextがNULL）に到達
             return finishAndShowResult(session, model, mode, score, cnt);
         }
     }
 
-    // 結果表示（共通）
     private String finishAndShowResult(
             HttpSession session, Model model,
             String mode, int score, int cnt) {
 
-        // モード別メッセージ
         String modeMsg = switch (mode) {
             case "shura"  -> "修羅モード";
             case "iyashi" -> "癒しモード";
@@ -174,19 +173,11 @@ public class PageController {
             default       -> "通常モード";
         };
 
-        // スコア帯メッセージ（DB不使用の固定レンジ版）
-        String resultMsg;
-        if (score == 0)                 resultMsg = "ホワイト";
-        else if (score <= 100)          resultMsg = "まあ普通";
-        else if (score <= 200)          resultMsg = "普通に忙しい";
-        else if (score <= 300)          resultMsg = "ハラスメントする上司いるかな";
-        else if (score <= 400)          resultMsg = "エブリデイ残業";
-        else if (score <= 500)          resultMsg = "休日返上";
-        else if (score <= 600)          resultMsg = "心も体も限界寸前";
-        else if (score <= 700)          resultMsg = "もはや正気では働けない";
-        else if (score <= 800)          resultMsg = "無法地帯";
-        else if (score <= 900)          resultMsg = "人のやることではない";
-        else                            resultMsg = "死寄りの生と死のはざま";
+        String resultMsg = resultRepository.findMessageByScore(score);
+
+     if (resultMsg == null) {
+         resultMsg = "スコア範囲外";
+     }
 
         // 画面表示用
         model.addAttribute("score", score);
@@ -197,12 +188,10 @@ public class PageController {
         model.addAttribute("unlocked", score >= 30);
         model.addAttribute("backed", backgroundClassFor(score));
 
-        // 互換用の別名（もし result.html がこちらを見ているなら）
         model.addAttribute("resultMessage", resultMsg);
         model.addAttribute("finalScore", score);
         model.addAttribute("answeredCount", cnt);
 
-        // セッションクリア（ここでATTR_*も消す）
         session.removeAttribute("currentQuestionId");
         session.removeAttribute("totalScore");
         session.removeAttribute(ATTR_MODE);
@@ -226,6 +215,14 @@ public class PageController {
         return "result";
     }
     
+    private String backgroundClassFor(int score) {
+        if (score < 200)  return "bg-office-day";
+        if (score < 400)  return "bg-office-evening";
+        if (score < 600)  return "bg-office-night";
+        if (score < 800)  return "bg-hell-prep";
+        return "bg-hell";
+    }
+    
     @GetMapping("/nework")
     public String showNework(Model model) {
     	model.addAttribute("nework", "転職サイト");
@@ -236,14 +233,6 @@ public class PageController {
     @GetMapping("/records")  public String records()  { return "records"; }
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
-
-    private String backgroundClassFor(int score) {
-        if (score < 200)  return "bg-office-day";
-        if (score < 400)  return "bg-office-evening";
-        if (score < 600)  return "bg-office-night";
-        if (score < 800)  return "bg-hell-prep";
-        return "bg-hell";
-    }
 
     public record UserVM(
         String department, String name, String title,
