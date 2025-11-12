@@ -3,8 +3,10 @@ package com.example.blcweb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -78,6 +80,18 @@ public class PageController {
         }
         model.addAttribute("list", dataSetService.findAll());
         return "settings";
+    }
+    
+    @PostMapping("/settings")
+    public String saveSettings(@ModelAttribute("form") DataSetForm form,
+                               RedirectAttributes ra) {
+    	
+    	dataSetService.save(form.displayName(), form.departmentName());
+
+        // フラッシュメッセージ（任意）
+        ra.addFlashAttribute("message", "設定を保存しました。");
+
+        return "redirect:/home";
     }
 
     // ========== モード選択画面 ==========
