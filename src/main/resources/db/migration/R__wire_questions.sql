@@ -27,7 +27,7 @@ WHERE q.code='Q_CHANT';
 
 UPDATE questions q SET
   next_yes_id = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_PAID_LEAVE'),
-  next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_OT_PAY')
+  next_no_id  = (SELECT id FROM (SELECT id, code FROM questions) t WHERE t.code='Q_SLEEP')
 WHERE q.code='Q_PAY_MATCH';
 
 UPDATE questions q SET

@@ -15,33 +15,33 @@ INSERT INTO trans (code, yes_code, no_code) VALUES
 ('Q_PAID_LEAVE','FINISH','Q_SLEEP'),
 ('Q_SLEEP','Q_SUICIDAL','FINISH'),
 ('Q_SUICIDAL','FINISH','FINISH'),
-('Q_STUDENT','Q_MINOR','Q_MINOR'),
+('Q_STUDENT','FINISH','Q_MINOR'),
 ('Q_MINOR','Q_CARE','Q_CARE'),
 ('Q_CARE','Q_DISABLED','Q_DISABLED'),
 ('Q_DISABLED','Q_NEET','Q_NEET'),
 ('Q_NEET','FINISH','FINISH');
 
-INSERT INTO questions (code, qtext, category, point, active, is_start)
+INSERT INTO questions (code, qtext, category, yes_point, no_point, active, is_start)
 VALUES
-('Q_WORKING','働いていますか？','workstyle',50,1,1),
-('Q_BLACK_FEEL','あなたは自身の職場をブラックだと感じたことはありますか？','workstyle',100,1,0),
-('Q_OVERTIME','残業は月に80時間を超えることがありますか？','workstyle',100,1,0),
-('Q_BOSS_MOOD','上司の機嫌で評価が決まりますか？','workstyle',100,1,0),
-('Q_CHANT','社訓を毎朝大声で唱和しますか？','workstyle',50,1,0),
-('Q_PAY_MATCH','労働に対して見合った給料を受け取っていますか？','money',100,1,0),
-('Q_SLEEP','仕事が原因で睡眠時間は3時間未満ですか？','lifestyle',100,1,0),
-('Q_OT_PAY','残業代は支給されますか？','money',100,1,0),
-('Q_PAID_LEAVE','有給は使うことはできますか？','money',100,1,0),
-('Q_SUICIDAL','仕事のことで死にたくなることがありますか？','lifestyle',200,1,0),
-('Q_MINOR','あなたは未成年ですか？','profile',-10,1,0),
-('Q_STUDENT','あなたは学生ですか？','profile',-10,1,0),
-('Q_CARE','身内の介護をしていますか？','profile',-10,1,0),
-('Q_DISABLED','身体的、精神的要因によって働くことが困難ですか？（公的機関で認められたもの）','profile',-10,1,0),
-('Q_NEET','あなたはニートですね？','profile',-960,1,0),
-('FINISH','質問終了','finish',0,1,0)
-AS new
+('Q_WORKING','働いていますか？','workstyle',50,-100,1,1),
+('Q_BLACK_FEEL','あなたは自身の職場をブラックだと感じたことはありますか？','workstyle',100,0,1,0),
+('Q_OVERTIME','残業は月に80時間を超えることがありますか？','workstyle',100,0,1,0),
+('Q_BOSS_MOOD','上司の機嫌で評価が決まりますか？','workstyle',100,0,1,0),
+('Q_CHANT','社訓を毎朝大声で唱和しますか？','workstyle',50,0,1,0),
+('Q_PAY_MATCH','労働に対して見合った給料を受け取っていますか？','money',100,0,1,0),
+('Q_SLEEP','仕事が原因で睡眠時間は3時間未満ですか？','lifestyle',100,0,1,0),
+('Q_OT_PAY','残業代は支給されますか？','money',100,0,1,0),
+('Q_PAID_LEAVE','有給は使うことはできますか？','money',100,0,1,0),
+('Q_SUICIDAL','仕事のことで死にたくなることがありますか？','lifestyle',200,0,1,0),
+('Q_MINOR','あなたは未成年ですか？','profile',-10,0,1,0),
+('Q_STUDENT','あなたは学生ですか？','profile',90,-10,1,0),
+('Q_CARE','身内の介護をしていますか？','profile',-10,0,1,0),
+('Q_DISABLED','身体的、精神的要因によって働くことが困難ですか？（公的機関で認められたもの）','profile',-10,0,1,0),
+('Q_NEET','あなたはニートですね？','profile',-960,0,1,0),
+('FINISH','質問終了','finish',0,0,1,0)
+As new
 ON DUPLICATE KEY UPDATE
-  qtext=new.qtext, category=new.category, point=new.point,
+  qtext=new.qtext, category=new.category, yes_point=new.yes_point, no_point=new.no_point,
   active=new.active, is_start=new.is_start;
 
 UPDATE questions q

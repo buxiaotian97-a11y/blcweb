@@ -17,20 +17,33 @@ code VARCHAR(20) NOT NULL UNIQUE,
 name VARCHAR(20) NOT NULL												
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;												
 												
-CREATE TABLE IF NOT EXISTS questions (												
-id BIGINT AUTO_INCREMENT PRIMARY KEY,
-code VARCHAR(50) NOT NULL,											
-qtext VARCHAR(500) NOT NULL,												
-point INT NOT NULL,		
-next_yes_id BIGINT NULL,
-next_no_id  BIGINT NULL,										
-category VARCHAR(10) NULL,												
-active TINYINT(1) NOT NULL DEFAULT 1,
-is_start TINYINT(1) NOT NULL DEFAULT 0,	
-CONSTRAINT uq_questions_code UNIQUE (code), 	
-CONSTRAINT fk_questions_yes FOREIGN KEY (next_yes_id) REFERENCES questions(id) ON DELETE SET NULL,
-CONSTRAINT fk_questions_no  FOREIGN KEY (next_no_id)  REFERENCES questions(id) ON DELETE SET NULL										
+CREATE TABLE IF NOT EXISTS questions (
+  id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+  code         VARCHAR(50)   NOT NULL,
+  qtext        VARCHAR(500)  NOT NULL,
+
+  yes_point    INT NOT NULL DEFAULT 0,
+  no_point     INT NOT NULL DEFAULT 0,
+
+  next_yes_id  BIGINT NULL,
+  next_no_id   BIGINT NULL,
+
+  category     VARCHAR(50) NULL,
+  active       TINYINT(1) NOT NULL DEFAULT 1,
+  is_start     TINYINT(1) NOT NULL DEFAULT 0,
+  finish       TINYINT(1) NOT NULL DEFAULT 0,
+
+  CONSTRAINT uq_questions_code UNIQUE (code),
+  CONSTRAINT fk_questions_yes FOREIGN KEY (next_yes_id)
+    REFERENCES questions(id) ON DELETE SET NULL,
+  CONSTRAINT fk_questions_no  FOREIGN KEY (next_no_id)
+    REFERENCES questions(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE INDEX idx_questions_next_yes_id ON questions(next_yes_id);
+CREATE INDEX idx_questions_next_no_id  ON questions(next_no_id);
+CREATE INDEX idx_questions_is_start    ON questions(is_start);
+CREATE INDEX idx_questions_active      ON questions(active);
 
 CREATE TABLE IF NOT EXISTS scores (												
 id BIGINT AUTO_INCREMENT PRIMARY KEY,												

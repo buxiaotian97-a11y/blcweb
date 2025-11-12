@@ -20,5 +20,6 @@ INSERT INTO results (min_score, max_score, message) VALUES
 (801, 900, 'ここに居続けたら、心も体も壊れる。\n今すぐ離れろ。命が一番大事だ。'),
 (901, 1000, 'もう働く場所じゃない。\n今すぐ逃げて、生き延びろ。\nここにいる限り、何も残らない。'),
 (1001, 1001, 'ほんとに……？\nここに辿り着く人はいない予定だったんだけど。\nとりあえず、たどり着いたあなたに言えることは一つ。\n――逃げろ。')
+AS new
 ON DUPLICATE KEY UPDATE
   message = VALUES(message);
