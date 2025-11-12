@@ -15,25 +15,25 @@
     <section class="panel" aria-labelledby="settings-title">
     <div class="scanlines" aria-hidden="true"></div>
 	<div class="flicker-bg"></div>
-      <h1 id="settings-title" class=" font ">Setting</h1>
+      <h1 id="settings-title" class=" font2 ">Setting</h1>
 
       <form th:action="@{/dataset}" th:object="${form}" method="post" class="form">
 
         <!-- 名前 -->
         <label class="row">
-          <span class="label font">名前</span>
+          <span class="label font2">名前</span>
           <input type="text" th:field="*{displayName}" placeholder="例）石黒　雄三" required />
         </label>
 
         <!-- 事業部 -->
         <label class="row">
-          <span class="label font">事業部</span>
+          <span class="label font2">事業部</span>
           <input id="dept" th:field="*{departmentName}" type="text" value="営業部" />
         </label>
 
         <!-- 称号通知 -->
         <div class="row">
-          <span class="label font">称号通知</span>
+          <span class="label font2">称号通知</span>
           <label class="switch">
             <input type="checkbox" th:field="*{notifyTitle}"/>
             <i aria-hidden="true"></i>
@@ -41,8 +41,8 @@
         </div>
 
         <div class="mode-actions">
-		  <a href="/home" class="btn font">戻る</a>
-          <button type="submit" class="btn save font">保存</button>
+		  <a href="/home" class="btn font2">戻る</a>
+          <button type="submit" class="btn save font2">保存</button>
         </div>
       </form>
 
