@@ -3,6 +3,7 @@ package com.example.blcweb.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.example.blcweb.dto.QuestionDto;
 import com.example.blcweb.entity.Question;
 import com.example.blcweb.repository.QuestionRepository;
@@ -51,8 +52,10 @@ public class QuestionService {
     public int getPointFor(Long questionId, int answer) {
         Question q = repo.findById(questionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        Integer p = q.getPoint();
-        return (answer == 1) ? (p != null ? p : 0) : 0;
+
+        return (answer == 1)
+                ? q.getYesPoint()
+                : q.getNoPoint();
     }
 
     /** 既存互換（直列進行）。使わないなら消してOK */

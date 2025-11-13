@@ -1,8 +1,10 @@
+DROP TEMPORARY TABLE IF EXISTS trans;
+
 CREATE TEMPORARY TABLE trans (
-  code     VARCHAR(50) PRIMARY KEY,
-  yes_code VARCHAR(50),
-  no_code  VARCHAR(50)
-);
+  code     VARCHAR(50) COLLATE utf8mb4_0900_ai_ci PRIMARY KEY,
+  yes_code VARCHAR(50) COLLATE utf8mb4_0900_ai_ci,
+  no_code  VARCHAR(50) COLLATE utf8mb4_0900_ai_ci
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 INSERT INTO trans (code, yes_code, no_code) VALUES
 ('Q_WORKING','Q_BLACK_FEEL','Q_STUDENT'),

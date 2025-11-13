@@ -1,6 +1,11 @@
 package com.example.blcweb.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "questions")
@@ -21,7 +26,10 @@ public class Question {
   private String category;
 
   @Column(nullable = false)
-  private int point;
+  private int yes_point;
+  
+  @Column(nullable = false)
+  private int no_point;
 
   @Column(nullable = false)
   private boolean active = true;
@@ -47,7 +55,8 @@ public class Question {
   public String getCode() { return code; }
   public String getQtext() { return qtext; }
   public String getCategory() { return category; }
-  public int getPoint() { return point; }
+  public int getYesPoint() { return yes_point; }
+  public int getNoPoint() { return no_point; }
   public boolean isActive() { return active; }
   public Long getNextYesId() { return nextYesId; }
   public Long getNextNoId() { return nextNoId; }
@@ -56,7 +65,8 @@ public class Question {
   public void setCode(String code) { this.code = code; }
   public void setQtext(String qtext) { this.qtext = qtext; }
   public void setCategory(String category) { this.category = category; }
-  public void setPoint(int point) { this.point = point; }
+  public void setYesPoint(int yesPoint) { this.yes_point = yesPoint; }
+  public void setNoPoint(int noPoint) { this.no_point = noPoint; }
   public void setActive(boolean active) { this.active = active; }
   public void setNextYesId(Long nextYesId) { this.nextYesId = nextYesId; }
   public void setNextNoId(Long nextNoId) { this.nextNoId = nextNoId; }

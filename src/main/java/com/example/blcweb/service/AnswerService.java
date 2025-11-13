@@ -3,9 +3,13 @@ package com.example.blcweb.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.blcweb.dto.*;
+
+import com.example.blcweb.dto.AnswerRequest;
+import com.example.blcweb.dto.NextQuestionResponse;
+import com.example.blcweb.dto.QuestionDto;
 import com.example.blcweb.entity.Answer;
-import com.example.blcweb.repository.*;
+import com.example.blcweb.repository.AnswerRepository;
+import com.example.blcweb.repository.QuestionRepository;
 
 @Service
 public class AnswerService {
@@ -20,7 +24,10 @@ public class AnswerService {
     var q = qRepo.findById(req.questionId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "question not found"));
 
-    int granted = req.answer() ? q.getPoint() : 0;
+    int granted = req.answer()
+    	    ? q.getYesPoint()
+    	    : q.getNoPoint();
+    
     aRepo.save(new Answer(req.runId(), q.getId(), req.answer(), granted));
 
     var next = qRepo.findFirstByIdGreaterThanOrderByIdAsc(q.getId()).orElse(null);
