@@ -48,7 +48,7 @@ public class Question {
   @Column(name = "finish", nullable = false)
   private boolean finish;
 
-  protected Question() {} // JPA用デフォルトコンストラクタ
+  public Question() {} // JPA用デフォルトコンストラクタ
 
   // --- getters ---
   public Long getId() { return id; }
