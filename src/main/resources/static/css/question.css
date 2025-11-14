@@ -81,7 +81,6 @@ body.brightness-50  { filter: brightness(0.5); }
 .question-text {
   font-size: 1.8rem;
   line-height: 1.6;
-<<<<<<< HEAD
   margin-top: 2.0rem;
   max-width: 70%;
   margin-left: auto;
@@ -94,7 +93,7 @@ body.brightness-50  { filter: brightness(0.5); }
 
 /* YES / NOボタン */
 .answer-buttons {
-  margin-top: 35vh;
+  margin-top: 10vh;
   display: flex;
   justify-content: center;
   gap: 2rem;
