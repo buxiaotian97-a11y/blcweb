@@ -121,7 +121,7 @@ public class PageController {
     @PostMapping("/question")
     public String answer(
         @RequestParam Long questionId,
-        @RequestParam int answer, // YES=1 / NO=0
+        @RequestParam int answer, 
         HttpSession session,
         Model model
     ) {
@@ -130,10 +130,6 @@ public class PageController {
         int add   = questionService.getPointFor(questionId, answer);
         int score = ((Integer) session.getAttribute(ATTR_SCORE)) + add;
         session.setAttribute(ATTR_SCORE, score);
-
-        // 回答数カウント
-        int cnt = ((Integer) session.getAttribute(ATTR_COUNT)) + 1;
-        session.setAttribute(ATTR_COUNT, cnt);
 
         Integer brightness = (Integer) session.getAttribute("brightnessLevel");
         if (brightness == null) brightness = 100;
@@ -146,25 +142,21 @@ public class PageController {
 
         session.setAttribute("brightnessLevel", brightness);
         model.addAttribute("brightnessClass", "brightness-" + brightness);
-        
-        // 10問で打ち切り
-        if (cnt >= MAX_QUESTIONS) {
-            return finishAndShowResult(session, model, mode, score, cnt);
-        }
+
 
         try {
             var nextQ = questionService.findNext(questionId, answer);
             model.addAttribute("question", nextQ);
-            model.addAttribute("remaining", MAX_QUESTIONS - cnt);
+            model.addAttribute("remaining", MAX_QUESTIONS);
             return "question";
         } catch (org.springframework.web.server.ResponseStatusException e) {
-            return finishAndShowResult(session, model, mode, score, cnt);
+            return finishAndShowResult(session, model, mode, score);
         }
     }
 
     private String finishAndShowResult(
             HttpSession session, Model model,
-            String mode, int score, int cnt) {
+            String mode, int score) {
 
         String modeMsg = switch (mode) {
             case "shura"  -> "修羅モード";
@@ -181,7 +173,6 @@ public class PageController {
 
         // 画面表示用
         model.addAttribute("score", score);
-        model.addAttribute("count", cnt);
         model.addAttribute("mode", mode);
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
@@ -190,7 +181,6 @@ public class PageController {
 
         model.addAttribute("resultMessage", resultMsg);
         model.addAttribute("finalScore", score);
-        model.addAttribute("answeredCount", cnt);
 
         session.removeAttribute("currentQuestionId");
         session.removeAttribute("totalScore");
