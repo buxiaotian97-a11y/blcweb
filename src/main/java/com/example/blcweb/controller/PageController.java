@@ -1,17 +1,17 @@
 package com.example.blcweb.controller;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpSession;
-
 import com.example.blcweb.form.DataSetForm;
+import com.example.blcweb.repository.ResultRepository;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
-import com.example.blcweb.repository.ResultRepository;
 
 @Controller
 public class PageController {
@@ -120,14 +120,15 @@ public class PageController {
 
     @PostMapping("/question")
     public String answer(
-        @RequestParam Long questionId,
+        @RequestParam String questionCode,
         @RequestParam int answer, 
         HttpSession session,
         Model model
     ) {
         String mode = (String) session.getAttribute(ATTR_MODE);
 
-        int add   = questionService.getPointFor(questionId, answer);
+        int add = questionService.getPointForCode(questionCode, answer);
+
         int score = ((Integer) session.getAttribute(ATTR_SCORE)) + add;
         session.setAttribute(ATTR_SCORE, score);
 
@@ -145,7 +146,7 @@ public class PageController {
 
 
         try {
-            var nextQ = questionService.findNext(questionId, answer);
+            var nextQ = questionService.findNext(questionCode, answer);
             model.addAttribute("question", nextQ);
             model.addAttribute("remaining", MAX_QUESTIONS);
             return "question";

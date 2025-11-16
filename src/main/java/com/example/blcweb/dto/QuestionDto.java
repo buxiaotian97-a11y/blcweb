@@ -3,21 +3,37 @@ package com.example.blcweb.dto;
 import com.example.blcweb.entity.Question;
 
 public class QuestionDto {
-  private Long id;
-  private String qtext;
-  private String category;
-  private int yes_point;
-  private int no_point;
+    private Long id;
+    private String code;
+    private String qtext;
+    private String category;
+    private int yespoint;
+    private int nopoint;
 
-  public QuestionDto(Long id, String qtext, String category, int yes_point, int no_point) {
-    this.id = id; this.qtext = qtext; this.category = category; this.yes_point = yes_point; this.no_point = no_point;
-  }
-  public static QuestionDto from(Question q){
-    return new QuestionDto(q.getId(), q.getQtext(), q.getCategory(), q.getYesPoint(), q.getNoPoint());
-  }
-  public Long getId(){ return id; }
-  public String getQtext(){ return qtext; }
-  public String getCategory(){ return category; }
-  public int getYes_Point(){ return yes_point; }
-  public int getNo_Point(){ return no_point; }
+    public QuestionDto(Long id, String code, String qtext, String category, int yes_point, int no_point) {
+        this.id = id;
+        this.code = code;
+        this.qtext = qtext;
+        this.category = category;
+        this.yespoint = yes_point;
+        this.nopoint = no_point;
+    }
+
+    public static QuestionDto from(Question q){
+        return new QuestionDto(
+            q.getId(),
+            q.getCode(),      
+            q.getQtext(),
+            q.getCategory(),
+            q.getYesPoint(),
+            q.getNoPoint()
+        );
+    }
+
+    public Long getId(){ return id; }
+    public String getCode(){ return code; }      
+    public String getQtext(){ return qtext; }
+    public String getCategory(){ return category; }
+    public int getYesPoint(){ return yespoint; }
+    public int getNoPoint(){ return nopoint; }
 }

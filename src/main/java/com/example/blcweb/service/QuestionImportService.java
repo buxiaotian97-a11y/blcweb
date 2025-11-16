@@ -2,6 +2,8 @@ package com.example.blcweb.service;
 
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,12 @@ public class QuestionImportService {
         this.sheetsService = sheetsService;
         this.questionRepository = questionRepository;
     }
+    
+    @PostConstruct
+    public void init() {
+        syncFromSheets();
+    }
+
 
     @Transactional
     public void syncFromSheets() {
@@ -40,8 +48,8 @@ public class QuestionImportService {
             q.setCategory(r.category());
             q.setYesPoint(r.yesPoint());
             q.setNoPoint(r.noPoint());
-            q.setNextYesId(r.nextYesId());
-            q.setNextNoId(r.nextNoId());
+            q.setNextYesStr(r.nextYesStr());
+            q.setNextNoStr(r.nextNoStr());
             q.setStart(r.isStart());
             q.setFinish(r.finish());
 

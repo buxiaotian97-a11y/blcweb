@@ -21,24 +21,24 @@ public class QuestionService {
                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    /** 分岐して次の質問（YES=1 / NO=0）。prevId=null なら最初の1問。 */
-    public QuestionDto findNext(Long prevQuestionId, int answer) {
-        if (prevQuestionId == null) return findFirst();
+    public QuestionDto findNext(String prevCode, int answer) {
+        if (prevCode == null) return findFirst();
 
-        Question prev = repo.findById(prevQuestionId)
+        Question prev = repo.findByCode(prevCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        
+
         if (prev.isFinish()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "END");
         }
 
-        Long nextId = (answer == 1) ? prev.getNextYesId() : prev.getNextNoId();
-        if (nextId == null) {
+        // ★ コードで遷移
+        String nextCode = (answer == 1) ? prev.getNextYesStr() : prev.getNextNoStr();
+        if (nextCode == null || nextCode.isBlank()) {
             // 分岐終端（結果へ）
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "END");
         }
-        
-        Question next = repo.findById(nextId)
+
+        Question next = repo.findByCode(nextCode)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (next.isFinish()) {
@@ -46,8 +46,8 @@ public class QuestionService {
         }
 
         return QuestionDto.from(next);
-        
     }
+
 
     public int getPointFor(Long questionId, int answer) {
         Question q = repo.findById(questionId)
@@ -72,4 +72,14 @@ public class QuestionService {
             .map(QuestionDto::from)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    
+    public int getPointForCode(String code, int answer) {
+        Question q = repo.findByCode(code)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return (answer == 1)
+            ? q.getYesPoint()
+            : q.getNoPoint();
+    }
+
 }

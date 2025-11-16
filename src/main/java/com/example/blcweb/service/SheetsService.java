@@ -9,11 +9,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.blcweb.dto.QuestionRow;
-
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -51,9 +49,7 @@ public class SheetsService {
 
     /** questions シートの内容を QuestionRow のリストとして読み込む */
     public List<QuestionRow> readQuestions() {
-
         try {
-            // "questions" というシート名の A～I 列を取得（ヘッダ行あり前提）
             ValueRange vr = sheets.spreadsheets().values()
                     .get(SHEET_ID, "questions!A:I")
                     .execute();
@@ -64,7 +60,6 @@ public class SheetsService {
                 return list; // データなし
             }
 
-            // 先頭行はヘッダなので skip(1)
             for (List<Object> row : values.subList(1, values.size())) {
 
                 String code      = getCell(row, 0);
@@ -72,8 +67,11 @@ public class SheetsService {
                 String category  = getCell(row, 2);
                 int yesPoint     = parseInt(getCell(row, 3));
                 int noPoint      = parseInt(getCell(row, 4));
-                Long nextYesId   = parseLong(getCell(row, 5));
-                Long nextNoId    = parseLong(getCell(row, 6));
+
+                // ★ ここはそのまま文字列で保持
+                String nextYesStr = getCell(row, 5);
+                String nextNoStr  = getCell(row, 6); 
+                
                 boolean isStart  = parseBoolean(getCell(row, 7));
                 boolean finish   = parseBoolean(getCell(row, 8));
 
@@ -83,8 +81,8 @@ public class SheetsService {
                         category,
                         yesPoint,
                         noPoint,
-                        nextYesId,
-                        nextNoId,
+                        nextYesStr,
+                        nextNoStr,
                         isStart,
                         finish
                 ));
@@ -93,12 +91,9 @@ public class SheetsService {
             return list;
 
         } catch (IOException e) {
-            // 呼び出し側が楽になるように RuntimeException に包んで投げる
             throw new RuntimeException("Failed to read questions from Sheets", e);
         }
     }
-
-    // ====== ヘルパー ======
 
     private String getCell(List<Object> row, int index) {
         if (index >= row.size()) return "";
@@ -111,13 +106,9 @@ public class SheetsService {
         return Integer.parseInt(s);
     }
 
-    private Long parseLong(String s) {
-        if (s == null || s.isBlank()) return null;
-        return Long.parseLong(s);
-    }
-
     private boolean parseBoolean(String s) {
         if (s == null || s.isBlank()) return false;
         return Boolean.parseBoolean(s);
     }
+
 }

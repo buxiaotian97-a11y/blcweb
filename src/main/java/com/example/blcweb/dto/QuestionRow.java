@@ -6,8 +6,8 @@ public record QuestionRow(
     String category,
     int yesPoint,
     int noPoint,
-    Long nextYesId,
-    Long nextNoId,
+    String nextYesStr,
+    String nextNoStr,
     boolean isStart,
     boolean finish
 ) {}

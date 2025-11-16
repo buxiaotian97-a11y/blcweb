@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS questions (
   yes_point    INT NOT NULL DEFAULT 0,
   no_point     INT NOT NULL DEFAULT 0,
 
-  next_yes_id  BIGINT NULL,
-  next_no_id   BIGINT NULL,
+  next_yes_str VARCHAR(50) NULL,
+  next_no_str  VARCHAR(50) NULL,
 
   category     VARCHAR(50) NULL,
   active       TINYINT(1) NOT NULL DEFAULT 1,
@@ -34,16 +34,12 @@ CREATE TABLE IF NOT EXISTS questions (
   finish       TINYINT(1) NOT NULL DEFAULT 0,
 
   CONSTRAINT uq_questions_code UNIQUE (code),
-  CONSTRAINT fk_questions_yes FOREIGN KEY (next_yes_id)
-    REFERENCES questions(id) ON DELETE SET NULL,
-  CONSTRAINT fk_questions_no  FOREIGN KEY (next_no_id)
-    REFERENCES questions(id) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE INDEX idx_questions_next_yes_id ON questions(next_yes_id);
-CREATE INDEX idx_questions_next_no_id  ON questions(next_no_id);
-CREATE INDEX idx_questions_is_start    ON questions(is_start);
-CREATE INDEX idx_questions_active      ON questions(active);
+  INDEX idx_questions_next_yes_str (next_yes_str),
+  INDEX idx_questions_next_no_str  (next_no_str),
+  INDEX idx_questions_is_start     (is_start),
+  INDEX idx_questions_active       (active)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS scores (												
 id BIGINT AUTO_INCREMENT PRIMARY KEY,												
@@ -53,8 +49,8 @@ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT fk_scores_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE												
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;		
 
-CREATE INDEX idx_questions_next_yes ON questions (next_yes_id);
-CREATE INDEX idx_questions_next_no  ON questions (next_no_id);
+CREATE INDEX idx_questions_next_yes ON questions (next_yes_str);
+CREATE INDEX idx_questions_next_no  ON questions (next_no_str);
 CREATE INDEX idx_questions_active_cat ON questions (active, category);
 CREATE INDEX idx_scores_user_created ON scores (user_id, created_at);
 

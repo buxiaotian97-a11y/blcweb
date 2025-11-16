@@ -2,7 +2,11 @@ package com.example.blcweb.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.blcweb.dto.QuestionDto;
@@ -17,7 +21,7 @@ public class QuestionController {
 
     @GetMapping("/next")
     public ResponseEntity<?> next(
-            @RequestParam(required = false) Long after,
+            @RequestParam(required = false) String after,
             @RequestParam(defaultValue = "1") int answer
     ) {
         // 0/1以外は 400
