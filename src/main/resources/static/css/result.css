@@ -48,6 +48,7 @@ body.result.bg-hell::before           { background-image:url("/images/infelno.pn
 }
 
 .result-bubble {
+  margin-top: 5em;
   background: #fff;       
   backdrop-filter: none; 
   color: #111;
