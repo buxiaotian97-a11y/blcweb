@@ -16,16 +16,18 @@
 		<div class="question-content">
           <p class="question-no">Q<span th:text="${question.code}">Q_001</span></p>
           <p class="question-text" th:text="${question.qtext}"></p>
-        </div>
-	  </div>
-	</div>
-
+       
     <!-- YES / NOボタン -->
 	<form th:action="@{/question}" method="post" class="answer-buttons">
 	      <input type="hidden" name="questionCode" th:value="${question.code}" />
 	      <button type="submit" name="answer" value="1" class="btn-yes">YES</button>
 	      <button type="submit" name="answer" value="0" class="btn-no">NO</button>
 	    </form>
+		
+		</div>
+			  </div>
+			</div>
+
 
   </main>
 </body>

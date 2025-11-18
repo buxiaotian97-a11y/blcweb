@@ -93,7 +93,10 @@ body.brightness-50  { filter: brightness(0.5); }
 
 /* YES / NOボタン */
 .answer-buttons {
-  margin-top: 10vh;
+  position: absolute;
+  left: 50%;
+  bottom: 8%;               
+  transform: translateX(-50%);     
   display: flex;
   justify-content: center;
   gap: 2rem;
