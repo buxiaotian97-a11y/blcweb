@@ -180,6 +180,9 @@ public class PageController {
      }
      
      boolean unlocked = (score >= 251) || (score == -200) || (score == -350) || (score == -400);
+     
+     boolean specialMode = (score == -20000) || (score == -10000);
+     boolean showNormalButtons = !specialMode;
 
         // 画面表示用
         model.addAttribute("score", score);
@@ -189,6 +192,8 @@ public class PageController {
         model.addAttribute("resultMsg", resultMsg);
         model.addAttribute("unlocked", unlocked);
         model.addAttribute("backed", backgroundClassFor(score));
+        model.addAttribute("specialMode", specialMode);
+        model.addAttribute("showNormalButtons", showNormalButtons);
 
         model.addAttribute("resultMessage", resultMsg);
         model.addAttribute("finalScore", score);
