@@ -178,6 +178,8 @@ public class PageController {
      if (resultMsg == null) {
          resultMsg = "スコア範囲外";
      }
+     
+     boolean unlocked = (score >= 251) || (score == -200) || (score == -350) || (score == -400);
 
         // 画面表示用
         model.addAttribute("score", score);
@@ -185,7 +187,7 @@ public class PageController {
         model.addAttribute("mode", mode);
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
-        model.addAttribute("unlocked", score >= 30);
+        model.addAttribute("unlocked", unlocked);
         model.addAttribute("backed", backgroundClassFor(score));
 
         model.addAttribute("resultMessage", resultMsg);
@@ -198,20 +200,6 @@ public class PageController {
         session.removeAttribute(ATTR_SCORE);
         session.removeAttribute(ATTR_COUNT);
 
-        return "result";
-    }
-    
-    @GetMapping("/result")
-    public String finishAndShowResult(Model model, HttpSession session) {
-        Integer score = (Integer) session.getAttribute("score");
-        int s = (score != null) ? score : 0;
-
-        boolean unlocked = s >= 30;
-        String backed = backgroundClassFor(s);
-
-        model.addAttribute("score", s);
-        model.addAttribute("unlocked", unlocked);
-        model.addAttribute("backed", backed);
         return "result";
     }
     

@@ -6,7 +6,7 @@ import com.example.blcweb.dto.NextQuestionResponse;
 import com.example.blcweb.service.AnswerService;
 
 @RestController
-@RequestMapping("/api/answers") // ★URLはこれ
+@RequestMapping("/api/answers") 
 public class AnswerController {
   private final AnswerService service;
   public AnswerController(AnswerService service){ this.service = service; }
