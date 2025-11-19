@@ -12,11 +12,28 @@ body::before {
   z-index: -1;
 }
 
-body.result.bg-office-day::before     { background-image:url("/images/bg-office-day.png"); }
-body.result.bg-office-evening::before { background-image:url("/images/infelno.png"); }
-body.result.bg-office-night::before   { background-image:url("/images/infelno.png"); }
-body.result.bg-hell-prep::before      { background-image:url("/images/infelno.png"); }
-body.result.bg-hell::before           { background-image:url("/images/infelno.png"); }
+body.result.bg-office::before { background-image:url("/images/bg-office"); }
+body.result.bg-office2::before { background-image:url("/images/bg-office2"); }
+body.result.bg-office3::before { background-image:url("/images/bg-office3"); }
+body.result.bg-office4::before { background-image:url("/images/bg-office4"); }
+body.result.bg-office5::before { background-image:url("/images/bg-office5"); }
+body.result.bg-office6::before { background-image:url("/images/bg-office6"); }
+body.result.bg-office7::before { background-image:url("/images/bg-office7"); }
+body.result.bg-office8::before { background-image:url("/images/bg-office8"); }
+body.result.bg-office9::before { background-image:url("/images/bg-office9"); }
+body.result.bg-office10::before { background-image:url("/images/bg-office10"); }
+body.result.bg-office11::before { background-image:url("/images/bg-office11"); }
+body.result.bg-student::before { background-image:url("/images/bg-student.png"); }
+body.result.bg-childcare::before { background-image:url("/images/bg-childcare"); }
+body.result.bg-homeworker::before { background-image:url("/images/bg-homeworker"); }
+body.result.bg-subworker::before { background-image:url("/images/bg-subworker"); }
+body.result.bg-care::before { background-image:url("/images/bg-care"); }
+body.result.bg-careout::before { background-image:url("/images/bg-careout"); }
+body.result.bg-finish::before { background-image:url("/images/bg-finish"); }
+body.result.bg-goodneet::before { background-image:url("/images/goodneet"); }
+body.result.bg-badneet::before { background-image:url("/images/badneet"); }
+body.result.bg-childroomj::before { background-image:url("/images/bg-childroomj"); }
+
 
 .scanlines{
   position:absolute; inset:0; pointer-events:none;

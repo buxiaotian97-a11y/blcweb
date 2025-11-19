@@ -209,10 +209,28 @@ public class PageController {
     }
     
     private String backgroundClassFor(int score) {
-        if (score < 200)  return "bg-office-day";
-        if (score < 400)  return "bg-office-evening";
-        if (score < 600)  return "bg-office-night";
-        if (score < 800)  return "bg-hell-prep";
+        if (score == -20000)  return "bg-childroomj";
+        if (score == -10000)  return "bg-badneet";
+        if (score == -400)  return "bg-goodneet";
+        if (score == -350)  return "bg-finish";
+        if (score == -300)  return "bg-careout";
+        if (score == -250)  return "bg-care";
+        if (score == -200)  return "bg-subworker";
+        if (score == -150)  return "bg-homeworker";
+        if (score == -100)  return "bg-childcare";
+        if (score == -50)  return "bg-student";
+        if (score >= 0 && score <= 10)  return "bg-office";
+        if (score >= 11 && score <= 50)  return "bg-office2";
+        if (score >= 51 && score <= 100)  return "bg-office3";
+        if (score >= 101 && score <= 250)  return "bg-office4";
+        if (score >= 251 && score <= 400)  return "bg-office5";
+        if (score >= 401 && score <= 500)  return "bg-office6";
+        if (score >= 501 && score <= 600)  return "bg-office7";
+        if (score >= 601 && score <= 700)  return "bg-office8";
+        if (score >= 701 && score <= 800)  return "bg-office9";
+        if (score >= 801 && score <= 900)  return "bg-office10";
+        if (score >= 901 && score <= 1000)  return "bg-office11";
+        if (score == 1001)  return "";
         return "bg-hell";
     }
     
