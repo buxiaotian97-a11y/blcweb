@@ -23,7 +23,7 @@ INSERT INTO trans (code, yes_code, no_code) VALUES
 
 INSERT INTO questions (code, qtext, category, point, active, is_start)
 VALUES
-('Q_WORKING','働いていますか？','workstyle',50,1,1),
+('Q_WORKING','働いていますか？','workstyle',-10000,1,1),
 ('Q_BLACK_FEEL','あなたは自身の職場をブラックだと感じたことはありますか？','workstyle',100,1,0),
 ('Q_OVERTIME','残業は月に80時間を超えることがありますか？','workstyle',100,1,0),
 ('Q_BOSS_MOOD','上司の機嫌で評価が決まりますか？','workstyle',100,1,0),
