@@ -6,7 +6,7 @@
   <title>新たな道へ（転職サイト紹介） | Black Company Simulator</title>
   
   <link rel="stylesheet" th:href="@{/css/button.css}" href="/css/button.css">
-  <link rel="stylesheet" th:href="@{/css/nework.css}" href="/css/nework.css">
+  <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
   <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
   <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
   <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
@@ -16,116 +16,40 @@
   <div class="fade-to-light fadeout" id="fadeEffect"></div>
   <main class="container">
 		
-		<div class="intro-message font3">
+		<div class="first-message rpg-design">
 		  <p>
-		    いまの環境がつらいと感じたら、<b>逃げてもいい</b>。<br>
-		    「新たな道」は、いつでも選び直せる。あなたの味方は、ここにも外にもいる。
+		   <b>現実タウンへようこそ</b>。<br>
+		    ここは、働き方を選んだり、元ニートの知恵袋からヒントをもらえる街です。
 		  </p>
 		</div>
 
-		<!-- ▼ 相談先一覧 -->
-		<section class="support" aria-labelledby="support-title">
-		  <h2 id="support-title" class="font3">相談先（無料・公的を中心に）</h2>
-
 		  <div class="support-list">
 		    <!-- ハローワーク -->
-		    <article class="support-card">
-		      <h3 class="support-title font3">ハローワーク（職業相談）</h3>
+		    <a class="support-card rpg-design">
+		      <h3 class="support-title">ハローワーク（職業相談）</h3>
 		      <p class="support-desc">転職・離職相談、求人紹介。最寄りの窓口で対面相談が可能。</p>
-		      <div class="support-actions">
-		        <a class="btn small font3" href="https://www.hellowork.mhlw.go.jp/" target="_blank" rel="noopener noreferrer">サイトへ</a>
-		      </div>
-		    </article>
+		     </a>
 
 		    <!-- 法テラス -->
-		    <article class="support-card">
-		      <h3 class="support-title font3">法テラス（労働トラブルの法律相談）</h3>
-		      <p class="support-desc">残業代・退職・パワハラ等の相談を案内。収入要件で無料法律相談も。</p>
-		      <div class="support-actions">
-		        <a class="btn small font3" href="https://www.houterasu.or.jp/" target="_blank" rel="noopener noreferrer">サイトへ</a>
-		      </div>
-		    </article>
+		    <a class="support-card rpg-design">
+		      <h3 class="support-title">働き方ギルド</h3>
+		      <p class="support-desc">正社員・フリーランス・派遣・時短など、いろんなクラスの特徴が見られる。</p>
+		       </a>
 
-		    <!-- 都道府県労働局の総合労働相談コーナー -->
-		    <article class="support-card">
-		      <h3 class="support-title font3">総合労働相談コーナー（厚労省）</h3>
-		      <p class="support-desc">未払い賃金・ハラスメント・労働条件の相談窓口。全国に設置。</p>
-		      <div class="support-actions">
-		        <a class="btn small font3" href="https://www.mhlw.go.jp/general/seido/chihou/kaiketu/soudan.html" target="_blank" rel="noopener noreferrer">最寄りを探す</a>
-		      </div>
-		    </article>
+		    <a href="https://www.mhlw.go.jp/general/seido/chihou/kaiketu/soudan.html" class="support-card rpg-design">
+		      <h3 class="support-title">元ニートの酒場</h3>
+		      <p class="support-desc">現在は勇者となった元ニートの村人たちの経験や言葉を取り揃えている。</p>
+		        </a>
 
 		    <!-- こころの健康相談 -->
-		    <article class="support-card">
-		      <h3 class="support-title font3">こころの健康相談統一ダイヤル</h3>
+		    <a class="support-card rpg-design">
+		      <h3 class="support-title">こころの健康相談統一ダイヤル</h3>
 		      <p class="support-desc">メンタルがしんどい時の相談。自治体の窓口につながります。</p>
-		      <div class="support-actions">
-		        <a class="btn small ghost font3" href="tel:0570000643">0570-064-556</a>
-		      </div>
-		    </article>
+			  </a>
 
-		    <!-- いのちの電話 -->
-		    <article class="support-card">
-		      <h3 class="support-title font3">いのちの電話</h3>
-		      <p class="support-desc">つらさが限界のとき、まずは声を出して相談を。</p>
-		      <div class="support-actions">
-		        <a class="btn small ghost font3" href="https://www.inochinodenwa.org/" target="_blank" rel="noopener noreferrer">サイトへ</a>
-		      </div>
-		    </article>
-		  </div>
-		</section>
+		   
 
-		<div class="ribbon-wrapper"> 
-			<img src="/images/ribbon.png" alt="ribbon" class="ribbon-bg"> 
-			<svg viewBox="0 0 600 250" class="ribbon-text"> <defs> 
-				<path id="text-curve" d="M100,155 Q300,95 500,155" /> 
-			</defs> 
-			<text font-size="40" font-family="Shippori Mincho, serif" font-weight="900" letter-spacing="1.5px" fill="#2b241b" class="font3"> 
-				<textPath href="#text-curve" startOffset="50%" text-anchor="middle" class="font3"> 
-					新たな道へ 
-				</textPath> 
-			</text> 
-		</svg> 
-	</div>
-
-				<section class="support" aria-labelledby="jobs-title">
-				  <div class="support-list">
-		
-	  <article class="support-card">
-	  <img src="/images/myten.png" >
-	  <p class="support-desc">登録者数No.1。スカウトが活発で幅広い年代に対応。</p>
-	  <div class="support-actions">
-      <a class="btn small font3" href="https://tenshoku.mynavi.jp" target="_blank" rel="noopener noreferrer">詳しく見る</a>
-	  </div>
-	  </article>
-	  
-	  <article class="support-card">
-	  <img src="/images/rikunavi.png" >
-	  <p class="support-desc">登録者数No.1。スカウトが活発で幅広い年代に対応。</p>
-	  <div class="support-actions">
-	  <a class="btn small font3" href="https://next.rikunabi.com" target="_blank" rel="noopener noreferrer">詳しく見る</a>
-	  </div>	  
-      </article>
-	  		  
-	  <article class="support-card">
-	  <img src="/images/entenshoku.png" >
-	  <p class="support-desc">登録者数No.1。スカウトが活発で幅広い年代に対応。</p>
-	  <div class="support-actions">
-	  <a class="btn small font3" href="https://employment.en-japan.com" target="_blank" rel="noopener noreferrer">詳しく見る</a>
-	  </div>
-      </article>
-				  
-	  <article class="support-card">
-	  <img src="/images/doda.png" >
-	  <p class="support-desc">登録者数No.1。スカウトが活発で幅広い年代に対応。</p>
-	  <div class="support-actions">
-      <a class="btn small font3" href="https://www.doda.jp" target="_blank" rel="noopener noreferrer">詳しく見る</a>
-	  </div>
-	  </article>
-    </div>
-	</section>
-
-    <a href="/home" class="btn small ghost font3">ホームへ戻る</a>
+    <a href="/home" class="btn small ghost">ホームへ戻る</a>
   </main>
 </body>
 </html>
