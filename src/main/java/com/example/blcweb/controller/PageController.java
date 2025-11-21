@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
+import com.example.blcweb.entity.LoginEntity;
 
 @Controller
 public class PageController {
@@ -35,37 +36,30 @@ public class PageController {
     @GetMapping("/")
     public String root() { return "redirect:/title-page"; }
 
-    @GetMapping("/home")
-    public String showHome(Model model) {
-        var latestOpt = dataSetService.findLatest();
+ @GetMapping("/home")
+ public String showHome(HttpSession session, Model model) {
 
-        var user = latestOpt
-            .map(e -> new UserVM(
-                e.getDepartmentName(),
-                e.getName(),
-                "社畜見習い",
-                12,
-                "2025/10/01",
-                1,
-                35,
-                "salaryman",
-                "サラリーマン"
-            ))
-            .orElseGet(() -> new UserVM(
-                "未設定の部署",
-                "未設定の名前",
-                "社畜見習い",
-                0,
-                "—",
-                1,
-                0,
-                "salaryman",
-                "サラリーマン"
-            ));
+     LoginEntity loginUser = (LoginEntity) session.getAttribute("loginUser");
 
-        model.addAttribute("user", user);
-        return "home";
-    }
+     if (loginUser == null) {
+         return "redirect:/login";
+     }
+
+     var user = new UserVM(
+         loginUser.getDepartmentName(),
+         loginUser.getName(),
+         "社畜見習い",  
+         12,           
+         "2025/10/01", 
+         1,            
+         35,           
+         "salaryman",
+         "サラリーマン"
+     );
+
+     model.addAttribute("user", user);
+     return "home";
+ }
 
     @GetMapping("/settings")
     public String settings(Model model) {
