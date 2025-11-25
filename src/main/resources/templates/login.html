@@ -29,8 +29,8 @@
       </div>
 
       <!-- エラーメッセージ（Spring Security想定：/login?error） -->
-      <p class="form-error"
-         th:if="${param.error}">
+	  <p class="form-error"
+	     th:if="${error != null}">
         名前またはパスワードが正しくありません。
       </p>
 
@@ -48,7 +48,7 @@
             name="name"
             type="text"
             autocomplete="username"
-            placeholder="例）たなか"
+            placeholder="例）石黒　雄三"
             required
           >
         </div>

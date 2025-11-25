@@ -25,6 +25,8 @@ public class LoginEntity {
     @Column(nullable = false)
     private String password;
 
+    
+    @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
     
 
