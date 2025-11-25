@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン | ブラック企業ジェネレーター</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+<body class="login-bg">
+  <div class="overlay"></div>
+
+  <header class="site-header">
+    <div class="logo-mark">BLC</div>
+    <div class="site-title">
+      <p class="sub">ブラック企業診断RPG</p>
+      <h1>BLACK COMPANY GENERATOR</h1>
+    </div>
+  </header>
+
+  <main class="login-wrap">
+    <section class="login-panel">
+      <div class="login-head">
+        <p class="login-sub">REAL ACCOUNT LOGIN</p>
+        <h2>現実アカウントでログイン</h2>
+        <p class="login-desc">
+          あなたの「現実」情報を使ってログインします。<br>
+          ニックネームとパスワードを入力してください。
+        </p>
+      </div>
+
+      <!-- エラーメッセージ（Spring Security想定：/login?error） -->
+	  <p class="form-error"
+	     th:if="${error != null}">
+        名前またはパスワードが正しくありません。
+      </p>
+
+      <!-- メッセージ（新規登録直後：/login?registered）など -->
+      <p class="form-info"
+         th:if="${param.registered}">
+        アカウント登録が完了しました。ログインしてください。
+      </p>
+
+      <form class="login-form" th:action="@{/login}" method="post">
+        <div class="form-row">
+          <label for="name">名前（ニックネーム）</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="username"
+            placeholder="例）石黒　雄三"
+            required
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="password">パスワード</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="8文字以上"
+            required
+          >
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="rpg-btn primary">
+            ▶ ログイン
+          </button>
+          <a th:href="@{/signup}" class="sub-link">
+            アカウントを持っていませんか？ 新規登録はこちら
+          </a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Black Company Simulator / のりひこラボ</p>
+  </footer>
+</body>
+</html>

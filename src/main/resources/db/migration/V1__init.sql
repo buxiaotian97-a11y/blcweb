@@ -1,15 +1,17 @@
-CREATE DATABASE IF NOT EXISTS blc DEFAULT CHARACTER SET utf8mb4;												
+CREATE DATABASE IF NOT EXISTS blc DEFAULT CHARACTER SET utf8mb4;
 USE blc;												
 												
 SET NAMES utf8mb4;												
 SET time_zone = '+09:00';												
-												
-CREATE TABLE IF NOT EXISTS users (												
-id BIGINT AUTO_INCREMENT PRIMARY KEY,												
-name VARCHAR(100) NOT NULL,
-department_name VARCHAR(100) NOT NULL,												
-created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP												
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;												
+																			
+CREATE TABLE IF NOT EXISTS users (
+id              BIGINT AUTO_INCREMENT PRIMARY KEY,
+name            VARCHAR(100) NOT NULL,
+department_name VARCHAR(100) NOT NULL,
+password        VARCHAR(255) NOT NULL,
+avatar_code     VARCHAR(50)  NULL,
+created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;					
 												
 CREATE TABLE IF NOT EXISTS characters (												
 id BIGINT AUTO_INCREMENT PRIMARY KEY,												
