@@ -244,6 +244,7 @@ public class PageController {
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
     @GetMapping("/workflow") public String workflow() { return "workflow"; }
+    @GetMapping("/hero") public String hero() { return "hero"; }
 
     public record UserVM(
         String department, String name, String title,
