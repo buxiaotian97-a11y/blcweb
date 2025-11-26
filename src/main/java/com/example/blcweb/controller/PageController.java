@@ -147,7 +147,6 @@ public class PageController {
         session.setAttribute("brightnessLevel", brightness);
         model.addAttribute("brightnessClass", "brightness-" + brightness);
         
-        // 10問で打ち切り
         if (cnt >= MAX_QUESTIONS) {
             return finishAndShowResult(session, model, mode, score, cnt);
         }
@@ -244,6 +243,7 @@ public class PageController {
     @GetMapping("/records")  public String records()  { return "records"; }
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
+    @GetMapping("/workflow") public String workflow() { return "workflow"; }
 
     public record UserVM(
         String department, String name, String title,

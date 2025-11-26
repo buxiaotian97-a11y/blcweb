@@ -1,0 +1,89 @@
+/* モーダル背景（画面全体の半透明） */
+.ws-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* モーダル本体 */
+.ws-modal {
+  position: relative;
+  max-width: min(640px, 94vw);
+  max-height: min(80vh, 540px);
+  overflow-y: auto;
+  padding: 24px 22px 20px;
+  box-sizing: border-box;
+}
+
+/* 閉じるボタン */
+.ws-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: #f6fbff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* モーダル内のテキスト */
+.ws-modal-title {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.ws-modal-summary {
+  margin: 0 0 14px;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.ws-modal-block {
+  margin-bottom: 14px;
+}
+
+.ws-modal-block h4 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+
+.ws-modal-block pre {
+  margin: 0;
+  font-family: inherit;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+/* カード用のちょい装飾（任意） */
+.ws-icon {
+  margin-right: .35em;
+  font-size: 1.1em;
+  vertical-align: -1px;
+}
+
+.ws-card {
+  cursor: pointer;
+}
+
+/* モーダル表示中は背面スクロール止めたい場合 */
+body.ws-modal-open {
+  overflow: hidden;
+}
+
+.ws-modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.two-rows {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));  
+	gap: 16px 20px;  
+	max-width: min(960px, 96vw);
+	margin: 0 auto;
+}
