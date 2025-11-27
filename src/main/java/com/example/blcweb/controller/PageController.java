@@ -23,7 +23,6 @@ public class PageController {
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
-    private static final int MAX_QUESTIONS = 10;
 
     public PageController(DataSetService dataSetService, QuestionService questionService, ResultRepository resultRepository) { 
         this.dataSetService = dataSetService;
@@ -101,14 +100,11 @@ public class PageController {
         if (session.getAttribute(ATTR_SCORE) == null) {
             session.setAttribute(ATTR_SCORE, 0);
             session.setAttribute(ATTR_COUNT, 0);
-            session.setAttribute("brightnessLevel", 80);
-            model.addAttribute("brightnessClass", "brightness-80");
         }
 
         // ✅ 最初の1問（分岐対応）
         var firstQ = questionService.findFirst();
-        model.addAttribute("question", firstQ);
-        model.addAttribute("remaining", MAX_QUESTIONS); // 任意表示
+        model.addAttribute("question", firstQ);// 任意表示
         return "question";
     }
 
