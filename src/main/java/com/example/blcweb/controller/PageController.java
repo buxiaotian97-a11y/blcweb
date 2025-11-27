@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
+import com.example.blcweb.service.RecordService;
 
 @Controller
 public class PageController {
@@ -20,15 +22,16 @@ public class PageController {
     private final DataSetService dataSetService;
     private final QuestionService questionService; 
     private final ResultRepository resultRepository; 
+    private final RecordService recordService;
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
-    private static final int MAX_QUESTIONS = 10;
 
-    public PageController(DataSetService dataSetService, QuestionService questionService, ResultRepository resultRepository) { 
+    public PageController(DataSetService dataSetService, QuestionService questionService, ResultRepository resultRepository, RecordService recordService) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
         this.resultRepository = resultRepository;
+        this.recordService = recordService;
     }
 
     @GetMapping("/title-page")
@@ -101,14 +104,11 @@ public class PageController {
         if (session.getAttribute(ATTR_SCORE) == null) {
             session.setAttribute(ATTR_SCORE, 0);
             session.setAttribute(ATTR_COUNT, 0);
-            session.setAttribute("brightnessLevel", 80);
-            model.addAttribute("brightnessClass", "brightness-80");
         }
 
         // ✅ 最初の1問（分岐対応）
         var firstQ = questionService.findFirst();
         model.addAttribute("question", firstQ);
-        model.addAttribute("remaining", MAX_QUESTIONS); // 任意表示
         return "question";
     }
 
@@ -162,6 +162,16 @@ public class PageController {
      
      boolean specialMode = (score == -20000) || (score == -10000);
      boolean showNormalButtons = !specialMode;
+     
+     LoginEntity loginUser = (LoginEntity) session.getAttribute("loginUser");
+     if (loginUser != null) {
+         RecordEntity record = new RecordEntity();
+         record.setUserId(loginUser.getId());
+         record.setMode(mode);
+         record.setScore(score);
+         
+         recordService.save(record);
+     }
 
         // 画面表示用
         model.addAttribute("score", score);
@@ -218,7 +228,26 @@ public class PageController {
     }
 
 
-    @GetMapping("/records")  public String records()  { return "records"; }
+    @GetMapping("/record")
+    public String records(HttpSession session, Model model) {
+
+        // ログインユーザー
+        LoginEntity loginUser = (LoginEntity) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
+        Long userId = loginUser.getId();
+
+        // ログインユーザーの最新20件を取得
+        var scores = recordService.getLatestRecordsForUser(userId);
+
+        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("scores", scores);
+
+        return "record";  // ← records.html
+    }
+
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
     @GetMapping("/workflow") public String workflow() { return "workflow"; }
