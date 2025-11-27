@@ -1,0 +1,236 @@
+html, body {
+  margin: 0;
+  color: #fff;
+}
+
+body {
+  background: #111;
+  color: #fff;
+  font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
+               "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, sans-serif;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  opacity: 0;
+  animation: fadeIn .9s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.container {
+  width: min(880px, 100vw - 32px);
+  max-height: calc(100vh - 80px);
+  margin: 0 auto;
+  padding: 32px 28px 40px;
+  box-sizing: border-box;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  
+  text-align: center;
+}
+
+
+.first-message {
+	margin: 40px auto 32px;
+	  max-width: 720px;
+	  padding: clamp(18px, 2.8vw, 26px) clamp(24px, 3.4vw, 32px);
+}
+
+.title {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 32px;
+  color: #ccc;
+}
+
+/* ===== ぼかし背景 ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/images/byeneet.png") center center / cover no-repeat;
+  transform: scale(1.05);
+  z-index: -1;
+}
+
+/* ===== リボン ===== */
+.ribbon-wrapper {
+  position: relative;
+  width: 600px;
+  max-width: 92vw;
+  margin: 80px auto 24px;
+}
+
+.ribbon-bg {
+  width: 100%;
+  display: block;
+}
+
+.ribbon-text {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ===== 導入文 ===== */
+.intro-message {
+  margin: 18px auto 28px;
+  max-width: min(960px, 92vw);
+  padding: clamp(14px, 2.6vw, 22px) clamp(16px, 3vw, 28px);
+}
+
+/* ===== サポートブロック ===== */
+.support {
+  margin: 8px auto 28px;
+  max-width: min(1100px, 94vw);
+}
+
+.support > h2 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  letter-spacing: 0.08em;
+  margin: 0 0 14px;
+  opacity: 0.9;
+}
+
+/* ===== RPG風：1列メニューリスト ===== */
+.support-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ===== RPG風：メニューカード ===== */
+.support-card {
+  width: 100%;
+  max-width: 640px;      
+  margin: 0 auto;
+  text-align: left;    
+  position: relative;  
+  padding: 10px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 138px;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+/* ホバー時の浮き上がり＋バー発光 */
+.support-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.32);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.support-card:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.support-title {
+  font-size: clamp(16px, 2vw, 18px);
+  margin: 2px 0 4px;
+  position: relative;
+  padding-left: 1.3em;
+}
+
+/* ▶カーソル風の印 */
+.support-title::before {
+  content: "▶";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.9em;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+/* ホバー中のみ ▶ を表示 */
+.support-card:hover .support-title::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.support-desc {
+  margin: 0 0 8px;
+  color: #ddd;
+  line-height: 1.7;
+  font-size: clamp(13px, 1.7vw, 14px);
+}
+
+.support-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ===== ボタン ===== */
+.btn.small {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+
+/* ===== 外部サイト一覧（必要なら） ===== */
+.sites {
+  margin: 8px auto 28px;
+  max-width: min(1100px, 94vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .sites {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* カード内アイコン画像 */
+.support-card img {
+  display: block;
+  width: 50px;
+  height: auto;
+  margin: 0 auto 12px;
+  object-fit: contain;
+}
+
+/* ホームへ戻るボタン（フッター） */
+.btn.small.ghost.font3[href="/home"] {
+  display: inline-block;
+  margin-top: 60px;
+  margin-bottom: 80px;
+}
+
+.rpg-design {
+  background: linear-gradient(180deg, #141824 0%, #070912 100%);
+  color: #f6fbff;
+  border: 2px solid #9fd6ff;
+  box-shadow:
+	0 0 0 1px rgba(0, 0, 0, 0.8),
+	0 0 18px rgba(120, 200, 255, 0.45);
+  text-shadow: 0 0 6px rgba(0,0,0,0.9);
+}

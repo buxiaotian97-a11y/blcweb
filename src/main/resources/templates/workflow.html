@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="utf-8"/>
+   <title>様々な働き方</title>
+		
+   <link rel="stylesheet" th:href="@{/css/button.css}" href="/css/button.css">
+   <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
+   <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
+   <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
+   <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
+   <link rel="stylesheet" th:href="@{/css/workflow.css}" href="/css/workflow.css">
+		
+</head>
+
+<body class="scrollable">
+	<div class="fade-to-light fadeout" id="fadeEffect"></div>
+
+	 <main class="container">
+
+	   <!-- 導入文 -->
+	   <section class="first-message rpg-design intro-message">
+	     <p>
+	       <b>働き方ギルドへようこそ。</b><br>
+	       ここは、いろんな「クラス（働き方）」の特徴をざっくり知るための場所です。<br>
+	       どれがえらい・正解ではなく、<b>「いまの自分に合うスタイル」</b>を見つけてください。
+	     </p>
+	   </section>
+
+	   <!-- 働き方クラス一覧 -->
+	   <section class="support">
+	     <h2>ワークスタイル図鑑</h2>
+
+	     <div class="support-list two-rows">
+
+			<!-- 正社員クラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-stable"
+			        data-title="正社員クラス（安定型）"
+			        data-summary="会社に所属して長期的に働くことを前提としたクラス。給料やボーナスがあり、収入は比較的安定しやすい。"
+			        data-merit="・収入が安定しやすい\n・社会保険・福利厚生が受けやすい\n・社内で経験を積みやすい"
+			        data-demerit="・働く場所や時間の自由度は低め\n・合わない環境でも簡単には抜けにくい"
+			        data-fit="・安定重視で働きたい\n・会社の中で経験を積んでいきたい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">🏢</span> 正社員クラス
+			  </h3>
+			  <p class="support-desc">安定した収入と福利厚生を重視するクラス。</p>
+			</button>
+
+			<!-- 契約社員クラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-contract"
+			        data-title="契約社員クラス（期間限定型）"
+			        data-summary="3ヶ月〜1年など、契約期間を区切って働くクラス。まずは様子を見ながら働きたいときに選びやすい。"
+			        data-merit="・期間を区切って働ける\n・合わなければ更新しない選択も取りやすい\n・正社員よりも入りやすいこともある"
+			        data-demerit="・長期的な安定度はやや低い\n・ボーナスや昇給が少ない／ない場合もある"
+			        data-fit="・いきなり長期でコミットするのは不安\n・まずは職場の雰囲気を試してみたい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">📅</span> 契約社員クラス
+			  </h3>
+			  <p class="support-desc">一定期間ごとに更新しながら働くお試し型クラス。</p>
+			</button>
+
+			<!-- 派遣クラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-haken"
+			        data-title="派遣クラス（転戦型）"
+			        data-summary="派遣会社に所属し、いろいろな職場で働くクラス。環境を変えながら経験を積みたい人に向いている。"
+			        data-merit="・いろいろな職場を経験できる\n・合わない現場からは抜けやすい\n・未経験OKの案件も比較的多い"
+			        data-demerit="・長期でいられるとは限らない\n・職場によって待遇や雰囲気の差が大きい"
+			        data-fit="・まずはいろんな職場を見てみたい\n・自分に合う環境を探しながら働きたい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">🧭</span> 派遣クラス
+			  </h3>
+			  <p class="support-desc">いろんな職場を転戦しながら相性を探すクラス。</p>
+			</button>
+
+			<!-- アルバイト・パートクラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-part"
+			        data-title="アルバイト・パートクラス（ライト型）"
+			        data-summary="シフトや時間を調整しやすいクラス。学業・家庭・別の活動と両立しやすい働き方。"
+			        data-merit="・働く時間を調整しやすい\n・短時間から始められる\n・辞めるハードルも比較的低い"
+			        data-demerit="・収入は控えめになりがち\n・長期的なキャリアとしては評価されにくいこともある"
+			        data-fit="・まずは少しだけ働いてみたい\n・学業や家庭、別活動と両立したい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">🕒</span> アルバイト・パートクラス
+			  </h3>
+			  <p class="support-desc">シフト制で入れるライトクラス。</p>
+			</button>
+
+			<!-- フリーランスクラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-free"
+			        data-title="フリーランスクラス（自由型）"
+			        data-summary="会社に所属せず、案件ごとに仕事を受けるクラス。時間や場所の自由度が高い一方、自分で仕事を取る必要がある。"
+			        data-merit="・働く時間や場所を自分で決めやすい\n・スキル次第で収入の上限を伸ばしやすい\n・案件やクライアントを選びやすい"
+			        data-demerit="・仕事が途切れるリスクがある\n・営業・見積もり・請求なども自分で行う\n・社会保険や税金の管理も自己責任"
+			        data-fit="・自分のペースで働きたい\n・専門スキルを磨いていきたい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">🧑‍💻</span> フリーランスクラス
+			  </h3>
+			  <p class="support-desc">自由度高め、スキルと自己管理が鍵のクラス。</p>
+			</button>
+
+			<!-- 起業・個人事業主クラス -->
+			<button type="button"
+			        class="support-card rpg-design ws-card ws-startup"
+			        data-title="起業・個人事業主クラス（チャレンジ型）"
+			        data-summary="自分でビジネスやサービスを立ち上げるクラス。リスクも大きいが、その分やりがいとリターンも大きい。"
+			        data-merit="・やりたいことをそのまま仕事にしやすい\n・裁量が最大級に大きい\n・上手くいけば収入も大きく伸ばせる"
+			        data-demerit="・収入が不安定になりやすい\n・責任とストレスも大きい\n・事務作業や経理などやることが多い"
+			        data-fit="・リスクも含めて挑戦したい\n・自分の世界観やサービスを形にしたい">
+			  <h3 class="support-title">
+			    <span class="ws-icon">🚀</span> 起業・個人事業主クラス
+			  </h3>
+			  <p class="support-desc">自分のビジネスを立ち上げるチャレンジ系クラス。</p>
+			</button>
+
+	     </div>
+	   </section>
+
+	   <!-- モーダル本体 -->
+	   <div class="ws-modal-backdrop" id="wsModal" hidden>
+	     <div class="ws-modal rpg-design">
+	       <button type="button" class="ws-modal-close" data-close-modal>✕</button>
+
+	       <h3 class="ws-modal-title"></h3>
+
+	       <p class="ws-modal-summary"></p>
+
+	       <div class="ws-modal-block">
+	         <h4>メリット</h4>
+	         <pre class="ws-modal-merit"></pre>
+	       </div>
+
+	       <div class="ws-modal-block">
+	         <h4>デメリット</h4>
+	         <pre class="ws-modal-demerit"></pre>
+	       </div>
+
+	       <div class="ws-modal-block">
+	         <h4>こんな人に向いている</h4>
+	         <pre class="ws-modal-fit"></pre>
+	       </div>
+
+	       <button type="button" class="btn small ghost" data-close-modal>閉じる</button>
+	     </div>
+	   </div>
+
+	   <!-- ホームへ戻る -->
+	   <div class="mode-actions">
+	            <a href="/work" class="btn small ghost font2">戻る</a>
+	          </div>
+	
+	
+</main>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modalBackdrop = document.getElementById('wsModal');
+    if (!modalBackdrop) return;
+
+    const titleElm   = modalBackdrop.querySelector('.ws-modal-title');
+    const summaryElm = modalBackdrop.querySelector('.ws-modal-summary');
+    const meritElm   = modalBackdrop.querySelector('.ws-modal-merit');
+    const demeritElm = modalBackdrop.querySelector('.ws-modal-demerit');
+    const fitElm     = modalBackdrop.querySelector('.ws-modal-fit');
+
+    const openModal = (card) => {
+      titleElm.textContent   = card.dataset.title   || '';
+      summaryElm.textContent = card.dataset.summary || '';
+      meritElm.textContent   = (card.dataset.merit   || '').replace(/\\n/g, '\n');
+      demeritElm.textContent = (card.dataset.demerit || '').replace(/\\n/g, '\n');
+      fitElm.textContent     = (card.dataset.fit     || '').replace(/\\n/g, '\n');
+
+      modalBackdrop.hidden = false;
+      document.body.classList.add('ws-modal-open');
+    };
+
+    const closeModal = () => {
+      modalBackdrop.hidden = true;
+      document.body.classList.remove('ws-modal-open');
+    };
+
+    // ✅ カードクリック → モーダルオープン
+    document.querySelectorAll('.ws-card').forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+    });
+
+    // ✅ 「閉じる」「✕」ボタン クリック → モーダルクローズ
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // 念のためバブリング抑制
+        closeModal();
+      });
+    });
+
+    // ✅ 背景クリックでも閉じる
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        closeModal();
+      }
+    });
+
+    // ✅ ESCキーでも閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modalBackdrop.hidden) {
+        closeModal();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
+		

@@ -90,7 +90,7 @@ body::before {
   min-height: 138px;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
-.support-card:hover, {
+.support-card:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 26px rgba(0,0,0,0.32);
   border-color: rgba(255,255,255,0.22);

@@ -137,7 +137,14 @@ public class PageController {
 
         session.setAttribute("brightnessLevel", brightness);
         model.addAttribute("brightnessClass", "brightness-" + brightness);
+<<<<<<< HEAD
 
+=======
+        
+        if (cnt >= MAX_QUESTIONS) {
+            return finishAndShowResult(session, model, mode, score, cnt);
+        }
+>>>>>>> feature/result
 
         try {
             var nextQ = questionService.findNext(questionCode, answer);
@@ -165,14 +172,21 @@ public class PageController {
      if (resultMsg == null) {
          resultMsg = "スコア範囲外";
      }
+     
+     boolean unlocked = (score >= 251) || (score == -200) || (score == -350) || (score == -400);
+     
+     boolean specialMode = (score == -20000) || (score == -10000);
+     boolean showNormalButtons = !specialMode;
 
         // 画面表示用
         model.addAttribute("score", score);
         model.addAttribute("mode", mode);
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
-        model.addAttribute("unlocked", score >= 30);
+        model.addAttribute("unlocked", unlocked);
         model.addAttribute("backed", backgroundClassFor(score));
+        model.addAttribute("specialMode", specialMode);
+        model.addAttribute("showNormalButtons", showNormalButtons);
 
         model.addAttribute("resultMessage", resultMsg);
         model.addAttribute("finalScore", score);
@@ -186,25 +200,29 @@ public class PageController {
         return "result";
     }
     
-    @GetMapping("/result")
-    public String finishAndShowResult(Model model, HttpSession session) {
-        Integer score = (Integer) session.getAttribute("score");
-        int s = (score != null) ? score : 0;
-
-        boolean unlocked = s >= 30;
-        String backed = backgroundClassFor(s);
-
-        model.addAttribute("score", s);
-        model.addAttribute("unlocked", unlocked);
-        model.addAttribute("backed", backed);
-        return "result";
-    }
-    
     private String backgroundClassFor(int score) {
-        if (score < 200)  return "bg-office-day";
-        if (score < 400)  return "bg-office-evening";
-        if (score < 600)  return "bg-office-night";
-        if (score < 800)  return "bg-hell-prep";
+        if (score == -20000)  return "bg-childroomj";
+        if (score == -10000)  return "bg-badneet";
+        if (score == -400)  return "bg-goodneet";
+        if (score == -350)  return "bg-finish";
+        if (score == -300)  return "bg-careout";
+        if (score == -250)  return "bg-care";
+        if (score == -200)  return "bg-subworker";
+        if (score == -150)  return "bg-homeworker";
+        if (score == -100)  return "bg-childcare";
+        if (score == -50)  return "bg-student";
+        if (score >= 0 && score <= 10)  return "bg-office";
+        if (score >= 11 && score <= 50)  return "bg-office2";
+        if (score >= 51 && score <= 100)  return "bg-office3";
+        if (score >= 101 && score <= 250)  return "bg-office4";
+        if (score >= 251 && score <= 400)  return "bg-office5";
+        if (score >= 401 && score <= 500)  return "bg-office6";
+        if (score >= 501 && score <= 600)  return "bg-office7";
+        if (score >= 601 && score <= 700)  return "bg-office8";
+        if (score >= 701 && score <= 800)  return "bg-office9";
+        if (score >= 801 && score <= 900)  return "bg-office10";
+        if (score >= 901 && score <= 1000)  return "bg-office11";
+        if (score == 1001)  return "";
         return "bg-hell";
     }
     
@@ -218,6 +236,8 @@ public class PageController {
     @GetMapping("/records")  public String records()  { return "records"; }
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
+    @GetMapping("/workflow") public String workflow() { return "workflow"; }
+    @GetMapping("/hero") public String hero() { return "hero"; }
 
     public record UserVM(
         String department, String name, String title,

@@ -24,15 +24,19 @@
 	  
 	  <div class="fade-to-light" id="fadeEffect"></div>
 
-	  <div th:if="${unlocked}">
+	  <div th:if="${unlocked and showNormalButtons}">
 	    <a href="/nework" class="btn feature" id="toNework">新たな道へ</a>
 	  </div>
 
-	  <div th:if="${!unlocked}">
+	  <div th:if="${!unlocked and showNormalButtons}">
 	    <button class="btn feature locked" disabled>工事中</button>
 	  </div>
+	  
+	  <div th:if="${specialMode}" class="work">
+	     <a href="/work" class="btn rpg" id="toNework">現実へログインする</a>
+	  </div>
 
-	  <div class="button-area">
+	  <div class="button-area" th:if="${showNormalButtons}">
 	    <a href="/home" class="btn small font">ホームへ戻る</a>
 	    <a href="/mode" class="btn small font">もう一度診断する</a>
 	  </div>
