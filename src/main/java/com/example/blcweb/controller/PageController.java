@@ -230,7 +230,7 @@ public class PageController {
 
 
     @GetMapping("/record")
-    public String records(HttpSession session, Model model) {
+    public String record(HttpSession session, Model model) {
 
         // ログインユーザー
         LoginEntity loginUser = (LoginEntity) session.getAttribute("loginUser");

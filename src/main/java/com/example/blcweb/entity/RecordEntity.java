@@ -26,7 +26,7 @@ public class RecordEntity {
     @Column(nullable = false)
     private int score;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
 
