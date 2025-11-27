@@ -108,8 +108,7 @@ public class PageController {
 
         // ✅ 最初の1問（分岐対応）
         var firstQ = questionService.findFirst();
-        model.addAttribute("question", firstQ);// 任意表示
-
+        model.addAttribute("question", firstQ);
         return "question";
     }
 
@@ -230,6 +229,7 @@ public class PageController {
 
 
     @GetMapping("/record")
+
     public String record(HttpSession session, Model model) {
 
         // ログインユーザー

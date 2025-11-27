@@ -1,99 +1,86 @@
-/* record.css */
-
-/* 全体コンテナ */
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 16px;
-  box-sizing: border-box;
-}
-
-/* 中央のカード枠 */
-.history-wrapper {
-  width: 100%;
-  max-width: 900px;
-  background: rgba(8, 10, 20, 0.92);
-  border-radius: 16px;
-  padding: 24px 20px 32px;
+.records-wrapper {
+  max-width: 960px;
+  margin: 40px auto 56px;
+  padding: 24px clamp(20px, 4vw, 32px);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top, #262c3f 0%, #080910 55%, #020308 100%);
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(140, 200, 255, 0.25);
-  box-sizing: border-box;
+    0 0 0 1px rgba(0,0,0,0.9),
+    0 18px 40px rgba(0,0,0,0.9);
+  position: relative;
 }
 
 /* タイトル */
-.history-title {
-  margin: 0 0 12px;
-  font-size: 24px;
-  letter-spacing: 0.12em;
-  text-align: center;
-}
-
-/* ログインユーザー情報 */
-.history-info {
-  margin: 0 0 20px;
-  font-size: 14px;
-  color: #bbb;
-  text-align: right;
-}
-
-.history-info span {
-  font-weight: 600;
-  color: #f5f9ff;
-}
-
-/* 履歴テーブル */
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.history-table thead {
-  background: linear-gradient(90deg, #1b2335, #131a28);
-}
-
-.history-table th,
-.history-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+.records-title {
+  margin: 0 0 18px;
+  font-size: clamp(22px, 2.2vw, 26px);
+  letter-spacing: .14em;
   text-align: left;
 }
 
-.history-table th {
-  font-weight: 600;
-  color: #eaf3ff;
+/* ユーザー名などの情報 */
+.records-meta {
+  font-size: 13px;
+  opacity: .8;
+  margin-bottom: 8px;
 }
 
-.history-table tbody tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.history-table tbody tr:hover {
-  background: rgba(120, 200, 255, 0.08);
-}
-
-/* 履歴がないときのメッセージ */
-.history-empty {
-  margin: 24px 0 16px;
-  text-align: center;
+/* テーブル */
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 14px;
+  margin-top: 12px;
+}
+
+.records-table th,
+.records-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.records-table th {
+  font-size: 12px;
+  opacity: .75;
+}
+
+.records-table tbody tr:nth-child(2n) {
+  background: rgba(255,255,255,0.02);
+}
+
+/* スコアをちょっと目立たせる */
+.records-table td.score-cell {
+  font-weight: 700;
+}
+
+/* 履歴が無いときのメッセージ */
+.records-empty {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: .8;
   line-height: 1.7;
-  color: #ccc;
 }
 
-/* 戻るボタン */
-.back-command {
+/* 戻るボタンの位置調整（.rpg は既存ボタン想定） */
+.records-back {
   margin-top: 24px;
-  text-align: center;
+  text-align: right;
 }
 
-/* 既存 .rpg ボタンをちょっとだけ補強するなら（必要なら） */
-.back-command .rpg {
-  min-width: 220px;
-  display: inline-block;
-  text-align: center;
+/* スマホ向け */
+@media (max-width: 640px) {
+  .records-wrapper {
+    margin: 24px auto 40px;
+    padding: 18px 14px;
+  }
+  .records-table {
+    font-size: 12px;
+  }
+  .records-table th,
+  .records-table td {
+    padding: 6px 6px;
+  }
 }
