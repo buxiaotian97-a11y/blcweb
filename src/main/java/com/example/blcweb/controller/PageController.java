@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.blcweb.entity.LoginEntity;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
-import com.example.blcweb.entity.LoginEntity;
 
 @Controller
 public class PageController {
@@ -114,47 +114,32 @@ public class PageController {
 
     @PostMapping("/question")
     public String answer(
-        @RequestParam String questionCode,
-        @RequestParam int answer, 
-        HttpSession session,
-        Model model
+            @RequestParam String questionCode,
+            @RequestParam int answer,
+            HttpSession session,
+            Model model
     ) {
+        // モード（通常 / 修羅 など）
         String mode = (String) session.getAttribute(ATTR_MODE);
 
+        // スコア加算
         int add = questionService.getPointForCode(questionCode, answer);
-
         int score = ((Integer) session.getAttribute(ATTR_SCORE)) + add;
         session.setAttribute(ATTR_SCORE, score);
 
-        Integer brightness = (Integer) session.getAttribute("brightnessLevel");
-        if (brightness == null) brightness = 100;
-
-        if (answer == 1 && brightness > 50) {   
-            brightness -= 10;
-        } else if (answer == 0 && brightness < 100) { 
-            brightness += 10;
-        }
-
-        session.setAttribute("brightnessLevel", brightness);
-        model.addAttribute("brightnessClass", "brightness-" + brightness);
-<<<<<<< HEAD
-
-=======
-        
-        if (cnt >= MAX_QUESTIONS) {
-            return finishAndShowResult(session, model, mode, score, cnt);
-        }
->>>>>>> feature/result
-
+        // ここから先は「ツリーが続くかどうか」だけで判断
         try {
             var nextQ = questionService.findNext(questionCode, answer);
             model.addAttribute("question", nextQ);
-            model.addAttribute("remaining", MAX_QUESTIONS);
+
+            // もし「何問目か」表示したくなったら、ここで answeredCount をModelに乗せればOK
             return "question";
         } catch (org.springframework.web.server.ResponseStatusException e) {
+            // 次の質問がない（終端） → 結果画面へ
             return finishAndShowResult(session, model, mode, score);
         }
     }
+
 
     private String finishAndShowResult(
             HttpSession session, Model model,
