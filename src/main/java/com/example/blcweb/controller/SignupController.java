@@ -70,6 +70,6 @@ public class SignupController {
         session.setAttribute(SESSION_LOGIN_USER, user);
 
         // 6) 遷移先（タイトル画面とか）
-        return "redirect:/title-page";
+        return "redirect:/login";
     }
 }

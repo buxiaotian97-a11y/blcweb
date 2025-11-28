@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>新規アカウント登録</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
-<body>
-<h1>新規アカウント登録</h1>
+<body class="login-bg">
+	<div class="overlay"></div>
+	
+	<main class="login-wrap">
+	   <section class="login-panel">
+	     <div class="login-head">
+	       <h2>新規登録</h2>
+	       <p class="login-desc">
+	         ニックネームとパスワードを入力してください。
+	       </p>
+	     </div>
 
-<form th:action="@{/signup}" th:object="${userRegisterForm}" method="post">
-    <div>
+<form th:action="@{/signup}" th:object="${userRegisterForm}" method="post" class="login-form">
+    <div class="form-row">
         <label>名前</label>
-        <input type="text" th:field="*{name}">
-        <div th:if="${#fields.hasErrors('name')}"
+        <input type="text" placeholder="例）石黒　雄三" th:field="*{name}">
+        <div class="form-error" th:if="${#fields.hasErrors('name')}"
              th:errors="*{name}"></div>
     </div>
 
-    <div>
+    <div class="form-row">
         <label>部署名</label>
-        <input type="text" th:field="*{departmentName}">
-        <div th:if="${#fields.hasErrors('departmentName')}"
+        <input type="text" placeholder="例）営業部" th:field="*{departmentName}">
+        <div class="form-error" th:if="${#fields.hasErrors('departmentName')}"
              th:errors="*{departmentName}"></div>
     </div>
 
-    <div>
+    <div class="form-row">
         <label>パスワード</label>
-        <input type="password" th:field="*{password}">
-        <div th:if="${#fields.hasErrors('password')}"
+        <input type="password" placeholder="５文字以上" th:field="*{password}">
+        <div class="form-error" th:if="${#fields.hasErrors('password')}"
              th:errors="*{password}"></div>
     </div>
 
-    <div>
+    <div class="form-row">
         <label>パスワード（確認）</label>
-        <input type="password" th:field="*{confirmPassword}">
-        <div th:if="${#fields.hasErrors('confirmPassword')}"
+        <input type="password" placeholder="同じパスワードを入力" th:field="*{confirmPassword}">
+        <div class="form-error" th:if="${#fields.hasErrors('confirmPassword')}"
              th:errors="*{confirmPassword}"></div>
     </div>
 
-    <button type="submit">登録</button>
+    <button type="submit" class="rpg-btn primary">▶ 登録</button>
 </form>
 
 <p>
@@ -44,5 +52,6 @@
     <a th:href="@{/login}">ログイン</a>
 </p>
 
+</main>
 </body>
 </html>
