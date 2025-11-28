@@ -3,21 +3,16 @@
   src: url('/fonts/GenEiAntiqueNv2.otf') format('opentype');
 }
 :root{
-  --tile: clamp(120px, 12vw, 200px); /* 柄の大きさ */
-  --shift: calc(var(--tile) / 2);    /* 半タイルずらし */
+  --tile: clamp(120px, 12vw, 200px);
+  --shift: calc(var(--tile) / 2); 
 }
 
 body{
   min-height: 100vh;
 
-  /* 上から順に = 手前 → 奥 */
   background-image:
-    /* 文字を読みやすくする薄い幕 */
     linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-
-    /* 奥：モノグラム(原点) */
     url("/images/sarari-1.png"),
-    /* 奥：モノグラム(半タイルずらし) */
     url("/images/sarari-1.png");
 
   background-size:
@@ -32,14 +27,12 @@ body{
     repeat,
     repeat;
 
-  /* ベース色 */
   background-color: #000;
 
-  /* 各レイヤーのブレンド方法（数はレイヤー数に合わせる） */
   background-blend-mode:
-    normal,   /* グラデはそのまま載せる */
-    normal,   /* ビルは通常表示 */
-    multiply, /* パターン同士を乗算で馴染ませる */
+    normal, 
+    normal,  
+    multiply, 
     multiply;
 }
 
@@ -52,7 +45,7 @@ body{
 /* レイヤー用の土台 */
 body { position: relative; overflow: hidden; }
 
-/* モノグラム層① */
+
 body::before,
 body::after{
   content: "";
@@ -61,7 +54,7 @@ body::after{
   pointer-events: none;
   mix-blend-mode: multiply;
   opacity: .14;
-  z-index: 0;                /* コンテンツより後ろ */
+  z-index: 0;             
   background-image: url("/images/sarari-1.png");
   background-size: var(--tile) auto;
   background-repeat: repeat;

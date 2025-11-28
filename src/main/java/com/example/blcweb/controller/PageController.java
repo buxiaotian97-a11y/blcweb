@@ -29,7 +29,11 @@ public class PageController {
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
 
-    public PageController(DataSetService dataSetService, QuestionService questionService, ResultRepository resultRepository, RecordService recordService) { 
+    public PageController(
+    		DataSetService dataSetService, 
+    		QuestionService questionService, 
+    		ResultRepository resultRepository, 
+    		RecordService recordService) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
         this.resultRepository = resultRepository;
