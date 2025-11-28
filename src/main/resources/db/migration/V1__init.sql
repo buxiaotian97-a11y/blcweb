@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS questions (
 
 CREATE TABLE IF NOT EXISTS scores (												
 id BIGINT AUTO_INCREMENT PRIMARY KEY,												
-user_id BIGINT NOT NULL,												
+user_id BIGINT NOT NULL,	
+mode VARCHAR(50) NOT NULL,											
 score INT NOT NULL,												
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,												
 CONSTRAINT fk_scores_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE												

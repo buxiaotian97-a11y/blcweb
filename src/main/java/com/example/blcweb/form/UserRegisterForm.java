@@ -14,7 +14,7 @@ public class UserRegisterForm {
     private String departmentName;
 
     @NotBlank(message = "パスワードを入力してください")
-    @Size(min = 4, max = 100, message = "パスワードは4〜100文字で入力してください")
+    @Size(min = 5, max = 100, message = "パスワードは4〜100文字で入力してください")
     private String password;
 
     @NotBlank(message = "確認用パスワードを入力してください")

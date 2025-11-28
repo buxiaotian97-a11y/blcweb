@@ -4,13 +4,13 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.UserEntity;
 
-public interface LoginRepository extends JpaRepository<LoginEntity, Long> {
+public interface LoginRepository extends JpaRepository<UserEntity, Long> {
 
     // 既存ログインで使ってるかも
-    Optional<LoginEntity> findByNameAndPassword(String name, String password);
+    Optional<UserEntity> findByNameAndPassword(String name, String password);
 
     // 新規登録用：重複チェック
-    Optional<LoginEntity> findByName(String name);
+    Optional<UserEntity> findByName(String name);
 }

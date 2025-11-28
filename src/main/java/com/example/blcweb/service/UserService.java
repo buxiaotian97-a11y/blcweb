@@ -3,7 +3,7 @@ package com.example.blcweb.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.UserRegisterForm;
 import com.example.blcweb.repository.LoginRepository;
 
@@ -23,17 +23,13 @@ public class UserService {
 
     /** 新規登録してユーザーを返す */
     @Transactional
-    public LoginEntity register(UserRegisterForm form) {
-        LoginEntity user = new LoginEntity();
+    public UserEntity register(UserRegisterForm form) {
+        UserEntity user = new UserEntity();
         user.setName(form.getName());
         user.setDepartmentName(form.getDepartmentName());
         // ★ 今は既存ログインに合わせて「生パスワードのまま保存」
         user.setPassword(form.getPassword());
-
-        // created_at は DB の DEFAULT CURRENT_TIMESTAMP に任せたいなら、
-        // LoginEntity の created_at カラムを insertable=false にしてもOK
-        // （今のままでも、多くのケースではDB側で自動で入る）
-
+        
         return loginRepository.save(user);
     }
 }
