@@ -61,6 +61,6 @@ public class DataSetController {
         session.setAttribute("loginUser", loginUser);
         
         ra.addFlashAttribute("message", "登録しました！");
-        return "redirect:/dataset/settings";
+        return "redirect:/home";
     }
 }
