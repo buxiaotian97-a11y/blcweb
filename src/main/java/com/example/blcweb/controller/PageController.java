@@ -168,7 +168,7 @@ public class PageController {
      RecordEntity loginUser = (RecordEntity) session.getAttribute("loginUser");
      if (loginUser != null) {
          RecordEntity record = new RecordEntity();
-         
+ 
          record.setUserId(loginUser.getId());
          record.setMode(mode);
          record.setScore(score);

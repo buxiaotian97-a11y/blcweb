@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cac6c4e10a92ad7f4dcf8aeccf46fd0fbbc06423
 import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.service.RecordService;
