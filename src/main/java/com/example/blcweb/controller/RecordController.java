@@ -8,7 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.blcweb.entity.LoginEntity;
+
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.service.RecordService;
 
@@ -27,7 +28,7 @@ public class RecordController {
     public String showScoreHistory(Model model) {
 
         // セッションのログインユーザー
-        LoginEntity loginUser = (LoginEntity) session.getAttribute("loginUser");
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         if (loginUser == null) {
             // ログインしてなかったらタイトルなどに戻す
             return "redirect:/title-page";
@@ -39,6 +40,7 @@ public class RecordController {
         model.addAttribute("loginUser", loginUser);
         model.addAttribute("scores", scores);
 
-        return "record"; // → score-history.html
+
+        return "record"; 
     }
 }

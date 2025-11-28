@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.UserRegisterForm;
 import com.example.blcweb.service.UserService;
 
@@ -64,7 +64,7 @@ public class SignupController {
         }
 
         // 4) 登録
-        LoginEntity user = userService.register(form);
+        UserEntity user = userService.register(form);
 
         // 5) そのままログイン状態にする（好みで：しないならコメントアウト）
         session.setAttribute(SESSION_LOGIN_USER, user);

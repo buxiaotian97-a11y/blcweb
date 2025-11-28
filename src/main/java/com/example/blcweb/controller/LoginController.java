@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.LoginForm;
 import com.example.blcweb.service.LoginException;
 import com.example.blcweb.service.LoginService;
@@ -36,7 +36,7 @@ public class LoginController {
 
         try {
 
-            LoginEntity user = loginService.login(form.getName(), form.getPassword());
+            UserEntity user = loginService.login(form.getName(), form.getPassword());
 
             session.setAttribute("loginUser", user);
 

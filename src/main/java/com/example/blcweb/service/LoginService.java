@@ -2,7 +2,7 @@ package com.example.blcweb.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.blcweb.entity.LoginEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.repository.LoginRepository;
 
 @Service
@@ -14,9 +14,9 @@ public class LoginService {
         this.userRepository = userRepository;
     }
 
-    public LoginEntity login(String name, String rawPassword) {
+    public UserEntity login(String name, String rawPassword) {
 
-        LoginEntity user = userRepository.findByName(name)
+        UserEntity user = userRepository.findByName(name)
                 .orElseThrow(LoginException::new);
 
         if (!user.getPassword().equals(rawPassword)) {
