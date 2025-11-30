@@ -19,7 +19,6 @@ main.diagnosis {
 	position: fixed;
 	  inset: 0;
 	    background: url("/images/white-office.png") center center / cover no-repeat;
-	    z-index: -1; 
 }
 
 body.brightness-100 { filter: brightness(1.0); }

@@ -31,7 +31,8 @@ public class SheetsService {
         // resourcesフォルダ直下に置いた credentials.json を読む
         InputStream in = getClass().getResourceAsStream("/credentials.json");
         if (in == null) {
-            throw new IllegalStateException("credentials.json が見つかりません");
+            this.sheets = null;
+            return;
         }
 
         GoogleCredential credential = GoogleCredential
@@ -49,6 +50,12 @@ public class SheetsService {
 
     /** questions シートの内容を QuestionRow のリストとして読み込む */
     public List<QuestionRow> readQuestions() {
+    	
+        if (this.sheets == null) {
+            System.out.println("⚠ Sheets 連携オフのため、質問は読み込まず空リストを返します");
+            return List.of(); 
+        }
+    	
         try {
             ValueRange vr = sheets.spreadsheets().values()
                     .get(SHEET_ID, "questions!A:I")

@@ -10,36 +10,37 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class LoginEntity {
+@Table(name = "scores")
+public class RecordEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @Column(name = "department_name")
-    private String departmentName;
+    @Column(nullable = false, length = 50)
+    private String mode;
 
     @Column(nullable = false)
-    private String password;
+    private int score;
 
-    
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
-    
+
 
     public Long getId() { return id; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public String getDepartmentName() { return departmentName; }
-    public void setDepartmentName(String departmentName) { this.departmentName = departmentName; }
+    public String getMode() { return mode; }
+    public void setMode(String mode) { this.mode = mode; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

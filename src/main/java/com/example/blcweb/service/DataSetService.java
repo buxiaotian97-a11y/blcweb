@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.blcweb.entity.DataSetEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.repository.DataSetRepository;
 import java.util.Optional;
 
@@ -19,19 +19,26 @@ public class DataSetService {
     }
 
     @Transactional
-    public void save(String name, String departmentName) {
-        DataSetEntity data = new DataSetEntity();
-        data.setName(name);
-        data.setDepartmentName(departmentName);
-        dataSetRepo.save(data);
+    public void save(Long userId, String name, String departmentName) {
+    	
+    	// 既存ユーザーの取得
+        UserEntity user = dataSetRepo.findById(userId)
+        		.orElseThrow();
+        
+        // 名前と事業部のみ更新
+        user.setName(name);
+        user.setDepartmentName(departmentName);
+        
+        // saveするとupdateがとぶ
+        dataSetRepo.save(user);
     }
 
     @Transactional(readOnly = true)
-    public List<DataSetEntity> findAll() {
+    public List<UserEntity> findAll() {
         return dataSetRepo.findAll();
     }
     
-    public Optional<DataSetEntity> findLatest() {
+    public Optional<UserEntity> findLatest() {
         return dataSetRepo.findTopByOrderByIdDesc();
     }
 

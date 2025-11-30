@@ -9,21 +9,13 @@
 <body class="login-bg">
   <div class="overlay"></div>
 
-  <header class="site-header">
-    <div class="logo-mark">BLC</div>
-    <div class="site-title">
-      <p class="sub">ブラック企業診断RPG</p>
-      <h1>BLACK COMPANY GENERATOR</h1>
-    </div>
-  </header>
-
   <main class="login-wrap">
     <section class="login-panel">
       <div class="login-head">
-        <p class="login-sub">REAL ACCOUNT LOGIN</p>
-        <h2>現実アカウントでログイン</h2>
+        <p class="login-sub">ACCOUNT LOGIN</p>
+        <h2>アカウントでログイン</h2>
         <p class="login-desc">
-          あなたの「現実」情報を使ってログインします。<br>
+          あなたの情報を使ってログインします。<br>
           ニックネームとパスワードを入力してください。
         </p>
       </div>
@@ -32,12 +24,6 @@
 	  <p class="form-error"
 	     th:if="${error != null}">
         名前またはパスワードが正しくありません。
-      </p>
-
-      <!-- メッセージ（新規登録直後：/login?registered）など -->
-      <p class="form-info"
-         th:if="${param.registered}">
-        アカウント登録が完了しました。ログインしてください。
       </p>
 
       <form class="login-form" th:action="@{/login}" method="post">
@@ -60,7 +46,7 @@
             name="password"
             type="password"
             autocomplete="current-password"
-            placeholder="8文字以上"
+            placeholder="5文字以上"
             required
           >
         </div>
