@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.blcweb.entity.RecordEntity;
-
-
 import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
@@ -169,7 +167,7 @@ public class PageController {
      boolean specialMode = (score == -20000) || (score == -10000);
      boolean showNormalButtons = !specialMode;
      
-     RecordEntity loginUser = (RecordEntity) session.getAttribute("loginUser");
+     UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
      if (loginUser != null) {
          RecordEntity record = new RecordEntity();
  
