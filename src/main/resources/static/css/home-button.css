@@ -15,32 +15,14 @@
   transform: translateY(0vh);
 }
 
-@media (max-width: 300px){
-  :root{ --g-nudge: clamp(-14px, -2vw, -24px); }
+@media (min-width: 1440px) {
+  .center-char .char img{
+    width: clamp(800px, 35vw, 1400px);
+  }
 }
 
 
-/* ハンバーガー */
-.hamburger.at-tr{ position:fixed; top:var(--corner-pad); right:var(--corner-pad); z-index:30; }
-
-.hamburger > summary{ list-style:none; appearance:none; cursor:pointer; }
-.hamburger > summary::-webkit-details-marker{ display:none; }
-.hamburger > summary::marker{ content:""; }
-
-.hambtn{
-  display:grid; place-items:center;
-  width:80px; height:80px; border-radius:12px;
-  background: transparent;
-  border: 2px solid #fff;
-  color:#fff;
-}
-.bars, .bars::before, .bars::after{
-  content:""; display:block; width:50px; height:6px; background:currentColor; border-radius:2px;
-  position:relative; transition: transform .2s ease, opacity .2s ease;
-}
-.bars::before{ position:absolute; top:-13px; left:0; }
-.bars::after{  position:absolute; top: 13px; left:0; }
-
+/* 右上に固定 */
 .hamburger.at-tr{
   position: fixed;
   top: var(--corner-pad,16px);
@@ -48,15 +30,59 @@
   z-index: 30;
 }
 
+.hamburger > summary{
+  list-style:none;
+  appearance:none;
+  cursor:pointer;
+}
+.hamburger > summary::-webkit-details-marker{ display:none; }
+.hamburger > summary::marker{ content:""; }
+
+/* ボタン本体 */
+.hambtn{
+  display:grid;
+  place-items:center;
+  width:80px;
+  height:80px;
+  border-radius:12px;
+  background: transparent;
+  border: 2px solid #fff;
+  color:#fff;
+}
+.bars, .bars::before, .bars::after{
+  content:"";
+  display:block;
+  width:50px;
+  height:6px;
+  background:currentColor;
+  border-radius:2px;
+  position:relative;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.bars::before{ position:absolute; top:-13px; left:0; }
+.bars::after{  position:absolute; top: 13px; left:0; }
+
+/* メニュー本体 */
 .hamburger .list{
-  font-size: clamp(20px, 1.4vw, 20px);
+  font-size: 20px;           
   font-weight: 600;
-  position:absolute; top:calc(100% + 8px); right:0;
-  min-width:300px; margin:0; padding:8px; display:grid; gap:6px;
-  border-radius:12px; background:transparent;
-  border:1px solid rgba(255,255,255,.22); box-shadow:0 10px 24px rgba(0,0,0,.38);
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  min-width:300px;
+  margin:0;
+  padding:8px;
+  display:grid;
+  gap:6px;
+  border-radius:12px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 24px rgba(0,0,0,.38);
   backdrop-filter: blur(6px);
-  overflow:hidden; max-height:0; opacity:0; transform:translateY(-6px);
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transform:translateY(-6px);
   transform-origin: top right;
   transition:
     max-height .32s cubic-bezier(.2,.8,.2,1),
@@ -71,9 +97,10 @@
 }
 
 .hamburger[open] .list{
-  max-height:60vh; opacity:1; transform: translateY(0);
+  max-height:60vh;
+  opacity:1;
+  transform: translateY(0);
 }
-
 .hamburger[open] .list > *{ opacity:1; transform: translateY(0); }
 .hamburger[open] .list > *:nth-child(1){ transition-delay: .05s; }
 .hamburger[open] .list > *:nth-child(2){ transition-delay: .10s; }
@@ -83,23 +110,35 @@
 .hamburger:not([open]) .list > *{ transition-delay: 0s !important; }
 
 .hamburger .list a{
-  display:block; padding:10px 12px; border-radius:10px; color:#fff; text-decoration:none; font-weight:600;
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
   transition: background .12s ease;
 }
 .hamburger .list a:hover{ background: rgba(255,255,255,.16); }
 
-.hamburger[open] .list{
-  max-height: 60vh;
-  opacity: 1;
-  transform: translateY(0);
-}
+@media (min-width: 1440px){
+  /* ボタン自体もちょい大きく */
+  .hambtn{
+    width: 100px;
+    height: 100px;
+    border-width: 2.7px;
+  }
 
+  /* メニュー本体を太く＆文字大きめに */
+  .hamburger .list{
+    font-size: clamp(20px, 1.5vw, 26px);  /* ← 文字サイズUP */
+    min-width: 370px;                     /* ← 横幅少し広げる */
+    padding: 14px 20px;
+    gap: 10px;
+  }
 
-
-/* 画面が縦に浅いときはさらに上げる */
-@media (max-height: 700px){
-  .rb-actions{
-    bottom: calc(max(var(--corner-pad), env(safe-area-inset-bottom)) + 18px);
+  /* 各項目の当たり判定も広げる */
+  .hamburger .list a{
+    padding: 16px 22px;
   }
 }
 
@@ -171,6 +210,15 @@
   padding: 8px 14px;
   border: 2px solid #fff;
   font-size: clamp(24px, 1.6vw, 30px);
+}
+
+@media (min-width: 1440px) {
+  .btn.small{
+    height: 80px;
+    padding: 32px 40px;
+    min-width: 160px;
+    font-size: clamp(44px, 2.0vw, 50px);
+  }
 }
 
 .rb-actions{

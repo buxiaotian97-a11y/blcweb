@@ -13,15 +13,26 @@ html, body {
   top: 24px;              
   left: 50%;             
   transform: translateX(-50%);
-  padding: 8px 18px; border-radius: 10px;
+  padding: 8px 18px; 
+  border-radius: 10px;
   background-color: #000;
   border:2px solid rgba(255,255,255,.85);
   box-shadow: 0 8px 18px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25);
   min-width: clamp(260px, 36vw, 520px);
 }
-.nameplate .dept{ font-weight:700; opacity:.9; letter-spacing:.08em; }
+.nameplate .dept{ font-weight:700; font-size: clamp(15px, 1.6vw, 20px); opacity:.9; letter-spacing:.08em;}
 .nameplate .uname{ font-weight:900; font-size: clamp(20px, 2.6vw, 28px); }
-.nameplate .level-stack{ font-weight:700; opacity:.9; letter-spacing:.08em; }
+.nameplate .level-stack{ font-weight:700; font-size: clamp(15px, 1.6vw, 20px); opacity:.9; letter-spacing:.08em; }
+
+@media (min-width: 1440px) {
+  .nameplate{
+	padding: 20px 40px;
+	min-width: clamp(360px, 50vw, 820px);
+  }
+  .nameplate .dept{ font-weight:800; font-size: clamp(20px, 2.0w, 30px); opacity:.9; letter-spacing:.08em; }
+  .nameplate .uname{ font-weight:1000; font-size: clamp(30px, 3.6vw, 35px); }
+  .nameplate .level-stack{ font-weight:800; font-size: clamp(20px, 2.0w, 30px); opacity:.9; letter-spacing:.08em; }
+}
 
 
 /* 背景ぼかしレイヤー */
