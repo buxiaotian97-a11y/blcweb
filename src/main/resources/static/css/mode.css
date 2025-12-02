@@ -66,3 +66,26 @@
   from {opacity:0; transform: translateY(8px);}
   to {opacity:1; transform: translateY(0);}
 }
+
+@media (min-width: 1440px){
+ .mode-wrap {
+   max-width: 880px;     
+   margin: 12vh auto 8vh;
+}
+
+ .mode-card {
+   padding: 26px 28px;
+   gap: 20px;
+   border-radius: 20px;
+}
+
+.mode-title {
+   font-size: 1.4rem;     /* タイトル大きめ */
+   line-height: 1.4;
+}
+
+.mode-desc {
+   font-size: 1.05rem;    /* 説明も少しだけUP */
+   margin-top: 6px;
+}
+}
