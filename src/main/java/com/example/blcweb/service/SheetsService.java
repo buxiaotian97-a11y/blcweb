@@ -9,8 +9,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.blcweb.dto.ResultbgRow;
 import com.example.blcweb.dto.QuestionRow;
+import com.example.blcweb.dto.QuestionbgRow;
+import com.example.blcweb.dto.ResultbgRow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
@@ -150,6 +151,54 @@ public class SheetsService {
             throw new RuntimeException("Failed to read backgrounds from Sheets", e);
         }
     }
+    
+        public List<QuestionbgRow> readQuestionBackgrounds() {
+            if (this.sheets == null) {
+                System.out.println("⚠ Sheets 連携オフのため、質問背景は読み込まず空リストを返します");
+                return List.of();
+            }
+
+            try {
+                ValueRange vr = sheets.spreadsheets().values()
+                        .get(SHEET_ID, "'questionimage'!A:E")
+                        .execute();
+
+                List<QuestionbgRow> list = new ArrayList<>();
+                var values = vr.getValues();
+                if (values == null || values.size() <= 1) {
+                    return list;
+                }
+
+                // 1行目ヘッダー → 2行目から
+                for (List<Object> row : values.subList(1, values.size())) {
+                    String type    = getCell(row, 0); // A: type
+                    String quesId  = getCell(row, 1); // B: question_id
+                    String minStr  = getCell(row, 2); // C: min_score
+                    String mode    = getCell(row, 3); // D: mode
+                    String bgUrl   = getCell(row, 4); // E: bg_url
+
+                    int questionId = parseInt(quesId);
+                    int minScore   = parseInt(minStr);
+                    if (mode == null || mode.isBlank()) {
+                        mode = "ANY";
+                    }
+
+                    list.add(new QuestionbgRow(
+                            type,
+                            questionId,
+                            minScore,
+                            mode,
+                            bgUrl
+                    ));
+                }
+
+                return list;
+
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to read question backgrounds from Sheets", e);
+            }
+        }
+
 
     private String getCell(List<Object> row, int index) {
         if (index >= row.size()) return "";
