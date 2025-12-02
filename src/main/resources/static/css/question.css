@@ -21,13 +21,6 @@ main.diagnosis {
 	    background: url("/images/white-office.png") center center / cover no-repeat;
 }
 
-body.brightness-100 { filter: brightness(1.0); }
-body.brightness-90  { filter: brightness(0.9); }
-body.brightness-80  { filter: brightness(0.8); }
-body.brightness-70  { filter: brightness(0.7); }
-body.brightness-60  { filter: brightness(0.6); }
-body.brightness-50  { filter: brightness(0.5); }
-
 /* ホワイトボード */
 .board-wrap{
   position: absolute;

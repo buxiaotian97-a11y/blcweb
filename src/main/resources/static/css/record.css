@@ -1,0 +1,132 @@
+/* 全体レイアウト */
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* 中央のカードっぽい枠 */
+.history-wrapper {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  padding: 24px 22px 28px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+}
+
+/* タイトル */
+.history-title {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  text-transform: uppercase;
+}
+
+/* ログイン中ユーザー表示 */
+.history-info {
+  font-size: 0.9rem;
+  text-align: right;
+  opacity: 0.85;
+  margin-bottom: 14px;
+}
+
+.history-info span {
+  font-weight: 700;
+}
+
+/* テーブル共通 */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(5, 8, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ヘッダー */
+.history-table thead {
+  background: linear-gradient(
+    90deg,
+    rgba(60, 130, 255, 0.4),
+    rgba(180, 90, 255, 0.35)
+  );
+}
+
+.history-table th,
+.history-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+.history-table th {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* 行ホバー */
+.history-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* スコア列だけ右寄せにしたい場合 */
+.history-table td:nth-child(3) {
+  text-align: right;
+  font-weight: 700;
+}
+
+/* 履歴がないときのメッセージ */
+.history-empty {
+  margin-top: 26px;
+  padding: 18px 16px;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.24);
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* 戻るボタン周り */
+.back-command {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 既存 .rpg ボタンの上に軽く整えたい場合だけ */
+.back-command .rpg {
+  display: inline-block;
+  min-width: 180px;
+  text-align: center;
+}
+
+/* -------------------------
+   スマホ向け調整
+   ------------------------- */
+@media (max-width: 640px) {
+  .history-wrapper {
+    padding: 18px 14px 22px;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .history-info {
+    font-size: 0.8rem;
+  }
+}

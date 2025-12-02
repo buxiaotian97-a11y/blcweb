@@ -12,6 +12,7 @@ import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
+import com.example.blcweb.service.BackgroundResolver;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionService;
 import com.example.blcweb.service.RecordService;
@@ -23,6 +24,7 @@ public class PageController {
     private final QuestionService questionService; 
     private final ResultRepository resultRepository; 
     private final RecordService recordService;
+    private final BackgroundResolver backgroundResolver;
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
@@ -31,11 +33,13 @@ public class PageController {
     		DataSetService dataSetService, 
     		QuestionService questionService, 
     		ResultRepository resultRepository, 
-    		RecordService recordService) { 
+    		RecordService recordService,
+    		BackgroundResolver backgroundResolver) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
         this.resultRepository = resultRepository;
         this.recordService = recordService;
+		this.backgroundResolver = backgroundResolver;
     }
 
     @GetMapping("/title-page")
@@ -184,7 +188,8 @@ public class PageController {
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
         model.addAttribute("unlocked", unlocked);
-        model.addAttribute("backed", backgroundClassFor(score));
+        String backgroundClass = backgroundResolver.resolveCssClass(score, mode);
+        model.addAttribute("backed", backgroundClass);
         model.addAttribute("specialMode", specialMode);
         model.addAttribute("showNormalButtons", showNormalButtons);
 
@@ -198,32 +203,6 @@ public class PageController {
         session.removeAttribute(ATTR_COUNT);
 
         return "result";
-    }
-    
-    private String backgroundClassFor(int score) {
-        if (score == -20000)  return "bg-childroomj";
-        if (score == -10000)  return "bg-badneet";
-        if (score == -400)  return "bg-goodneet";
-        if (score == -350)  return "bg-finish";
-        if (score == -300)  return "bg-careout";
-        if (score == -250)  return "bg-care";
-        if (score == -200)  return "bg-subworker";
-        if (score == -150)  return "bg-homeworker";
-        if (score == -100)  return "bg-childcare";
-        if (score == -50)  return "bg-student";
-        if (score >= 0 && score <= 10)  return "bg-office";
-        if (score >= 11 && score <= 50)  return "bg-office2";
-        if (score >= 51 && score <= 100)  return "bg-office3";
-        if (score >= 101 && score <= 250)  return "bg-office4";
-        if (score >= 251 && score <= 400)  return "bg-office5";
-        if (score >= 401 && score <= 500)  return "bg-office6";
-        if (score >= 501 && score <= 600)  return "bg-office7";
-        if (score >= 601 && score <= 700)  return "bg-office8";
-        if (score >= 701 && score <= 800)  return "bg-office9";
-        if (score >= 801 && score <= 900)  return "bg-office10";
-        if (score >= 901 && score <= 1000)  return "bg-office11";
-        if (score == 1001)  return "";
-        return "bg-hell";
     }
     
     @GetMapping("/nework")

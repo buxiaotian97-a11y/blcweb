@@ -1,3 +1,4 @@
+
 package com.example.blcweb.service;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.blcweb.dto.ResultbgRow;
 import com.example.blcweb.dto.QuestionRow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -99,6 +101,53 @@ public class SheetsService {
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to read questions from Sheets", e);
+        }
+    }
+    public List<ResultbgRow> readBackgrounds() {
+        if (this.sheets == null) {
+            System.out.println("⚠ Sheets 連携オフのため、背景は読み込まず空リストを返します");
+            return List.of();
+        }
+
+        try {
+            // ★ シート名と範囲はあなたのシートに合わせて変更してOK
+            ValueRange vr = sheets.spreadsheets().values()
+                    .get(SHEET_ID, "'resultimage'!A:E")
+                    .execute();
+
+            List<ResultbgRow> list = new ArrayList<>();
+            var values = vr.getValues();
+            if (values == null || values.size() <= 1) {
+                return list;
+            }
+
+            // 1行目はヘッダー想定なので subList(1, ...) で2行目から読む
+            for (List<Object> row : values.subList(1, values.size())) {
+                String minStr   = getCell(row, 0); // A
+                String maxStr   = getCell(row, 1); // B
+                String mode     = getCell(row, 2); // C
+                String cssClass = getCell(row, 3); // D
+                String bgUrl = getCell(row, 4);
+
+                int minScore = parseInt(minStr);
+                int maxScore = parseInt(maxStr);
+                if (mode == null || mode.isBlank()) {
+                    mode = "ANY"; // 未指定ならANY扱い
+                }
+
+                list.add(new ResultbgRow(
+                        minScore,
+                        maxScore,
+                        mode,
+                        cssClass,
+                        bgUrl
+                ));
+            }
+
+            return list;
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read backgrounds from Sheets", e);
         }
     }
 

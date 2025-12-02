@@ -11,7 +11,7 @@
 
 </head>
 <body class="result"
-      th:classappend="${backed != null ? ' ' + backed : ''}">
+      th:style="${bgUrl} != null ? |--bg-image:url(${bgUrl})| : null">
 	<main class="result-screen">
       <div class="scanlines"></div>
 	  <div class="result-bubble result-box">

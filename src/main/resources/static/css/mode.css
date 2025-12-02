@@ -80,12 +80,12 @@
 }
 
 .mode-title {
-   font-size: 1.4rem;     /* タイトル大きめ */
+   font-size: 1.4rem;  
    line-height: 1.4;
 }
 
 .mode-desc {
-   font-size: 1.05rem;    /* 説明も少しだけUP */
+   font-size: 1.05rem; 
    margin-top: 6px;
 }
 }

@@ -6,34 +6,12 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/images/infelno.png") center center / cover no-repeat;
+  background:center center / cover no-repeat;
+  background-image: var(--bg-image);
   filter: blur(3px);
   transform: scale(1.05);
   z-index: -1;
 }
-
-body.result.bg-office::before { background-image:url("/images/bg-office.png"); }
-body.result.bg-office2::before { background-image:url("/images/bg-office2.png"); }
-body.result.bg-office3::before { background-image:url("/images/bg-office3.png"); }
-body.result.bg-office4::before { background-image:url("/images/bg-office4.png"); }
-body.result.bg-office5::before { background-image:url("/images/bg-office5.png"); }
-body.result.bg-office6::before { background-image:url("/images/bg-office6.png"); }
-body.result.bg-office7::before { background-image:url("/images/bg-office7.png"); }
-body.result.bg-office8::before { background-image:url("/images/bg-office8.png"); }
-body.result.bg-office9::before { background-image:url("/images/bg-office9.png"); }
-body.result.bg-office10::before { background-image:url("/images/bg-office10.png"); }
-body.result.bg-office11::before { background-image:url("/images/bg-office11.png"); }
-body.result.bg-student::before { background-image:url("/images/bg-student.png"); }
-body.result.bg-childcare::before { background-image:url("/images/bg-childcare.png"); }
-body.result.bg-homeworker::before { background-image:url("/images/bg-homeworker.png"); }
-body.result.bg-subworker::before { background-image:url("/images/bg-subworker.png"); }
-body.result.bg-care::before { background-image:url("/images/bg-care.png"); }
-body.result.bg-careout::before { background-image:url("/images/bg-careout.png"); }
-body.result.bg-finish::before { background-image:url("/images/bg-finish.png"); }
-body.result.bg-goodneet::before { background-image:url("/images/bg-goodneet.png"); }
-body.result.bg-badneet::before { background-image:url("/images/bg-badneet.png"); }
-body.result.bg-childroomj::before { background-image:url("/images/bg-childroomj.png"); }
-
 
 .scanlines{
   position:absolute; inset:0; pointer-events:none;
