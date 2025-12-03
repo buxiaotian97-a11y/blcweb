@@ -24,7 +24,7 @@ html, body {
 .nameplate .uname{ font-weight:900; font-size: clamp(20px, 2.6vw, 28px); }
 .nameplate .level-stack{ font-weight:700; font-size: clamp(15px, 1.6vw, 20px); opacity:.9; letter-spacing:.08em; }
 
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   .nameplate{
 	padding: 20px 40px;
 	min-width: clamp(360px, 50vw, 820px);

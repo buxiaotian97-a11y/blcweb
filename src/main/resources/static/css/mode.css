@@ -67,7 +67,7 @@
   to {opacity:1; transform: translateY(0);}
 }
 
-@media (min-width: 1440px){
+@media (min-width: 1600px){
  .mode-wrap {
    max-width: 880px;     
    margin: 12vh auto 8vh;

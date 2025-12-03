@@ -15,7 +15,7 @@
   transform: translateY(0vh);
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   .center-char .char img{
     width: clamp(800px, 35vw, 1400px);
   }
@@ -120,7 +120,7 @@
 }
 .hamburger .list a:hover{ background: rgba(255,255,255,.16); }
 
-@media (min-width: 1440px){
+@media (min-width: 1600px){
   /* ボタン自体もちょい大きく */
   .hambtn{
     width: 100px;
@@ -212,7 +212,7 @@
   font-size: clamp(24px, 1.6vw, 30px);
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   .btn.small{
     height: 80px;
     padding: 32px 40px;

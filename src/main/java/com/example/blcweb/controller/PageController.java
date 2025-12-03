@@ -188,8 +188,8 @@ public class PageController {
         model.addAttribute("modeMsg", modeMsg);
         model.addAttribute("resultMsg", resultMsg);
         model.addAttribute("unlocked", unlocked);
-        String backgroundClass = backgroundResolver.resolveCssClass(score, mode);
-        model.addAttribute("backed", backgroundClass);
+        String bgUrl = backgroundResolver.resolveBgUrl(score, mode);
+        model.addAttribute("bgUrl", bgUrl);
         model.addAttribute("specialMode", specialMode);
         model.addAttribute("showNormalButtons", showNormalButtons);
 
