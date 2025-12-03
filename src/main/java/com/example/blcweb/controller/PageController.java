@@ -14,6 +14,7 @@ import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
 import com.example.blcweb.service.BackgroundResolver;
 import com.example.blcweb.service.DataSetService;
+import com.example.blcweb.service.QuestionBackgroundResolver;
 import com.example.blcweb.service.QuestionService;
 import com.example.blcweb.service.RecordService;
 
@@ -25,6 +26,7 @@ public class PageController {
     private final ResultRepository resultRepository; 
     private final RecordService recordService;
     private final BackgroundResolver backgroundResolver;
+    private final QuestionBackgroundResolver questionBackgroundResolver;
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
@@ -34,12 +36,14 @@ public class PageController {
     		QuestionService questionService, 
     		ResultRepository resultRepository, 
     		RecordService recordService,
-    		BackgroundResolver backgroundResolver) { 
+    		BackgroundResolver backgroundResolver,
+    		QuestionBackgroundResolver questionBackgroundResolver) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
         this.resultRepository = resultRepository;
         this.recordService = recordService;
 		this.backgroundResolver = backgroundResolver;
+		this.questionBackgroundResolver = questionBackgroundResolver;
     }
 
     @GetMapping("/title-page")
@@ -117,6 +121,13 @@ public class PageController {
         // ✅ 最初の1問（分岐対応）
         var firstQ = questionService.findFirst();
         model.addAttribute("question", firstQ);
+        
+        String currentMode = (String) session.getAttribute(ATTR_MODE);
+        int currentScore = (Integer) session.getAttribute(ATTR_SCORE);
+        String qBgUrl = questionBackgroundResolver
+                .resolveBgUrl(firstQ.getCode(), currentScore, currentMode);
+        model.addAttribute("qBgUrl", qBgUrl);
+        
         return "question";
     }
 
@@ -139,6 +150,10 @@ public class PageController {
         try {
             var nextQ = questionService.findNext(questionCode, answer);
             model.addAttribute("question", nextQ);
+            
+            String qBgUrl = questionBackgroundResolver
+                    .resolveBgUrl(nextQ.getCode(), score, mode);
+            model.addAttribute("qBgUrl", qBgUrl);
 
             // もし「何問目か」表示したくなったら、ここで answeredCount をModelに乗せればOK
             return "question";

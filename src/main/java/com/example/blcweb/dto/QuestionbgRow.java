@@ -2,14 +2,14 @@ package com.example.blcweb.dto;
 
 public class QuestionbgRow {
     private String type;
-    private int questionId;
+    private String questionCode;
     private int minScore;    
     private String mode; 
     private String bgUrl;
 
-    public QuestionbgRow(String type, int questionId, int minScore, String mode, String bgUrl) {
+    public QuestionbgRow(String type, String questionCode, int minScore, String mode, String bgUrl) {
         this.type = type;
-        this.questionId = questionId;
+        this.questionCode = questionCode;
         this.minScore = minScore;
         this.mode = mode;
         this.bgUrl = bgUrl;
@@ -18,8 +18,8 @@ public class QuestionbgRow {
     public int getMinScore() { return minScore; }
     public void setMinScore(int minScore) { this.minScore = minScore; }
 
-    public int getquestionId() { return questionId; }
-    public void setquestionId(int questionId) { this.questionId = questionId; }
+    public String getquestionCode() { return questionCode; }
+    public void setquestionCode(String questionCode) { this.questionCode = questionCode; }
 
     public String getMode() { return mode; }
     public void setMode(String mode) { this.mode = mode; }

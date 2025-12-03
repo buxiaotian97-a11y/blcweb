@@ -9,6 +9,20 @@ body {
   transition: filter 0.6s ease;
 }
 
+body.question {
+  --q-bg: url("/images/white-office.png"); 
+  background-image: var(--q-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 中身が見やすいように、部屋側を少し浮かせておくと◎ */
+body.question .diagnosis {
+  position: relative;
+  z-index: 1;
+}
+
 main.diagnosis {
   position: relative;
   width: min(700px, 92vw);
@@ -17,8 +31,8 @@ main.diagnosis {
 
 .room {
 	position: fixed;
-	  inset: 0;
-	    background: url("/images/white-office.png") center center / cover no-repeat;
+	inset: 0;
+	background: transparent;
 }
 
 /* ホワイトボード */

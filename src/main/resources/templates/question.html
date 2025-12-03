@@ -6,29 +6,27 @@
   <link rel="stylesheet" href="/css/question.css" />
   <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
 </head>
-<body>
+<body class="question">
   <main class="diagnosis">
-    
-    <div class="room">
+    <div class="room"
+         th:style="${qBgUrl} != null ? |background-image:url(${qBgUrl})| : null">
       <div class="board-wrap">
         <img src="/images/whiteboard.png" alt="ホワイトボード" class="board-frame board-img" />
-        <div class="board-fill"> </div>
-		<div class="question-content">
+        <div class="board-fill"></div>
+
+        <div class="question-content">
           <p class="question-no">Q<span th:text="${question.code}">Q_001</span></p>
           <p class="question-text" th:text="${question.qtext}"></p>
-       
-    <!-- YES / NOボタン -->
-	<form th:action="@{/question}" method="post" class="answer-buttons">
-	      <input type="hidden" name="questionCode" th:value="${question.code}" />
-	      <button type="submit" name="answer" value="1" class="btn-yes">YES</button>
-	      <button type="submit" name="answer" value="0" class="btn-no">NO</button>
-	    </form>
-		
-		</div>
-			  </div>
-			</div>
 
-
+          <!-- YES / NOボタン -->
+          <form th:action="@{/question}" method="post" class="answer-buttons">
+            <input type="hidden" name="questionCode" th:value="${question.code}" />
+            <button type="submit" name="answer" value="1" class="btn-yes">YES</button>
+            <button type="submit" name="answer" value="0" class="btn-no">NO</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
 </html>

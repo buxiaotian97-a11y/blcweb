@@ -172,12 +172,11 @@ public class SheetsService {
                 // 1行目ヘッダー → 2行目から
                 for (List<Object> row : values.subList(1, values.size())) {
                     String type    = getCell(row, 0); // A: type
-                    String quesId  = getCell(row, 1); // B: question_id
+                    String questionCode  = getCell(row, 1); // B: question_id
                     String minStr  = getCell(row, 2); // C: min_score
                     String mode    = getCell(row, 3); // D: mode
                     String bgUrl   = getCell(row, 4); // E: bg_url
 
-                    int questionId = parseInt(quesId);
                     int minScore   = parseInt(minStr);
                     if (mode == null || mode.isBlank()) {
                         mode = "ANY";
@@ -185,7 +184,7 @@ public class SheetsService {
 
                     list.add(new QuestionbgRow(
                             type,
-                            questionId,
+                            questionCode,
                             minScore,
                             mode,
                             bgUrl
