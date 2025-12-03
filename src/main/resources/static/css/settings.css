@@ -42,7 +42,10 @@ h1{
 
 .form{ display:grid; gap: var(--gap); }
 .row{
-  display:grid; grid-template-columns: 160px 1fr; align-items:center; gap: 12px; min-height: var(--controlH);
+  display:grid; 
+  grid-template-columns: 160px 1fr; 
+  align-items:center; gap: 12px; 
+  min-height: var(--controlH);
 }
 .label{ opacity:.9; font-weight:700; letter-spacing:.04em; }
 

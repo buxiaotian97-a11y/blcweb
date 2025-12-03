@@ -15,21 +15,21 @@
     <section class="panel" aria-labelledby="settings-title">
     <div class="scanlines" aria-hidden="true"></div>
 	<div class="flicker-bg"></div>
-      <h1 id="settings-title" class=" font2 ">Setting</h1>
+      <h1 id="settings-title" class=" font2">Setting</h1>
 
       <form th:action="@{/dataset}" th:object="${form}" method="post" class="form">
 
         <!-- 名前 -->
-        <label class="row">
+        <div class="row">
           <span class="label font2">名前</span>
           <input type="text" th:field="*{displayName}" placeholder="例）石黒　雄三" required />
-        </label>
+        </div>
 
         <!-- 事業部 -->
-        <label class="row">
+        <div class="row">
           <span class="label font2">事業部</span>
-          <input id="dept" th:field="*{departmentName}" type="text" value="営業部" />
-        </label>
+          <input id="text" th:field="*{departmentName}" type="text" value="営業部" />
+        </div>
 
         <!-- 称号通知 -->
         <div class="row">
