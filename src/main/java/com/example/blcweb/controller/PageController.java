@@ -181,9 +181,9 @@ public class PageController {
          resultMsg = "スコア範囲外";
      }
      
-     boolean unlocked = (score >= 251) || (score == -200) || (score == -350) || (score == -400);
+     boolean unlocked = (score >= 251) || (score == -200) || (score == -350);
      
-     boolean specialMode = (score == -20000) || (score == -10000);
+     boolean specialMode = (score == -20000) || (score == -10000) || (score == -400);
      boolean showNormalButtons = !specialMode;
      
      UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");

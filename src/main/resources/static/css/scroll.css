@@ -1,7 +1,11 @@
-body {
-  overflow: hidden;
+body.scrollable {
+  display: block;      /* settings.css の flex を無効化 */
+  overflow: auto;      /* overflow:hidden を解除してスクロール可に */
+  height: auto;        /* 高さ固定を解除 */
 }
 
-body.scrollable {
-  overflow-y: auto;
+body.scrollable .container {
+  min-height: auto;
+  display: block;
+  padding: 40px 16px;
 }

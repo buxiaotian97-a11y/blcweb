@@ -5,24 +5,31 @@
   <title>スコア履歴 | ブラック企業ジェネレーター</title>
 
   <link rel="stylesheet" th:href="@{/css/record.css}" href="/css/record.css">
+  <link rel="stylesheet" href="/css/button.css" />
+  <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
+  <link rel="stylesheet" th:href="@{/css/settings-back.css}" href="/css/settings-back.css">
+  <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
   <link rel="stylesheet" th:href="@{/css/button.css}" href="/css/button.css">
 
 </head>
-<body>
-<div class="container">
-  <div class="history-wrapper">
-    <h1 class="history-title">スコア履歴</h1>
+<body class="scrollable bodycolor">
+  <div class="container textcolor">
+    <div class="history-wrapper">
+      <section class="panel" aria-labelledby="settings-title">
+        <div class="scanlines"></div>
+        <div class="flicker-bg"></div>
+    <h1 class="history-title font2">スコア履歴</h1>
 
     <!-- ログインユーザー表示 -->
-    <p class="history-info">
+    <p class="history-info font2">
       ログイン中：
-      <span th:text="${loginUser.name}">ユーザー名</span>
+      <span class="font2" th:text="${loginUser.name}">ユーザー名</span>
     </p>
 
     <!-- 履歴一覧 -->
     <table class="history-table" th:if="${not #lists.isEmpty(scores)}">
 
-      <thead>
+      <thead class="font2">
         <tr>
           <th>プレイ日時</th>
           <th>モード</th>
@@ -32,11 +39,11 @@
       <tbody>
         <tr th:each="s : ${scores}">
           <!-- createdAt が LocalDateTime 前提 -->
-          <td th:text="${#temporals.format(s.createdAt, 'yyyy/MM/dd HH:mm')}">
+          <td class="font2" th:text="${#temporals.format(s.createdAt, 'yyyy/MM/dd HH:mm')}">
             2025/11/27 10:00
           </td>
-          <td th:text="${s.mode}">worker</td>
-          <td th:text="${s.score}">72</td>
+          <td class="font2" th:text="${s.mode}">worker</td>
+          <td class="font2" th:text="${s.score}">72</td>
         </tr>
       </tbody>
     </table>
@@ -49,7 +56,7 @@
 
     <!-- 戻るボタン（class="rpg" は既存ボタンスタイルを想定） -->
     <div class="back-command">
-      <a th:href="@{/home}" class="rpg">ホームへ戻る</a>
+      <a th:href="@{/home}" class="btn small font2">ホームへ戻る</a>
 
     </div>
   </div>

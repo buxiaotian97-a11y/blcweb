@@ -100,8 +100,9 @@ public class SheetsService {
 
             return list;
 
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read questions from Sheets", e);
+        } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
+            System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
+            return List.of();   // ★ ここで落とさず空リスト
         }
     }
     public List<ResultbgRow> readBackgrounds() {
@@ -147,8 +148,9 @@ public class SheetsService {
 
             return list;
 
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read backgrounds from Sheets", e);
+        } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
+            System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
+            return List.of();   // ★ ここで落とさず空リスト
         }
     }
     
@@ -169,13 +171,12 @@ public class SheetsService {
                     return list;
                 }
 
-                // 1行目ヘッダー → 2行目から
                 for (List<Object> row : values.subList(1, values.size())) {
-                    String type    = getCell(row, 0); // A: type
-                    String questionCode  = getCell(row, 1); // B: question_id
-                    String minStr  = getCell(row, 2); // C: min_score
-                    String mode    = getCell(row, 3); // D: mode
-                    String bgUrl   = getCell(row, 4); // E: bg_url
+                    String type    = getCell(row, 0); 
+                    String questionCode  = getCell(row, 1);
+                    String minStr  = getCell(row, 2);
+                    String mode    = getCell(row, 3);
+                    String bgUrl   = getCell(row, 4);
 
                     int minScore   = parseInt(minStr);
                     if (mode == null || mode.isBlank()) {
@@ -193,8 +194,9 @@ public class SheetsService {
 
                 return list;
 
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to read question backgrounds from Sheets", e);
+            } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
+                System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
+                return List.of();   // ★ ここで落とさず空リスト
             }
         }
 

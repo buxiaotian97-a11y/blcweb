@@ -5,9 +5,17 @@
   padding: 0 16px;
 }
 
+.textcolor {
+	color: #fff!important;
+}
+
+.bodycolor {
+	background-color: #111 !important;
+}
+
 /* 中央のカードっぽい枠 */
 .history-wrapper {
-  background: rgba(0, 0, 0, 0.6);
+  background: transparent;
   border-radius: 18px;
   padding: 24px 22px 28px;
   box-shadow:
