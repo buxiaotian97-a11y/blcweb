@@ -61,7 +61,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/images/byeneet.png") center center / cover no-repeat;
+  background: url("/images/bg-hope.png") center center / cover no-repeat;
   transform: scale(1.05);
   z-index: -1;
 }

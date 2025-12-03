@@ -13,7 +13,6 @@
 <body class="result"
       th:style="${bgUrl} != null ? |--bg-image:url(${bgUrl})| : null">
 	<main class="result-screen">
-      <div class="scanlines"></div>
 	  <div class="result-bubble result-box">
 	    <p class="label">あなたのブラック度は、、、</p>
 		<p class="score" th:text="${score + '点'}"></p>

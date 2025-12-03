@@ -13,20 +13,6 @@ body::before {
   z-index: -1;
 }
 
-.scanlines{
-  position:absolute; inset:0; pointer-events:none;
-  background-image: linear-gradient(to bottom,
-    rgba(0,0,0,0.38) 0 2px,     
-    transparent 2px 4px       
-  );
-  background-size: 100% 4px;   
-  mix-blend-mode: normal;       
-  opacity: .35;          
-  animation: scan 6s linear infinite, scanFlicker 2.4s ease-in-out infinite;
-}
-@keyframes scan { from{background-position-y:0} to{background-position-y:200px} }
-@keyframes scanFlicker { 0%,100%{opacity:.30} 50%{opacity:.40} }
-
 .result-text {
 	color: #fff;
 }
