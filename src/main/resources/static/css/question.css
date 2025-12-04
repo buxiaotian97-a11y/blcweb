@@ -32,7 +32,10 @@ main.diagnosis {
 .room {
 	position: fixed;
 	inset: 0;
-	background: transparent;
+	background-color: transparent;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 /* ホワイトボード */
@@ -44,6 +47,27 @@ main.diagnosis {
   width: 120%;
   max-width: 650px;
   background: transparent;
+}
+
+@media (min-width: 1440px) {
+  main.diagnosis {
+    width: 860px;           /* 全体を少し広げる */
+  }
+
+  .board-wrap {
+    max-width: 820px;       /* ボードの上限をアップ */
+    top: 10%;               /* ちょい下げてもいいなら調整用 */
+  }
+
+  .question-text {
+    font-size: 2rem;        /* 文字も少しだけ大きく */
+    max-width: 80%;
+  }
+
+  .answer-buttons button {
+    padding: 14px 46px;     /* ボタンも気持ち大きく */
+    font-size: 1.3rem;
+  }
 }
 
 .board-frame{
