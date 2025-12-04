@@ -171,8 +171,8 @@ public class PageController {
         String modeMsg = switch (mode) {
             case "shura"  -> "修羅モード";
             case "iyashi" -> "癒しモード";
-            case "ai"     -> "AI診断";
-            default       -> "通常モード";
+            case "ai"     -> "AI";
+            default       -> "standard";
         };
 
         String resultMsg = resultRepository.findMessageByScore(score);

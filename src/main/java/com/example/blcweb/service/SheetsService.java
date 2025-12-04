@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 
@@ -23,15 +24,11 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 public class SheetsService {
 
     private static final String APPLICATION_NAME = "BlackCompanySimulator";
-
     private static final String SHEET_ID = "1e8v9mH8wLLH0FKWUOZCNA2KTa9r7GdUVyuzerCzhTII";
 
     private final Sheets sheets;
 
-    // ★ コンストラクタで Google Sheets API クライアントを作る
     public SheetsService() throws GeneralSecurityException, IOException {
-
-        // resourcesフォルダ直下に置いた credentials.json を読む
         InputStream in = getClass().getResourceAsStream("/credentials.json");
         if (in == null) {
             this.sheets = null;
@@ -51,156 +48,132 @@ public class SheetsService {
         .build();
     }
 
-    /** questions シートの内容を QuestionRow のリストとして読み込む */
-    public List<QuestionRow> readQuestions() {
-    	
+    // =====================================================
+    // ★ 共通読み込みメソッド
+    // =====================================================
+    private <T> List<T> readSheet(
+            String range,
+            Function<List<Object>, T> rowMapper   // 1行 → DTO の変換処理
+    ) {
+
         if (this.sheets == null) {
-            System.out.println("⚠ Sheets 連携オフのため、質問は読み込まず空リストを返します");
-            return List.of(); 
-        }
-    	
-        try {
-            ValueRange vr = sheets.spreadsheets().values()
-                    .get(SHEET_ID, "questions!A:I")
-                    .execute();
-
-            List<QuestionRow> list = new ArrayList<>();
-            var values = vr.getValues();
-            if (values == null || values.size() <= 1) {
-                return list; // データなし
-            }
-
-            for (List<Object> row : values.subList(1, values.size())) {
-
-                String code      = getCell(row, 0);
-                String qtext     = getCell(row, 1);
-                String category  = getCell(row, 2);
-                int yesPoint     = parseInt(getCell(row, 3));
-                int noPoint      = parseInt(getCell(row, 4));
-
-                // ★ ここはそのまま文字列で保持
-                String nextYesStr = getCell(row, 5);
-                String nextNoStr  = getCell(row, 6); 
-                
-                boolean isStart  = parseBoolean(getCell(row, 7));
-                boolean finish   = parseBoolean(getCell(row, 8));
-
-                list.add(new QuestionRow(
-                        code,
-                        qtext,
-                        category,
-                        yesPoint,
-                        noPoint,
-                        nextYesStr,
-                        nextNoStr,
-                        isStart,
-                        finish
-                ));
-            }
-
-            return list;
-
-        } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
-            System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
-            return List.of();   // ★ ここで落とさず空リスト
-        }
-    }
-    public List<ResultbgRow> readBackgrounds() {
-        if (this.sheets == null) {
-            System.out.println("⚠ Sheets 連携オフのため、背景は読み込まず空リストを返します");
+            System.out.println("⚠ Sheets 連携オフのため、" + range + " は読み込まず空リストを返します");
             return List.of();
         }
 
         try {
-            // ★ シート名と範囲はあなたのシートに合わせて変更してOK
             ValueRange vr = sheets.spreadsheets().values()
-                    .get(SHEET_ID, "'resultimage'!A:E")
+                    .get(SHEET_ID, range)
                     .execute();
 
-            List<ResultbgRow> list = new ArrayList<>();
             var values = vr.getValues();
+            List<T> list = new ArrayList<>();
+
             if (values == null || values.size() <= 1) {
-                return list;
+                return list; // データなし or ヘッダーのみ
             }
 
-            // 1行目はヘッダー想定なので subList(1, ...) で2行目から読む
+            // 0行目はヘッダー想定なので 1行目から
             for (List<Object> row : values.subList(1, values.size())) {
-                String minStr   = getCell(row, 0); // A
-                String maxStr   = getCell(row, 1); // B
-                String mode     = getCell(row, 2); // C
-                String cssClass = getCell(row, 3); // D
-                String bgUrl = getCell(row, 4);
-
-                int minScore = parseInt(minStr);
-                int maxScore = parseInt(maxStr);
-                if (mode == null || mode.isBlank()) {
-                    mode = "ANY"; // 未指定ならANY扱い
+                T dto = rowMapper.apply(row);
+                if (dto != null) {
+                    list.add(dto);
                 }
-
-                list.add(new ResultbgRow(
-                        minScore,
-                        maxScore,
-                        mode,
-                        cssClass,
-                        bgUrl
-                ));
             }
 
             return list;
 
-        } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
-            System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
-            return List.of();   // ★ ここで落とさず空リスト
+        } catch (Exception e) {
+            System.err.println("⚠ Sheets 読み込み失敗 (" + range + ") : " + e.getMessage());
+            return List.of();
         }
     }
-    
-        public List<QuestionbgRow> readQuestionBackgrounds() {
-            if (this.sheets == null) {
-                System.out.println("⚠ Sheets 連携オフのため、質問背景は読み込まず空リストを返します");
-                return List.of();
+
+    // =====================================================
+    // 質問シート
+    // =====================================================
+    public List<QuestionRow> readQuestions() {
+        return readSheet("questions!A:I", row -> {
+            String code      = getCell(row, 0);
+            String qtext     = getCell(row, 1);
+            String category  = getCell(row, 2);
+            int yesPoint     = parseInt(getCell(row, 3));
+            int noPoint      = parseInt(getCell(row, 4));
+
+            String nextYesStr = getCell(row, 5);
+            String nextNoStr  = getCell(row, 6);
+
+            boolean isStart  = parseBoolean(getCell(row, 7));
+            boolean finish   = parseBoolean(getCell(row, 8));
+
+            return new QuestionRow(
+                    code,
+                    qtext,
+                    category,
+                    yesPoint,
+                    noPoint,
+                    nextYesStr,
+                    nextNoStr,
+                    isStart,
+                    finish
+            );
+        });
+    }
+
+    // =====================================================
+    // 結果背景シート
+    // =====================================================
+    public List<ResultbgRow> readBackgrounds() {
+        return readSheet("'resultimage'!A:E", row -> {
+            String minStr   = getCell(row, 0);
+            String maxStr   = getCell(row, 1);
+            String mode     = getCell(row, 2);
+            String cssClass = getCell(row, 3);
+            String bgUrl    = getCell(row, 4);
+
+            int minScore = parseInt(minStr);
+            int maxScore = parseInt(maxStr);
+            if (mode == null || mode.isBlank()) {
+                mode = "ANY";
             }
 
-            try {
-                ValueRange vr = sheets.spreadsheets().values()
-                        .get(SHEET_ID, "'questionimage'!A:E")
-                        .execute();
+            return new ResultbgRow(
+                    minScore,
+                    maxScore,
+                    mode,
+                    cssClass,
+                    bgUrl
+            );
+        });
+    }
 
-                List<QuestionbgRow> list = new ArrayList<>();
-                var values = vr.getValues();
-                if (values == null || values.size() <= 1) {
-                    return list;
-                }
+    // =====================================================
+    // 質問背景シート
+    // =====================================================
+    public List<QuestionbgRow> readQuestionBackgrounds() {
+        return readSheet("'questionimage'!A:E", row -> {
+            String type         = getCell(row, 0);
+            String questionCode = getCell(row, 1);
+            String minStr       = getCell(row, 2);
+            String mode         = getCell(row, 3);
+            String bgUrl        = getCell(row, 4);
 
-                for (List<Object> row : values.subList(1, values.size())) {
-                    String type    = getCell(row, 0); 
-                    String questionCode  = getCell(row, 1);
-                    String minStr  = getCell(row, 2);
-                    String mode    = getCell(row, 3);
-                    String bgUrl   = getCell(row, 4);
-
-                    int minScore   = parseInt(minStr);
-                    if (mode == null || mode.isBlank()) {
-                        mode = "ANY";
-                    }
-
-                    list.add(new QuestionbgRow(
-                            type,
-                            questionCode,
-                            minScore,
-                            mode,
-                            bgUrl
-                    ));
-                }
-
-                return list;
-
-            } catch (Exception e) { // ← IOException でも SocketException でもまとめてキャッチ
-                System.err.println("⚠ Sheets から背景を読み込めませんでした（空リストで続行）: " + e.getMessage());
-                return List.of();   // ★ ここで落とさず空リスト
+            int minScore = parseInt(minStr);
+            if (mode == null || mode.isBlank()) {
+                mode = "ANY";
             }
-        }
 
+            return new QuestionbgRow(
+                    type,
+                    questionCode,
+                    minScore,
+                    mode,
+                    bgUrl
+            );
+        });
+    }
 
+    // 共通のユーティリティは今まで通り
     private String getCell(List<Object> row, int index) {
         if (index >= row.size()) return "";
         Object v = row.get(index);
@@ -216,5 +189,4 @@ public class SheetsService {
         if (s == null || s.isBlank()) return false;
         return Boolean.parseBoolean(s);
     }
-
 }

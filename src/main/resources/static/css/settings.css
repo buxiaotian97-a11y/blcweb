@@ -117,3 +117,20 @@ input[type="text"]:focus, select:focus{ border-color: rgba(255,255,255,.4); }
 .switch input[type="checkbox"]:checked ~ i::after{
   transform: translateX(calc(var(--w) - var(--h)));
 }
+
+@media (min-width: 1440px) {
+  :root{
+	--controlH: 90px;
+    --maxw: 800px; 
+  }
+
+  .panel{
+	min-height: 40vh;
+    padding: 38px 50px; 
+  }
+
+  .row{
+    grid-template-columns: 200px 1fr; 
+    gap: 16px;
+  }
+}
