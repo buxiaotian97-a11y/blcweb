@@ -17,7 +17,6 @@ body.question {
   background-repeat: no-repeat;
 }
 
-/* 中身が見やすいように、部屋側を少し浮かせておくと◎ */
 body.question .diagnosis {
   position: relative;
   z-index: 1;
@@ -49,23 +48,23 @@ main.diagnosis {
   background: transparent;
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1600px) {
   main.diagnosis {
-    width: 860px;           /* 全体を少し広げる */
+    width: 860px;        
   }
 
   .board-wrap {
-    max-width: 820px;       /* ボードの上限をアップ */
-    top: 10%;               /* ちょい下げてもいいなら調整用 */
+    max-width: 820px;  
+    top: 10%;      
   }
 
   .question-text {
-    font-size: 2rem;        /* 文字も少しだけ大きく */
+    font-size: 2rem;   
     max-width: 80%;
   }
 
   .answer-buttons button {
-    padding: 14px 46px;     /* ボタンも気持ち大きく */
+    padding: 14px 46px;  
     font-size: 1.3rem;
   }
 }

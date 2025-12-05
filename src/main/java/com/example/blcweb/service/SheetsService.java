@@ -48,12 +48,9 @@ public class SheetsService {
         .build();
     }
 
-    // =====================================================
-    // ★ 共通読み込みメソッド
-    // =====================================================
     private <T> List<T> readSheet(
             String range,
-            Function<List<Object>, T> rowMapper   // 1行 → DTO の変換処理
+            Function<List<Object>, T> rowMapper
     ) {
 
         if (this.sheets == null) {
@@ -70,10 +67,9 @@ public class SheetsService {
             List<T> list = new ArrayList<>();
 
             if (values == null || values.size() <= 1) {
-                return list; // データなし or ヘッダーのみ
+                return list;
             }
 
-            // 0行目はヘッダー想定なので 1行目から
             for (List<Object> row : values.subList(1, values.size())) {
                 T dto = rowMapper.apply(row);
                 if (dto != null) {
@@ -89,9 +85,6 @@ public class SheetsService {
         }
     }
 
-    // =====================================================
-    // 質問シート
-    // =====================================================
     public List<QuestionRow> readQuestions() {
         return readSheet("questions!A:I", row -> {
             String code      = getCell(row, 0);
@@ -120,9 +113,6 @@ public class SheetsService {
         });
     }
 
-    // =====================================================
-    // 結果背景シート
-    // =====================================================
     public List<ResultbgRow> readBackgrounds() {
         return readSheet("'resultimage'!A:E", row -> {
             String minStr   = getCell(row, 0);
@@ -147,9 +137,6 @@ public class SheetsService {
         });
     }
 
-    // =====================================================
-    // 質問背景シート
-    // =====================================================
     public List<QuestionbgRow> readQuestionBackgrounds() {
         return readSheet("'questionimage'!A:E", row -> {
             String type         = getCell(row, 0);
@@ -173,7 +160,6 @@ public class SheetsService {
         });
     }
 
-    // 共通のユーティリティは今まで通り
     private String getCell(List<Object> row, int index) {
         if (index >= row.size()) return "";
         Object v = row.get(index);

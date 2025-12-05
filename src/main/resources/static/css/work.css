@@ -1,7 +1,5 @@
 body.hope::before{
 	background: url("/images/bg-hope.png") center center / cover no-repeat;
-	filter: none;
-	transition: none;
 }
 
 .work-list {
