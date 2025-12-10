@@ -63,6 +63,7 @@ body::before {
   font-size: clamp(20px, 2vw, 28px);
   color: #333;
   line-height: 1.6;
+  white-space: pre-line;
 }
 
 .button-area {

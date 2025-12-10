@@ -16,7 +16,7 @@
 	  <div class="result-bubble result-box">
 	    <p class="label">あなたのブラック度は、、、</p>
 		<p class="score" th:text="${score + '点'}"></p>
-		<p class="label" th:text="${resultMsg}"></p>
+		<p class="message" th:utext="${#strings.replace(resultMsg, '\n', '<br>')}"></p>
 		<p th:text="${modeMsg}"></p>
 
 	  </div>

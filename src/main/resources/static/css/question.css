@@ -44,7 +44,7 @@ main.diagnosis {
   left: 50%;
   transform: translateX(-50%);
   width: 120%;
-  max-width: 650px;
+  max-width: 700px;
   background: transparent;
 }
 
@@ -60,7 +60,7 @@ main.diagnosis {
 
   .question-text {
     font-size: 2rem;   
-    max-width: 80%;
+    max-width: 90%;
   }
 
   .answer-buttons button {
@@ -90,9 +90,9 @@ main.diagnosis {
 .question-content{
   position: absolute;
   z-index: 3;
-  inset: 16% 8% 20% 8%;
+  inset: 16% 0% 20% 0%;
   color: #222;
-  text-align: center;
+  text-align: center; 
 }
 
 .board-img {
@@ -105,19 +105,24 @@ main.diagnosis {
   font-weight: 600;
   font-size: 1rem;
   text-align: left;
+  position: absolute;
+    z-index: 3;
+    inset: 16% 8% 20% 8%;
+    color: #222;
+    text-align: center;
 }
 
 .question-text {
+  position: absolute;
+  top: 40%;        
+  left: 50%;       
+  transform: translate(-50%, -50%); 
+	
   font-size: 1.8rem;
   line-height: 1.6;
-  margin-top: 2.0rem;
-  max-width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
+  margin: 0;
   text-align: center;
-  display: block;          
-  justify-self: center;  
-  align-self: center;  
 }
 
 /* YES / NOボタン */

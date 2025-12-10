@@ -13,9 +13,10 @@
       <div class="board-wrap">
         <img src="/images/whiteboard.png" alt="ホワイトボード" class="board-frame board-img" />
         <div class="board-fill"></div>
+		
+		<p class="question-no">Q<span th:text="${question.code}">Q_001</span></p>
 
         <div class="question-content">
-          <p class="question-no">Q<span th:text="${question.code}">Q_001</span></p>
           <p class="question-text" th:text="${question.qtext}"></p>
 
           <!-- YES / NOボタン -->
