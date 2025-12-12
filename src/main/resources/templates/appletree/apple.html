@@ -1,0 +1,15 @@
+<h2 th:text="${root.title}">タイトル</h2>
+<p th:text="${root.message}">親りんごの本文</p>
+<hr />
+
+<!-- スレッド内メッセージ -->
+<div th:each="msg : ${messages}">
+  <p th:text="${msg.message}">メッセージ</p>
+</div>
+
+<!-- 返信フォーム -->
+<form th:action="@{'/appletree/' + ${root.id} + '/reply'}" method="post">
+  <input type="hidden" name="userId" value="1" /> <!-- TODO: ログインユーザーID -->
+  <textarea name="message" placeholder="返信内容"></textarea>
+  <button type="submit">返信する</button>
+</form>

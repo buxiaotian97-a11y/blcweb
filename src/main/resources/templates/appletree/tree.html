@@ -1,0 +1,13 @@
+<div class="tree-area">
+  <!-- りんご一覧 -->
+  <div th:each="apple : ${apples}" class="apple">
+    <a th:href="@{'/apple/' + ${apple.id}}">
+      <span th:text="${apple.title} ?: '（タイトルなし）'"></span>
+    </a>
+  </div>
+</div>
+
+<!-- 新しいりんご作成画面へ遷移するボタン -->
+<a th:href="@{/appletree/new}">
+  <button type="button">りんごを植える</button>
+</a>

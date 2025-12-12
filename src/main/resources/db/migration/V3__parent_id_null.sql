@@ -1,0 +1,1 @@
+ALTER TABLE apple MODIFY parent_id BIGINT NULL;

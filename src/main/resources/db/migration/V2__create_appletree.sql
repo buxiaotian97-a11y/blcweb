@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS apple (
+id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+user_id      BIGINT NOT NULL,
+parent_id    BIGINT NOT NULL,
+title        VARCHAR(100) NULL,
+message      VARCHAR(100) NULL,
+status       TINYINT(1) NOT NULL DEFAULT 0,
+created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+                              ON UPDATE CURRENT_TIMESTAMP,
+INDEX idx_apple_user_id (user_id),
+CONSTRAINT fk_apple_user
+     FOREIGN KEY (user_id)
+     REFERENCES users(id)
+     ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
