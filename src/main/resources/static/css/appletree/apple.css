@@ -1,0 +1,150 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body{
+  background: #0b0f18;
+  color: #fff;
+  font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
+               "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, sans-serif;
+  padding: 28px 16px 40px;
+  box-sizing: border-box;
+}
+
+/* 画面幅 */
+:root{
+  --w: min(860px, 92vw);
+}
+
+/* 親りんご（タイトル＋本文） */
+h2{
+  width: var(--w);
+  margin: 0 auto 10px;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+h2 + p{
+  width: var(--w);
+  margin: 0 auto 18px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.38);
+  border: 1.5px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  line-height: 1.75;
+  opacity: .95;
+}
+
+/* 区切り線 */
+hr{
+  width: var(--w);
+  margin: 18px auto 16px;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
+  opacity: .9;
+}
+
+/* スレッド本文（各返信） */
+/* div > p だと巻き込み少ない */
+div > p{
+  width: var(--w);
+  margin: 0 auto 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.06);
+  border: 1.5px solid rgba(255,255,255,.12);
+  line-height: 1.75;
+  opacity: .95;
+
+  transition: transform .16s ease, border-color .16s ease, background .16s ease;
+}
+
+div > p:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.22);
+}
+
+/* 返信フォーム */
+form{
+  width: var(--w);
+  margin: 18px auto 0;
+  padding: 16px 14px 14px;
+  border-radius: 18px;
+
+  background: rgba(0,0,0,.38);
+  border: 1.5px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 60px rgba(0,0,0,.40);
+
+  display: grid;
+  gap: 12px;
+}
+
+/* hiddenはそのまま */
+input[type="hidden"]{ display:none; }
+
+textarea{
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 140px;
+  resize: vertical;
+
+  border-radius: 14px;
+  border: 1.5px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+
+  padding: 12px 12px;
+  outline: none;
+
+  line-height: 1.75;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+
+textarea::placeholder{
+  color: rgba(255,255,255,.55);
+}
+
+textarea:focus{
+  border-color: rgba(255,255,255,.34);
+  background: rgba(255,255,255,.09);
+  transform: translateY(-1px);
+}
+
+button[type="submit"]{
+  width: 100%;
+  height: 50px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,.10);
+  border: 1.5px solid rgba(255,255,255,.20);
+  color: #fff;
+
+  font-weight: 900;
+  letter-spacing: .06em;
+  cursor: pointer;
+
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+button[type="submit"]:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.30);
+}
+
+button[type="submit"]:active{
+  transform: translateY(0px);
+}
+
+@media (max-width: 520px){
+  body{ padding: 22px 12px 34px; }
+  textarea{ min-height: 120px; }
+}

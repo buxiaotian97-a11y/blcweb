@@ -6,8 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.blcweb.dto.ThreadMessage;
 import com.example.blcweb.entity.AppletreeEntity;
+import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.service.AppletreeService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/appletree")
@@ -56,7 +60,9 @@ public class AppletreeController {
         AppletreeEntity root = appletreeService.getApple(appleId);
 
         // そのりんごにぶら下がるメッセージ一覧
-        List<AppletreeEntity> messages = appletreeService.getThreadMessages(appleId);
+        List<ThreadMessage> messages = appletreeService.getThreadMessagesWithUser(appleId);
+        model.addAttribute("messages", messages);
+
 
         model.addAttribute("root", root);
         model.addAttribute("messages", messages);
@@ -74,11 +80,16 @@ public class AppletreeController {
      */
     @PostMapping("/{appleId}/reply")
     public String reply(
-            @PathVariable("appleId") long appleId,
-            @RequestParam("userId") long userId,      // TODO: ログインユーザーから取る
-            @RequestParam("message") String message) {
+        @PathVariable("appleId") long appleId,
+        @RequestParam("message") String message,
+        HttpSession session
+    ) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) return "redirect:/title-page";
 
-        appletreeService.replyMessage(appleId, userId, message);
+        appletreeService.replyMessage(appleId, loginUser.getId(), message); // ★ここ
+
         return "redirect:/appletree/" + appleId;
     }
+
 }

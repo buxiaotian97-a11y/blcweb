@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.blcweb.constant.AppleStatus;
+import com.example.blcweb.dto.ThreadMessage;
 import com.example.blcweb.entity.AppletreeEntity;
 import com.example.blcweb.repository.AppletreeRepository;
 
@@ -66,4 +67,9 @@ public class AppletreeService {
         return appletreeRepository.findById(appleId)
                 .orElseThrow(() -> new IllegalArgumentException("apple not found"));
     }
+    
+    public List<ThreadMessage> getThreadMessagesWithUser(long appleId){
+    	  return appletreeRepository.findThreadMessagesWithUserName(appleId);
+    	}
+
 }
