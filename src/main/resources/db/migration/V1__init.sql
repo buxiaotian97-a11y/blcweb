@@ -1,6 +1,4 @@
-CREATE DATABASE IF NOT EXISTS blc DEFAULT CHARACTER SET utf8mb4;
-USE blc;												
-												
+									
 SET NAMES utf8mb4;												
 SET time_zone = '+09:00';												
 																			
@@ -51,9 +49,6 @@ score INT NOT NULL,
 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,												
 CONSTRAINT fk_scores_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE												
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;		
-
-CREATE INDEX idx_questions_next_yes ON questions (next_yes_str);
-CREATE INDEX idx_questions_next_no  ON questions (next_no_str);
 CREATE INDEX idx_questions_active_cat ON questions (active, category);
 CREATE INDEX idx_scores_user_created ON scores (user_id, created_at);
 
