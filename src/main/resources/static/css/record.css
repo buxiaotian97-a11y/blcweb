@@ -119,22 +119,3 @@
   min-width: 180px;
   text-align: center;
 }
-
-/* -------------------------
-   スマホ向け調整
-   ------------------------- */
-@media (max-width: 640px) {
-  .history-wrapper {
-    padding: 18px 14px 22px;
-  }
-
-  .history-table th,
-  .history-table td {
-    padding: 8px 10px;
-    font-size: 0.8rem;
-  }
-
-  .history-info {
-    font-size: 0.8rem;
-  }
-}

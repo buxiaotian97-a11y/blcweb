@@ -16,20 +16,34 @@ public class UserService {
         this.loginRepository = loginRepository;
     }
 
+    private String normalizeName(String name) {
+        return name == null ? null : name.strip();
+    }
+
     /** 名前がすでに使われているか */
     public boolean existsByName(String name) {
-        return loginRepository.findByName(name).isPresent();
+        String normalized = normalizeName(name);
+        return normalized != null && loginRepository.findByName(normalized).isPresent();
     }
 
     /** 新規登録してユーザーを返す */
     @Transactional
     public UserEntity register(UserRegisterForm form) {
+        String name = normalizeName(form.getName());
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("name is blank");
+        }
+
+        // ここで重複チェック（Controller側でやってても保険で）
+        if (loginRepository.findByName(name).isPresent()) {
+            throw new IllegalArgumentException("name already exists");
+        }
+
         UserEntity user = new UserEntity();
-        user.setName(form.getName());
-        user.setDepartmentName(form.getDepartmentName());
-        // ★ 今は既存ログインに合わせて「生パスワードのまま保存」
-        user.setPassword(form.getPassword());
-        
+        user.setName(name);
+        user.setDepartmentName(form.getDepartmentName()); // ここもtrimしたければ同様に
+        user.setPassword(form.getPassword()); // パスは基本trimしない
+
         return loginRepository.save(user);
     }
 }

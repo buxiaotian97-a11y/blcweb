@@ -2,24 +2,126 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/css/appletree/tree.css">
   <link rel="stylesheet" href="/css/button.css" />
+  <link rel="stylesheet" href="/css/appletree/tree.css">
 </head>
 <body>
+ <div class="tree-area">
+	<div th:each="apple : ${apples}" class="apple">
+	  <a th:href="@{'/appletree/' + ${apple.id}}">
+	    <span th:text="${apple.title} ?: '（タイトルなし）'"></span>
+	  </a>
+	</div>
+ </div>
 
-<div class="tree-area">
-  <div th:each="apple : ${apples}" class="apple">
-    <a th:href="@{'/appletree/' + ${apple.id}}">
-      <span th:text="${apple.title} ?: '（タイトルなし）'"></span>
-    </a>
-  </div>
-</div>
+ <div class="fixed-actions">
+   <a th:href="@{/appletree/new}" class="btn small ghost plant-btn">りんごを付ける</a>
+   <a href="/home" class="btn small ghost">ホームへ戻る</a>
+ </div>
+ 
+ 
+ <script>
+ document.addEventListener("DOMContentLoaded", () => {
+   const area = document.querySelector(".tree-area");
+   if (!area) return;
 
-<a th:href="@{/appletree/new}">
-  <button type="button">りんごを植える</button>
-</a>
+   const apples = [...area.querySelectorAll(".apple > a")];
+   if (!apples.length) return;
 
-    <a href="/home" class="btn small font2">ホームへ戻る</a>
+   const W = area.clientWidth;
+   const H = area.clientHeight;
+
+   // 木っぽい楕円（上半分）
+   const cx = W * 0.52;
+   const cy = H * 0.45;
+   const rx = W * 0.44;
+   const ry = H * 0.34;
+
+   const placed = [];
+   const maxTry = 300;
+
+   // --- seed付き乱数（IDから固定値） ---
+   function hashString(str){
+     // FNV-1a 32bit
+     let h = 2166136261;
+     for (let i = 0; i < str.length; i++){
+       h ^= str.charCodeAt(i);
+       h = Math.imul(h, 16777619);
+     }
+     return h >>> 0;
+   }
+
+   function mulberry32(seed){
+     return function(){
+       let t = seed += 0x6D2B79F5;
+       t = Math.imul(t ^ (t >>> 15), t | 1);
+       t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+     };
+   }
+
+   function overlap(x, y, w, h){
+     const pad = 10;
+     for (const p of placed){
+       const dx = (x + w/2) - (p.x + p.w/2);
+       const dy = (y + h/2) - (p.y + p.h/2);
+       const dist = Math.hypot(dx, dy);
+       const min = Math.min(w, h) * 0.62 + pad;
+       if (dist < min) return true;
+     }
+     return false;
+   }
+
+   apples.forEach((a) => {
+     const id = a.dataset.id ?? a.getAttribute("href") ?? String(Math.random());
+     const seed = hashString(String(id));
+     const rnd = mulberry32(seed);
+
+     const w = a.offsetWidth || 72;
+     const h = a.offsetHeight || 72;
+
+     const rand = (min, max) => min + rnd() * (max - min);
+
+     function samplePoint(){
+       const t = rand(-Math.PI, 0);        // 上半分
+       const r = Math.sqrt(rnd());         // 均等っぽい
+       return {
+         x: cx + Math.cos(t) * rx * r,
+         y: cy + Math.sin(t) * ry * r
+       };
+     }
+
+     let ok = false;
+
+     for (let i = 0; i < maxTry; i++){
+       const p = samplePoint();
+       let x = Math.max(0, Math.min(W - w, p.x - w/2));
+       let y = Math.max(0, Math.min(H - h, p.y - h/2));
+
+       if (!overlap(x, y, w, h)){
+         a.style.left = x + "px";
+         a.style.top  = y + "px";
+
+         // 回転・拡大も固定（ID由来）
+         const rot = rand(-10, 10);
+         const scale = rand(0.92, 1.06);
+		 a.style.setProperty("--rot", `${rot}deg`);
+		 a.style.setProperty("--scale", `${scale}`);
+
+         a.style.zIndex = String(1000 + Math.floor(y));
+         placed.push({x, y, w, h});
+         ok = true;
+         break;
+       }
+     }
+
+     if (!ok){
+       a.style.left = rand(0, W - w) + "px";
+       a.style.top  = rand(0, H - h) + "px";
+     }
+   });
+ });
+ </script>
 
 </body>
 </html>

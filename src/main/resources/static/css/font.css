@@ -1,5 +1,5 @@
 .font2 {
--webkit-mask-image: url("/images/ink-rough2.png");
+ -webkit-mask-image: url("/images/ink-rough2.png");
          mask-image: url("/images/ink-rough2.png");
  -webkit-mask-mode: luminance;
          mask-mode: luminance;

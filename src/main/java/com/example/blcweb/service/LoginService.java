@@ -16,10 +16,13 @@ public class LoginService {
 
     public UserEntity login(String name, String rawPassword) {
 
-        UserEntity user = userRepository.findByName(name)
-                .orElseThrow(LoginException::new);
-
-        if (!user.getPassword().equals(rawPassword)) {
+    	 String normalizedName = (name == null) ? null : name.strip();
+    	 String normalizedPassword = (rawPassword == null) ? null : rawPassword;
+    	
+    	 UserEntity user = userRepository.findByName(normalizedName)
+    	            .orElseThrow(LoginException::new);
+    	 
+        if (!user.getPassword().equals(normalizedPassword)) {
             throw new LoginException();
         }
 
