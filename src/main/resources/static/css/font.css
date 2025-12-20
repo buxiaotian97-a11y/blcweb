@@ -19,3 +19,10 @@
 	letter-spacing: 0.04em;
 	fill: currentColor; 
 }
+
+@media (min-width: 1660px) {
+  .font3 {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+}

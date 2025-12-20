@@ -1,5 +1,10 @@
 body.hope::before{
+	content: "";
+	position: fixed;
+	inset: 0;
 	background: url("/images/bg-hope.png") center center / cover no-repeat;
+	z-index: -1;   
+	pointer-events: none;
 }
 
 .work-list {
