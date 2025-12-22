@@ -1,3 +1,7 @@
+:root {
+	--actionsH: 160px;
+}
+
 body {  
   min-height: 100vh;
   background-image: url("/images/bg-eden.png");
@@ -7,21 +11,22 @@ body {
 }
 
 .tree-area{
-  width: min(760px, 92vw);
+  width: min(2000px, 96vw);
   margin: 28px auto 16px;
   padding: 18px;
   border-radius: 18px;
 
-  position: relative;      /* 重要 */
-  height: 360px;           /* “木の中エリア”高さ（調整） */
-  overflow: hidden;        /* はみ出し隠す */
+  position: relative;
+  overflow: hidden;
+
+  height: calc(100dvh - var(--actionsH) - 28px - 16px);
+  min-height: 360px; /* 小さい画面で潰れない保険 */
 }
 
 
 /* りんご（カード） */
 .apple{
 	position: absolute; 
-	inset: 0;   
 	padding: 0;
 	min-width: 0;
 	flex: none;
@@ -40,7 +45,7 @@ body {
 
   /* りんご画像はここに置く */
   background:
-    url("/images/bg-apple.png") center / contain no-repeat;
+    url("/images/bg-bubble.png") center / contain no-repeat;
 
   text-decoration: none;
   color: inherit;
@@ -113,7 +118,7 @@ body {
   height: 34px;
   flex: 0 0 34px;
 
-  background: url("/images/bg-apple.png") center / contain no-repeat;
+  background: url("/images/bg-bubble.png") center / contain no-repeat;
   filter: drop-shadow(0 8px 16px rgba(0,0,0,.45));
   transform: translateY(-1px);
 }

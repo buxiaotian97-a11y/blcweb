@@ -15,7 +15,7 @@
  </div>
 
  <div class="fixed-actions">
-   <a th:href="@{/appletree/new}" class="btn small ghost plant-btn">りんごを付ける</a>
+   <a th:href="@{/appletree/new}" class="btn small ghost plant-btn">シャボン生成</a>
    <a href="/home" class="btn small ghost">ホームへ戻る</a>
  </div>
  
@@ -25,103 +25,89 @@
    const area = document.querySelector(".tree-area");
    if (!area) return;
 
-   const apples = [...area.querySelectorAll(".apple > a")];
-   if (!apples.length) return;
+   const links = [...area.querySelectorAll(".apple > a")];
+   if (!links.length) return;
 
-   const W = area.clientWidth;
-   const H = area.clientHeight;
+   // 設定（好みで調整）
+   const PADDING = 14;         // 端の余白
+   const MIN_GAP = 55;         // りんご同士の“隙間”の最低値（まばら度）
+   const MAX_TRIES = 1500;     // 試行回数（多いほど詰められる）
 
-   // 木っぽい楕円（上半分）
-   const cx = W * 0.52;
-   const cy = H * 0.45;
-   const rx = W * 0.44;
-   const ry = H * 0.34;
+   // りんごのサイズ（DOMから実測）
+   const sample = links[0].getBoundingClientRect();
+   const appleW = Math.round(sample.width);
+   const appleH = Math.round(sample.height);
 
-   const placed = [];
-   const maxTry = 300;
+   const areaRect = area.getBoundingClientRect();
+   const W = Math.floor(areaRect.width);
+   const H = Math.floor(areaRect.height);
 
-   // --- seed付き乱数（IDから固定値） ---
-   function hashString(str){
-     // FNV-1a 32bit
-     let h = 2166136261;
-     for (let i = 0; i < str.length; i++){
-       h ^= str.charCodeAt(i);
-       h = Math.imul(h, 16777619);
+   const placed = []; // {x,y}
+
+   // 重なり判定：矩形＋余白
+   const isOK = (x, y) => {
+     for (const p of placed) {
+       const overlapX = x < p.x + appleW + MIN_GAP && x + appleW + MIN_GAP > p.x;
+       const overlapY = y < p.y + appleH + MIN_GAP && y + appleH + MIN_GAP > p.y;
+       if (overlapX && overlapY) return false;
      }
-     return h >>> 0;
-   }
+     return true;
+   };
 
-   function mulberry32(seed){
-     return function(){
-       let t = seed += 0x6D2B79F5;
-       t = Math.imul(t ^ (t >>> 15), t | 1);
-       t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-     };
-   }
+   // 乱数
+   const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-   function overlap(x, y, w, h){
-     const pad = 10;
-     for (const p of placed){
-       const dx = (x + w/2) - (p.x + p.w/2);
-       const dy = (y + h/2) - (p.y + p.h/2);
-       const dist = Math.hypot(dx, dy);
-       const min = Math.min(w, h) * 0.62 + pad;
-       if (dist < min) return true;
-     }
-     return false;
-   }
+   // 置ける範囲（りんごがはみ出ないように）
+   const minX = PADDING;
+   const maxX = Math.max(PADDING, W - appleW - PADDING);
+   const minY = PADDING;
+   const maxY = Math.max(PADDING, H - appleH - PADDING);
 
-   apples.forEach((a) => {
-     const id = a.dataset.id ?? a.getAttribute("href") ?? String(Math.random());
-     const seed = hashString(String(id));
-     const rnd = mulberry32(seed);
+   links.forEach((a) => {
+     // いったん左上に寄せて「サイズ確定」させる（環境によって必要）
+     a.style.left = "0px";
+     a.style.top = "0px";
 
-     const w = a.offsetWidth || 72;
-     const h = a.offsetHeight || 72;
+     let best = null;
+     let bestScore = -Infinity;
 
-     const rand = (min, max) => min + rnd() * (max - min);
+     for (let i = 0; i < MAX_TRIES; i++) {
+       const x = rand(minX, maxX);
+       const y = rand(minY, maxY);
 
-     function samplePoint(){
-       const t = rand(-Math.PI, 0);        // 上半分
-       const r = Math.sqrt(rnd());         // 均等っぽい
-       return {
-         x: cx + Math.cos(t) * rx * r,
-         y: cy + Math.sin(t) * ry * r
-       };
-     }
+       if (!isOK(x, y)) continue;
 
-     let ok = false;
-
-     for (let i = 0; i < maxTry; i++){
-       const p = samplePoint();
-       let x = Math.max(0, Math.min(W - w, p.x - w/2));
-       let y = Math.max(0, Math.min(H - h, p.y - h/2));
-
-       if (!overlap(x, y, w, h)){
-         a.style.left = x + "px";
-         a.style.top  = y + "px";
-
-         // 回転・拡大も固定（ID由来）
-         const rot = rand(-10, 10);
-         const scale = rand(0.92, 1.06);
-		 a.style.setProperty("--rot", `${rot}deg`);
-		 a.style.setProperty("--scale", `${scale}`);
-
-         a.style.zIndex = String(1000 + Math.floor(y));
-         placed.push({x, y, w, h});
-         ok = true;
-         break;
+       // “まばら”にするため、既存のりんごからの最小距離を最大化する点を採用
+       let minDist = Infinity;
+       for (const p of placed) {
+         const dx = (x + appleW/2) - (p.x + appleW/2);
+         const dy = (y + appleH/2) - (p.y + appleH/2);
+         const d = Math.hypot(dx, dy);
+         if (d < minDist) minDist = d;
        }
+
+       const score = (placed.length === 0) ? 999999 : minDist;
+
+       if (score > bestScore) {
+         bestScore = score;
+         best = { x, y };
+       }
+
+       // ある程度良いのが見つかったら早めに確定してもOK
+       if (bestScore > 140) break;
      }
 
-     if (!ok){
-       a.style.left = rand(0, W - w) + "px";
-       a.style.top  = rand(0, H - h) + "px";
-     }
+     // どうしても入らない場合は重なり許容で置く（極端に多い時の保険）
+     const pos = best ?? { x: rand(minX, maxX), y: rand(minY, maxY) };
+
+     a.style.left = `${pos.x}px`;
+     a.style.top = `${pos.y}px`;
+
+     placed.push(pos);
    });
  });
  </script>
+
 
 </body>
 </html>

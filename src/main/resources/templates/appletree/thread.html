@@ -4,37 +4,46 @@
   <meta charset="UTF-8">
   <title>りんごスレッド</title>
 
-  <!-- CSSは head に1回だけ -->
-  <link rel="stylesheet" th:href="@{/css/appletree/apple.css}">
+  <link rel="stylesheet" th:href="@{/css/appletree/new.css}">
+  <link rel="stylesheet" th:href="@{/css/button.css}">
 </head>
 <body>
 
-<!-- 親りんご -->
-<h2 th:text="${root.title}">タイトル</h2>
-<p th:text="${root.message}">本文</p>
+  <div class="page">
 
-<hr>
+    <!-- ① 親りんご（カード） -->
+    <section class="card">
+      <h1 th:text="${root.title}">タイトル</h1>
+      <p class="body-text" th:text="${root.message}">本文</p>
+    </section>
 
-<!-- 返信一覧 -->
+    <!-- ② 返信一覧（カード） -->
+    <section class="card">
+      <h2 class="section-title">返信</h2>
 
-<div th:each="msg : ${messages}">
-  <p>
-    <span class="msg-meta" th:text="${msg.userName} + '：'">ユーザー名：</span>
-    <span th:text="${msg.message}">返信</span>
-  </p>
-</div>
+      <div class="messages">
+        <div class="msg" th:each="msg : ${messages}">
+          <div class="msg-meta" th:text="${msg.userName} + '：'">ユーザー名：</div>
+          <div class="msg-body" th:text="${msg.message}">返信</div>
+        </div>
 
-<!-- 返信フォーム（コメント追加） -->
-<form th:action="@{'/appletree/' + ${root.id} + '/reply'}" method="post">
-  <input type="hidden" name="userId" value="1" /> <!-- TODO: ログインユーザーID -->
-  <textarea name="message" placeholder="返信内容"></textarea>
-  <button type="submit">返信する</button>
-</form>
+        <p class="muted" th:if="${#lists.isEmpty(messages)}">まだ返信はありません</p>
+      </div>
+    </section>
 
-<!-- 戻る（任意） -->
-<p style="width:min(860px,92vw); margin:14px auto 0;">
-  <a th:href="@{/appletree/tree}" style="color:#fff; opacity:.8;">← 木に戻る</a>
-</p>
+    <!-- ③ 返信フォーム（カード） -->
+    <form class="card" th:action="@{'/appletree/' + ${root.id} + '/reply'}" method="post">
+      <input type="hidden" name="userId" value="1" />
+      <textarea name="message" placeholder="返信内容"></textarea>
+      <button type="submit">返信する</button>
+    </form>
+
+    <!-- ④ 戻る（actions） -->
+    <div class="actions">
+      <a href="/appletree/tree" class="btn small ghost">前に戻る</a>
+    </div>
+
+  </div>
 
 </body>
 </html>
