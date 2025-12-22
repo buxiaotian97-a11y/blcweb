@@ -40,6 +40,10 @@ public class QuestionImportService {
 
         // ③ DBへ流し込み
         for (QuestionRow r : rows) {
+        	
+        	if (r.code() == null || r.code().isBlank()) {
+                continue; // ← これが無いとOracleでは必ず死ぬ
+            }
 
             Question q = new Question();
 

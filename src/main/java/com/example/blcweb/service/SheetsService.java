@@ -161,10 +161,14 @@ public class SheetsService {
     }
 
     private String getCell(List<Object> row, int index) {
-        if (index >= row.size()) return "";
+        if (index >= row.size()) return null;
         Object v = row.get(index);
-        return (v == null) ? "" : v.toString();
+        if (v == null) return null;
+
+        String s = v.toString().trim();
+        return s.isEmpty() ? null : s;
     }
+
 
     private int parseInt(String s) {
         if (s == null || s.isBlank()) return 0;
