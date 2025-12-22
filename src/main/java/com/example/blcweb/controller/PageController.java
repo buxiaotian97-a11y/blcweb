@@ -253,6 +253,7 @@ public class PageController {
     @GetMapping("/work")     public String work()     { return "work"; }
     @GetMapping("/workflow") public String workflow() { return "workflow"; }
     @GetMapping("/hero") public String hero() { return "hero"; }
+    @GetMapping("/tree") public String tree() { return "tree"; }
 
     public record UserVM(
         String department, String name, String title,

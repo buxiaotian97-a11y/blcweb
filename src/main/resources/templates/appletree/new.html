@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" th:href="@{/css/appletree/new.css}">
+  <link rel="stylesheet" th:href="@{/css/button.css}">
   <title>りんごを植える</title>
 </head>
 <body>
 
-<h1>りんごを植える</h1>
+  <div class="page">
+    <form class="card" th:action="@{/appletree/create}" method="post">
+      <input type="hidden" name="userId" value="1" />
+      <input type="text" name="title" placeholder="タイトル" />
+      <textarea name="message" placeholder="悩みや不満を書いてね"></textarea>
+      <button type="submit">このりんごを木にぶら下げる</button>
+    </form>
 
-<form th:action="@{/appletree/create}" method="post">
-  <input type="hidden" name="userId" value="1" /> <!-- TODO: ログインユーザーID -->
-  <input type="text" name="title" placeholder="タイトル" />
-  <br />
-  <textarea name="message" placeholder="悩みや不満を書いてね"></textarea>
-  <br />
-  <button type="submit">このりんごを木にぶら下げる</button>
-</form>
+    <div class="actions">
+      <a href="/appletree/tree" class="btn small ghost">前に戻る</a>
+    </div>
+  </div>
 
 </body>
 </html>
