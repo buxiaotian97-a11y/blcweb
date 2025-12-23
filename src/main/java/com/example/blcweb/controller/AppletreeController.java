@@ -2,16 +2,20 @@ package com.example.blcweb.controller;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.blcweb.dto.ThreadMessage;
 import com.example.blcweb.entity.AppletreeEntity;
 import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.service.AppletreeService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/appletree")
@@ -52,21 +56,21 @@ public class AppletreeController {
      * 親りんご＋その中のメッセージ一覧を表示
      */
     @GetMapping("/{appleId}")
-    public String showThread(
-            @PathVariable("appleId") long appleId,
-            Model model) {
+    public String showThread(@PathVariable("appleId") long appleId,
+                             Model model,
+                             HttpSession session) {
 
-        // 親りんご本体（頭の投稿）
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) return "redirect:/title-page";
+
         AppletreeEntity root = appletreeService.getApple(appleId);
-
-        // そのりんごにぶら下がるメッセージ一覧
         List<ThreadMessage> messages = appletreeService.getThreadMessagesWithUser(appleId);
-        model.addAttribute("messages", messages);
-
 
         model.addAttribute("root", root);
         model.addAttribute("messages", messages);
-        return "appletree/thread"; // → templates/apple/thread.html
+        model.addAttribute("loginUser", loginUser);
+
+        return "appletree/thread";
     }
     
  // 新規りんご入力画面
@@ -91,5 +95,21 @@ public class AppletreeController {
 
         return "redirect:/appletree/" + appleId;
     }
+    
+    @PostMapping("/{id}/trash")
+    public String trash(@PathVariable("id") long appleId,
+                        HttpSession session) {
+
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/title-page";
+        }
+
+        appletreeService.moveAppleToTrash(appleId, loginUser.getId());
+
+        return "redirect:/appletree/tree";
+    }
+
+
 
 }

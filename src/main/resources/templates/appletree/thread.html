@@ -37,6 +37,13 @@
       <textarea name="message" placeholder="返信内容"></textarea>
       <button type="submit">返信する</button>
     </form>
+	
+	<form class="card" th:action="@{'/appletree/' + ${root.id} + '/trash'}" method="post"
+	      th:if="${root.userId == loginUser.id}">
+	  <button type="submit" onclick="return confirm('このりんごを削除しますか？');">
+	    削除する
+	  </button>
+	</form>
 
     <!-- ④ 戻る（actions） -->
     <div class="actions">

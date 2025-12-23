@@ -1,13 +1,18 @@
-# ---- build stage ----
-FROM maven:3.9.9-eclipse-temurin-17 AS build
+FROM eclipse-temurin:17-jdk
+
 WORKDIR /app
+
+# unzip と base64 を使う（Debian/Ubuntu系）
+RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
+
+# ソースをコピー
 COPY . .
+
+# ビルド（テストは飛ばす）
 RUN ./mvnw -DskipTests package
 
-# ---- run stage ----
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
-ENV PORT=8080
-ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT} -jar app.jar"]
+# 起動：OLI_WALLET(base64) → zip復元 → unzip → Spring起動
+CMD echo "$OLI_WALLET" | base64 -d > /tmp/wallet.zip \
+ && mkdir -p /app/wallet \
+ && unzip -o /tmp/wallet.zip -d /app/wallet \
+ && java -jar target/*.jar

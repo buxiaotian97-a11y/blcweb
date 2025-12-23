@@ -12,6 +12,7 @@ import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.entity.UserEntity;
 import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
+import com.example.blcweb.service.AppletreeService;
 import com.example.blcweb.service.BackgroundResolver;
 import com.example.blcweb.service.DataSetService;
 import com.example.blcweb.service.QuestionBackgroundResolver;
@@ -27,6 +28,7 @@ public class PageController {
     private final RecordService recordService;
     private final BackgroundResolver backgroundResolver;
     private final QuestionBackgroundResolver questionBackgroundResolver;
+	private final AppletreeService appletreeService;
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
@@ -37,13 +39,15 @@ public class PageController {
     		ResultRepository resultRepository, 
     		RecordService recordService,
     		BackgroundResolver backgroundResolver,
-    		QuestionBackgroundResolver questionBackgroundResolver) { 
+    		QuestionBackgroundResolver questionBackgroundResolver,
+    		AppletreeService appletreeService) { 
         this.dataSetService = dataSetService;
         this.questionService = questionService;
         this.resultRepository = resultRepository;
         this.recordService = recordService;
 		this.backgroundResolver = backgroundResolver;
 		this.questionBackgroundResolver = questionBackgroundResolver;
+		this.appletreeService = appletreeService;
     }
 
     @GetMapping("/title-page")
@@ -248,6 +252,9 @@ public class PageController {
 
         return "record";  // ← records.html
     }
+    
+ 
+    
 
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
