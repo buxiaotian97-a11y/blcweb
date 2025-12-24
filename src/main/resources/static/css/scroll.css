@@ -9,3 +9,8 @@ body.scrollable .container {
   display: block;
   padding: 40px 16px;
 }
+
+body.no-scroll {
+  overflow: hidden;  /* スクロール殺す */
+  height: 100vh;     /* 高さ固定 */
+}

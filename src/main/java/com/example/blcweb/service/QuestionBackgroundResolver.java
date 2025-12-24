@@ -28,7 +28,7 @@ public class QuestionBackgroundResolver {
         String currentMode = (mode == null || mode.isBlank()) ? "ANY" : mode;
 
         Optional<QuestionbgRow> hit = cache.stream()
-        		.filter(row -> row.getquestionCode().equals(questionCode))
+        		.filter(row -> java.util.Objects.equals(row.getquestionCode(), questionCode))
                 .filter(row -> matchesMode(row.getMode(), currentMode))
                 .filter(row -> score >= row.getMinScore()) 
                 .findFirst();
