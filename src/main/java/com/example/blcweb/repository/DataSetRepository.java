@@ -10,4 +10,6 @@ public interface DataSetRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByName(String name);
     Optional<UserEntity> findByDepartmentName(String departmentName);
     Optional<UserEntity> findTopByOrderByIdDesc();
+    
+    boolean existsByNameAndIdNot(String name, Long id);
 }

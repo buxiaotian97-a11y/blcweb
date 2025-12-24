@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.blcweb.entity.RecordEntity;
 import com.example.blcweb.entity.UserEntity;
-import com.example.blcweb.form.DataSetForm;
 import com.example.blcweb.repository.ResultRepository;
 import com.example.blcweb.service.AppletreeService;
 import com.example.blcweb.service.BackgroundResolver;
@@ -22,13 +21,11 @@ import com.example.blcweb.service.RecordService;
 @Controller
 public class PageController {
 
-    private final DataSetService dataSetService;
     private final QuestionService questionService; 
     private final ResultRepository resultRepository; 
     private final RecordService recordService;
     private final BackgroundResolver backgroundResolver;
     private final QuestionBackgroundResolver questionBackgroundResolver;
-	private final AppletreeService appletreeService;
     private static final String ATTR_MODE  = "mode";
     private static final String ATTR_SCORE = "score";
     private static final String ATTR_COUNT = "answeredCount";
@@ -41,13 +38,11 @@ public class PageController {
     		BackgroundResolver backgroundResolver,
     		QuestionBackgroundResolver questionBackgroundResolver,
     		AppletreeService appletreeService) { 
-        this.dataSetService = dataSetService;
-        this.questionService = questionService;
+    	this.questionService = questionService;
         this.resultRepository = resultRepository;
         this.recordService = recordService;
 		this.backgroundResolver = backgroundResolver;
 		this.questionBackgroundResolver = questionBackgroundResolver;
-		this.appletreeService = appletreeService;
     }
 
     @GetMapping("/title-page")
@@ -83,18 +78,6 @@ public class PageController {
      return "home";
  }
 
-    @GetMapping("/settings")
-    public String settings(Model model) {
-        if (!model.containsAttribute("form")) {
-            var latestOpt = dataSetService.findLatest();
-            var form = latestOpt
-                .map(e -> new DataSetForm(e.getName(), e.getDepartmentName(), true))
-                .orElseGet(() -> new DataSetForm("", "", true));
-            model.addAttribute("form", form);
-        }
-        model.addAttribute("list", dataSetService.findAll());
-        return "settings";
-    }
 
     // ========== モード選択画面 ==========
     @GetMapping("/mode")
@@ -254,8 +237,6 @@ public class PageController {
     }
     
  
-    
-
     @GetMapping("/titles")   public String titles()   { return "titles"; }
     @GetMapping("/work")     public String work()     { return "work"; }
     @GetMapping("/workflow") public String workflow() { return "workflow"; }
