@@ -43,13 +43,17 @@ public class AppletreeController {
      */
     @PostMapping("/create")
     public String createApple(
-            @RequestParam("userId") long userId,        // TODO: 本番はセッション/ログインユーザーから取得
             @RequestParam("title") String title,
-            @RequestParam("message") String message) {
+            @RequestParam("message") String message,
+            HttpSession session) {
 
-        appletreeService.createApple(userId, title, message);
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) return "redirect:/title-page";
+
+        appletreeService.createApple(loginUser.getId(), title, message);
         return "redirect:/appletree/tree";
     }
+
 
     /**
      * りんご詳細（スレッド画面）：
