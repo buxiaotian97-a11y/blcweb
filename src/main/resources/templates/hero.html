@@ -5,34 +5,36 @@
    <title>様々な働き方</title>
 		
    <link rel="stylesheet" th:href="@{/css/button.css}" href="/css/button.css">
-   <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
    <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
    <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
+   <link rel="stylesheet" th:href="@{/css/nework.css}" href="/css/nework.css">
+   <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
    <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
-   <link rel="stylesheet" th:href="@{/css/hero.css}" href="/css/hero.css">
+   <link rel="stylesheet" th:href="@{/css/workflow.css}" href="/css/hero.css">
 		
 </head>
 
-<body class="scrollable">
-	<main>
-<section class="tavern">
-  <header class="tavern-header">
+<body class="scrollable hope-support-page hope">
+  <div class="fade-to-light fadeout" id="fadeEffect"></div>
+  <main class="container">
+  <header>
     <h1>ニートの酒場</h1>
-    <p class="tavern-lead">
+    <p class="tavern-lead font3">
       ニートだった社会人たちの経験や、参考になる本・Q&amp;Aをゆるく並べたコーナーです。
       気になるものがあれば、外部サイトもチェックしてみてください。
     </p>
   </header>
+  
+  <div class="support-list work-list">
 
   <!-- 書籍紹介エリア -->
-  <section class="tavern-section">
-    <h2 class="tavern-section-title">📚 ニート向け・おすすめ書籍</h2>
+    <h2 class="tavern-section-title font3">📚 ニート向け・おすすめ書籍</h2>
 
     <!-- 書籍カード -->
-    <article class="book-card">
-      <h3 class="book-title">『元ニートが語る破天荒な夢の叶え方』</h3>
-      <p class="book-meta">著者：山口 晃平</p>
-      <p class="book-desc">
+    <article class="support-card rpg-design font3">
+      <h3>『元ニートが語る破天荒な夢の叶え方』</h3>
+      <p>著者：山口 晃平</p>
+      <p>
         この本は、自分のやりたいことにチャレンジしたいけど行動できない以前の僕のような状況の方に向けて、<br>
 		僕がこれまでに通ってきた道をベースに今すぐ動きたくなるようなメッセージを込めて書いた。
       </p>
@@ -46,10 +48,10 @@
       </a>
     </article>
 
-    <article class="book-card">
-      <h3 class="book-title">『FIREメソッド‐元ニートのポンコツが3000万円貯めてサイドFIREした方法』</h3>
-      <p class="book-meta">著者：ネコハルン</p>
-      <p class="book-desc">
+    <article class="support-card rpg-design font3">
+      <h3>『FIREメソッド‐元ニートのポンコツが3000万円貯めてサイドFIREした方法』</h3>
+      <p>著者：ネコハルン</p>
+      <p>
 		■中学3年生の時のテスト平均点は30点<br>
 		■就職活動したら60社からお断りされてニートになった<br>
 		■アルバイトも7社落ちた<br>
@@ -65,10 +67,10 @@
       </a>
     </article>
 
-	    <article class="book-card">
-	      <h3 class="book-title">『元ひきこもりニートがリアルに教える! 脱ニート完全マニュアル』</h3>
-	      <p class="book-meta">著者：地雷屋</p>
-	      <p class="book-desc">
+	    <article class="support-card rpg-design font3">
+	      <h3>『元ひきこもりニートがリアルに教える! 脱ニート完全マニュアル』</h3>
+	      <p>著者：地雷屋</p>
+	      <p>
 			ひきこもりニートの人生は、詰んでなんかいない。ただ「社会」を「自分」を、「誤解」しているだけだ。
 	      </p>
 	      <a
@@ -80,16 +82,14 @@
 	        Amazonで詳細を見る
 	      </a>
 	    </article>
-	  </section>
 
   <!-- 知恵袋リンクエリア -->
-  <section class="tavern-section">
-    <h2 class="tavern-section-title">💬 知恵袋などのQ&amp;Aエピソード</h2>
+    <h2>💬 知恵袋などのQ&amp;Aエピソード</h2>
 
     <!-- エピソード -->
-    <article class="episode-card">
-      <h3 class="episode-title">28歳、女性の相談</h3>
-      <p class="episode-desc">
+    <article class="support-card rpg-design font3">
+      <h3>28歳、女性の相談</h3>
+      <p>
         質問内容：高卒ニートを三年間していました。<br>
 		回答者（ベストアンサー）：不明
       </p>
@@ -103,9 +103,9 @@
       </a>
     </article>
 
-    <article class="episode-card">
-      <h3 class="episode-title">24歳、性別不明の相談</h3>
-      <p class="episode-desc">
+    <article class="support-card rpg-design">
+      <h3>24歳、性別不明の相談</h3>
+      <p>
        質問内容：ニートだった方、何歳で社会に出れましたか？<br>
 	   回答者（ベストアンサー）：元ニート、現正社員
       </p>
@@ -119,9 +119,9 @@
       </a>
     </article>
 	
-	<article class="episode-card">
-	     <h3 class="episode-title">34歳、性別不明の相談</h3>
-	     <p class="episode-desc">
+	<article class="support-card rpg-design">
+	     <h3>34歳、性別不明の相談</h3>
+	     <p>
 	      質問内容：１０年間無職で引きこもりの３２歳です。この１０年を死ぬほど後悔しています。<br>
 		  回答者（ベストアンサー）：イラストレーター
 	     </p>
@@ -135,9 +135,9 @@
 	     </a>
 	   </article>
 	   
-	   <article class="episode-card">
-	   	     <h3 class="episode-title">28歳、性別不明の相談</h3>
-	   	     <p class="episode-desc">
+	   <article class="support-card rpg-design">
+	   	     <h3>28歳、性別不明の相談</h3>
+	   	     <p>
 	   	      質問内容：ニート歴８年です。就職出来るでしょうか？<br>
 			  回答者（ベストアンサー）：ITエンジニア
 	   	     </p>
@@ -150,21 +150,20 @@
 	   	       Yahoo!知恵袋のエピソードを読む
 	   	     </a>
 	   	   </article>
+		   
+		   </div>
 	
-  </section>
 
   <!-- 免責 -->
-  <footer class="tavern-footer">
+  <footer class="tavern-footer font3">
     <p class="tavern-note">
       ※当コーナーで紹介している書籍やQ&amp;Aの内容は、各サイト・著者の責任で管理されています。<br>
       リンク先の情報やご利用について、当サイトは一切の責任を負いません。
     </p>
   </footer>
   
-  <div class="mode-actions">
-              <a href="/work" class="btn small ghost font2">戻る</a>
-            </div>
-  
+              <a href="/work" class="btn small ghost">戻る</a>
+</div>
 </section>
 </main>
 </body>

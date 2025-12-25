@@ -20,10 +20,18 @@
       <form th:action="@{/dataset}" th:object="${form}" method="post" class="form">
 
         <!-- 名前 -->
-        <div class="row">
-          <span class="label font2">名前</span>
-          <input type="text" th:field="*{displayName}" placeholder="例）石黒　雄三" required />
-        </div>
+		<div class="row">
+		  <span class="label font2">名前</span>
+
+		  <div class="field">
+		    <input type="text" th:field="*{displayName}" placeholder="例）石黒　雄三" required />
+
+		    <p class="error font2"
+		       th:if="${#fields.hasErrors('displayName')}"
+		       th:errors="*{displayName}"></p>
+		  </div>
+		</div>
+
 
         <!-- 事業部 -->
         <div class="row">
@@ -45,7 +53,7 @@
 
 		  <button
 		    type="submit"
-		    class="btn small ghost font2"
+		    class="btn small ghost narrow font2"
 		    formaction="/logout"
 		    formmethod="post"
 		  >

@@ -14,7 +14,7 @@ body.hope::before{
 	padding-bottom: 96px;
  } 
  
- .hope-support-page .btn.small.ghost[href="/home"] { 
+ .hope-support-page .btn.small.ghost { 
 	position: fixed !important; 
 	left: 50%; transform: translateX(-50%); 
 	bottom: 32px; margin-top: 0; 

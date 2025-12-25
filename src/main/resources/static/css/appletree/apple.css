@@ -7,9 +7,6 @@ html, body{
 body{
   background: #0b0f18;
   color: #fff;
-  font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
-               "Noto Sans JP", "Segoe UI", Roboto, "Helvetica Neue",
-               Arial, sans-serif;
   padding: 28px 16px 40px;
   box-sizing: border-box;
 }

@@ -71,12 +71,8 @@ body {
   font-weight: 900;
   font-size: 13px;
   line-height: 1.15;
-  transform: translateY(9px);
+  transform: translateY(1px);
 
-  /* 文字の視認性UP（でも世界観壊さない） */
-  color: rgba(255,255,255,.95);
-  text-shadow: 0 2px 8px rgba(0,0,0,.65);
-  padding: 2px 4px;
 }
 
 /* hover */

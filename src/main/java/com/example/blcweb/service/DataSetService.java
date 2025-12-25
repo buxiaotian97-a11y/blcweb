@@ -21,6 +21,10 @@ public class DataSetService {
     @Transactional
     public void save(Long userId, String name, String departmentName) {
     	
+    	 if (dataSetRepo.existsByNameAndIdNot(name, userId)) {
+    	        throw new IllegalArgumentException("同じ名前のユーザーが既に存在します");
+    	    }
+    	
     	// 既存ユーザーの取得
         UserEntity user = dataSetRepo.findById(userId)
         		.orElseThrow();

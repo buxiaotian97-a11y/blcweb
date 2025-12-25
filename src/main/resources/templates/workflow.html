@@ -5,21 +5,21 @@
    <title>様々な働き方</title>
 		
    <link rel="stylesheet" th:href="@{/css/button.css}" href="/css/button.css">
-   <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
    <link rel="stylesheet" th:href="@{/css/font.css}" href="/css/font.css">
    <link rel="stylesheet" th:href="@{/css/scroll.css}" href="/css/scroll.css">
+   <link rel="stylesheet" th:href="@{/css/nework.css}" href="/css/nework.css">
+   <link rel="stylesheet" th:href="@{/css/work.css}" href="/css/work.css">
    <link rel="stylesheet" th:href="@{/css/light-transition.css}" href="/css/light-transition.css">
    <link rel="stylesheet" th:href="@{/css/workflow.css}" href="/css/workflow.css">
 		
 </head>
 
-<body class="scrollable">
-	<div class="fade-to-light fadeout" id="fadeEffect"></div>
-
-	 <main class="container">
+<body class="scrollable hope-support-page hope">
+  <div class="fade-to-light fadeout" id="fadeEffect"></div>
+  <main class="container">
 
 	   <!-- 導入文 -->
-	   <section class="first-message rpg-design intro-message">
+	   <section class="intro-message font3">
 	     <p>
 	       <b>働き方ギルドへようこそ。</b><br>
 	       ここは、いろんな「クラス（働き方）」の特徴をざっくり知るための場所です。<br>
@@ -29,13 +29,12 @@
 
 	   <!-- 働き方クラス一覧 -->
 	   <section class="support">
-	     <h2>ワークスタイル図鑑</h2>
 
 	     <div class="support-list two-rows">
 
 			<!-- 正社員クラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-stable"
+			        class="support-card rpg-design ws-card ws-stable font3"
 			        data-title="正社員クラス（安定型）"
 			        data-summary="会社に所属して長期的に働くことを前提としたクラス。給料やボーナスがあり、収入は比較的安定しやすい。"
 			        data-merit="・収入が安定しやすい\n・社会保険・福利厚生が受けやすい\n・社内で経験を積みやすい"
@@ -49,7 +48,7 @@
 
 			<!-- 契約社員クラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-contract"
+			        class="support-card rpg-design ws-card ws-contract font3"
 			        data-title="契約社員クラス（期間限定型）"
 			        data-summary="3ヶ月〜1年など、契約期間を区切って働くクラス。まずは様子を見ながら働きたいときに選びやすい。"
 			        data-merit="・期間を区切って働ける\n・合わなければ更新しない選択も取りやすい\n・正社員よりも入りやすいこともある"
@@ -63,7 +62,7 @@
 
 			<!-- 派遣クラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-haken"
+			        class="support-card rpg-design ws-card ws-haken font3"
 			        data-title="派遣クラス（転戦型）"
 			        data-summary="派遣会社に所属し、いろいろな職場で働くクラス。環境を変えながら経験を積みたい人に向いている。"
 			        data-merit="・いろいろな職場を経験できる\n・合わない現場からは抜けやすい\n・未経験OKの案件も比較的多い"
@@ -77,7 +76,7 @@
 
 			<!-- アルバイト・パートクラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-part"
+			        class="support-card rpg-design ws-card ws-part font3"
 			        data-title="アルバイト・パートクラス（ライト型）"
 			        data-summary="シフトや時間を調整しやすいクラス。学業・家庭・別の活動と両立しやすい働き方。"
 			        data-merit="・働く時間を調整しやすい\n・短時間から始められる\n・辞めるハードルも比較的低い"
@@ -91,7 +90,7 @@
 
 			<!-- フリーランスクラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-free"
+			        class="support-card rpg-design ws-card ws-free font3"
 			        data-title="フリーランスクラス（自由型）"
 			        data-summary="会社に所属せず、案件ごとに仕事を受けるクラス。時間や場所の自由度が高い一方、自分で仕事を取る必要がある。"
 			        data-merit="・働く時間や場所を自分で決めやすい\n・スキル次第で収入の上限を伸ばしやすい\n・案件やクライアントを選びやすい"
@@ -105,7 +104,7 @@
 
 			<!-- 起業・個人事業主クラス -->
 			<button type="button"
-			        class="support-card rpg-design ws-card ws-startup"
+			        class="support-card rpg-design ws-card ws-startup font3"
 			        data-title="起業・個人事業主クラス（チャレンジ型）"
 			        data-summary="自分でビジネスやサービスを立ち上げるクラス。リスクも大きいが、その分やりがいとリターンも大きい。"
 			        data-merit="・やりたいことをそのまま仕事にしやすい\n・裁量が最大級に大きい\n・上手くいけば収入も大きく伸ばせる"
@@ -129,17 +128,17 @@
 
 	       <p class="ws-modal-summary"></p>
 
-	       <div class="ws-modal-block">
+	       <div class="ws-modal-block font3">
 	         <h4>メリット</h4>
 	         <pre class="ws-modal-merit"></pre>
 	       </div>
 
-	       <div class="ws-modal-block">
+	       <div class="ws-modal-block font3">
 	         <h4>デメリット</h4>
 	         <pre class="ws-modal-demerit"></pre>
 	       </div>
 
-	       <div class="ws-modal-block">
+	       <div class="ws-modal-block font3">
 	         <h4>こんな人に向いている</h4>
 	         <pre class="ws-modal-fit"></pre>
 	       </div>
@@ -149,9 +148,7 @@
 	   </div>
 
 	   <!-- ホームへ戻る -->
-	   <div class="mode-actions">
-	            <a href="/work" class="btn small ghost font2">戻る</a>
-	          </div>
+	            <a href="/work" class="btn small ghost">戻る</a>
 	
 	
 </main>

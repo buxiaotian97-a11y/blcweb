@@ -37,10 +37,6 @@ public class AppletreeEntity{
 	 @Column(name = "parent_id", nullable = true)
 	 private Long parentId;
 
-	 public void setParentId(Long parentId) {
-		 this.parentId = parentId;
-	 }
-
 	 @Column(length = 100)
 	 private String title;
 	 
@@ -50,6 +46,14 @@ public class AppletreeEntity{
 	 @Column(nullable = false)
 	 private Integer status; 
 
+	 public void setParentId(Long parentId) {
+		 this.parentId = parentId;
+	 }
+	 
+	 public Long getParentId() {
+		 return parentId;
+	 }
+	 
 	 public Long getId() {
 		return id;
 	}

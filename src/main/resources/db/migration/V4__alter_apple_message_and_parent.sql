@@ -1,0 +1,5 @@
+ALTER TABLE apple
+  MODIFY message TEXT NULL;
+
+ALTER TABLE apple
+  MODIFY parent_id BIGINT NULL;
