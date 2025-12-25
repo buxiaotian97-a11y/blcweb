@@ -11,7 +11,7 @@
  <div class="tree-area">
 	<div th:each="apple : ${apples}" class="apple">
 	  <a th:href="@{'/appletree/' + ${apple.id}}">
-	    <span th:text="${apple.title} ?: '（タイトルなし）'" class="onwhite"></span>
+	    <span th:text="${apple.title} ?: '（タイトルなし）'" class="onwhite font3"></span>
 	  </a>
 	</div>
  </div>

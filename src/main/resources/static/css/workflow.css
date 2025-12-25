@@ -62,7 +62,7 @@
 .ws-modal{
   position: relative;
   width: min(680px, 94vw);
-  max-height: min(82vh, 560px);
+  height: min(82vh, 560px);
   overflow: auto;
 
   padding: 22px 20px 18px;
